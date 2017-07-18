@@ -10,11 +10,11 @@ public class User {
 	private String email;
 	private boolean status;
 	private String password;
-	private Collection<? extends GrantedAuthority> roles;
-	
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
-    }
+//	private Collection<? extends GrantedAuthority> roles;
+//	
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return roles;
+//    }
 	
 	public String getUsername() {
 		return username;
@@ -36,13 +36,13 @@ public class User {
 		this.email = email;
 	}
 
-	public Collection<? extends GrantedAuthority> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Collection<? extends GrantedAuthority> roles) {
-		this.roles = roles;
-	}
+//	public Collection<? extends GrantedAuthority> getRoles() {
+//		return roles;
+//	}
+//
+//	public void setRoles(Collection<? extends GrantedAuthority> roles) {
+//		this.roles = roles;
+//	}
 
 	public boolean isStatus() {
 		return status;
