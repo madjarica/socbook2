@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-sm-9">
+        <div class="jumbotron">
+        </div>
+        <div>
+            <h1>Homepage</h1>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="list-group">
+            <button type="button" class="list-group-item">All</button>
+            <button ng-repeat="category in vm.categories | orderBy: 'name'" type="button" class="list-group-item">{{category.name}}</button>
+        </div>
+    </div>
+</div>
