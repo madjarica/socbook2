@@ -2,6 +2,8 @@ package main.java.rs.levi9.socbook2.domain;
 
 import java.util.Collection;
 
+import org.springframework.security.core.GrantedAuthority;
+
 public class User {
 	
 	private String username;

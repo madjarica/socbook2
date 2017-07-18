@@ -1,5 +1,9 @@
 package main.java.rs.levi9.socbook2.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 @Entity
 public class Role extends BaseEntity {
 
