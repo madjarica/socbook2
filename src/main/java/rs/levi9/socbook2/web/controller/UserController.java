@@ -15,6 +15,7 @@ import rs.levi9.socbook2.service.UserService;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+	
 	private UserService userService;
 	
 	@Autowired
@@ -47,13 +48,13 @@ public class UserController {
 		userService.delete(id);
 	}
 	
-	@RequestMapping(path="{username}", method = RequestMethod.GET)
-	public BookmarkUser findByBookmarkUserUsername(@PathVariable("username") String username){
-		return findByBookmarkUserUsername(username);
-	}
-	
-	@RequestMapping(path="{email}", method = RequestMethod.GET)
-	public BookmarkUser findByBookmarkUserEmail(@PathVariable("email") String email){
-		return findByBookmarkUserUsername(email);
-	}
+//	@RequestMapping(path="{username}", method = RequestMethod.GET)
+//	public BookmarkUser findByBookmarkUserUsername(@PathVariable("username") String username){
+//		return findByBookmarkUserUsername(username);
+//	}
+//	
+//	@RequestMapping(path="{email}", method = RequestMethod.GET)
+//	public BookmarkUser findByBookmarkUserEmail(@PathVariable("email") String email){
+//		return findByBookmarkUserUsername(email);
+//	}
 }
