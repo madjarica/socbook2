@@ -1,4 +1,4 @@
-package main.java.rs.levi9.socbook2.domain;
+package rs.levi9.socbook2.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

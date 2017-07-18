@@ -1,4 +1,4 @@
-package main.java.rs.levi9.socbook2.domain;
+package rs.levi9.socbook2.domain;
 
 import java.util.Collection;
 
@@ -28,6 +28,22 @@ public class User {
 	public void setEmaill(String emaill) {
 		this.email = emaill;
 	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Collection<? extends GrantedAuthority> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<? extends GrantedAuthority> roles) {
+		this.roles = roles;
+	}
+
 	public boolean isStatus() {
 		return status;
 	}
@@ -40,5 +56,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	
 }
