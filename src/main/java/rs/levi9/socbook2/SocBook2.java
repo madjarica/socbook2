@@ -1,4 +1,4 @@
-package main.java.rs.levi9.socbook2;
+package rs.levi9.socbook2;
 
 public class SocBook2 {
 
