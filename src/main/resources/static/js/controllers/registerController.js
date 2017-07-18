@@ -1,17 +1,15 @@
 (function() {
     angular.module('app')
-        .controller('registerController', RegisterController);
+        .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$rootScope', '$location', '$http'];
+    RegisterController.$inject = ['registerService'];
     
-    function RegisterController($rootScope, $location, $http) {
+    function RegisterController(RegisterService) {
     	var vm = this;
-    	vm.register = register;
+    	vm.registerUser = registerUser;
     	
-    	vm.credentials = {};
-    	
-    	function register(credentials, callback) {
-    		
+    	function registerUser(user) {
+    		console.log(user);
     	}
     }
 })();

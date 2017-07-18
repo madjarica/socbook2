@@ -8,7 +8,7 @@
 				<div class="alert alert-danger">
 					There was a problem with registration. Please try again.
 				</div>
-				<div class="form">
+				<div class="form" name="vm.registerUser">
 					<div class="form-group">
 						<label for="registration_username">Username:</label> <input
 							type="text" class="form-control" id="registration_username"
@@ -40,7 +40,7 @@
 							type="text" class="form-control" id="registration_last_name"
 							name="registration_last_name" />
 					</div>
-					<button type="submit" class="btn btn-primary">Register</button>
+					<button type="button" ng-click="vm.registerUser(user)" class="btn btn-primary">Register</button>
 				</div>
 			</div>
 		</div>
