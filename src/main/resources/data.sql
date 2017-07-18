@@ -1,0 +1,1 @@
+INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`) values ('aaa', 'aaa@aaa.com', 'abc', 'aaa', 'cba')

@@ -3,8 +3,10 @@ package rs.levi9.socbook2.domain;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "role")
 public class Role extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
