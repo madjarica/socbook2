@@ -21,8 +21,9 @@
             $http(req).success(function (data) {
                 def.resolve(data);
             })
-                    .error(function () {
-                        def.reject("Failed");
+                    .error(function (error) {
+                    	console.log(error.message);
+                        def.reject(error);
                     });
             return def.promise;
         }

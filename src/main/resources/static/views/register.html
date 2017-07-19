@@ -5,8 +5,8 @@
 			<!-- Registration form -->
 			<div class="row">
 				<div style="height: 100px;"></div>
-				<div class="alert alert-danger">
-					There was a problem with registration. Please try again.
+				<div class="alert alert-danger" ng-class="{'hidden': vm.error == ''}">
+					{{vm.error}}
 				</div>
 				<form class="form" name="vm.registerUserForm" ng-submit="vm.registerUser(vm.registerInput)">
 					<div class="form-group">
