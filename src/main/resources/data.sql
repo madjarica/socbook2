@@ -4,5 +4,6 @@ INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`, `
 INSERT INTO `socbook2`.`role`(`type`) VALUES ('ROLE_ADMIN');
 INSERT INTO `socbook2`.`role`(`type`) VALUES ('ROLE_USER');
 
-INSERT INTO `socbook2`.`user_roles`(`user_id`,`role_id`)VALUES(1, 1);
 INSERT INTO `socbook2`.`user_roles`(`user_id`,`role_id`)VALUES(1, 2);
+INSERT INTO `socbook2`.`user_roles`(`user_id`,`role_id`)VALUES(2, 1);
+INSERT INTO `socbook2`.`user_roles`(`user_id`,`role_id`)VALUES(2, 2);

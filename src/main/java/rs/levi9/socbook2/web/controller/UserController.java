@@ -1,8 +1,14 @@
 package rs.levi9.socbook2.web.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,5 +62,21 @@ public class UserController {
 	@RequestMapping(path="email/{email}/", method = RequestMethod.GET)
 	public BookmarkUser findByEmail(@PathVariable("email") String email){
 		return userService.findByEmail(email);
+	}
+	
+	@SpringBootApplication
+	@RestController
+	public class AdminApplication {
+
+	  @RequestMapping("/user")
+	  public Map<String, Object> getUser(Authentication autentication) {
+	    Map<String, Object> map = new LinkedHashMap<String, Object>();
+	    map.put("name", autentication.getName());
+	    map.put("roles", AuthorityUtils.authorityListToSet(((Authentication) autentication)
+	        .getAuthorities()));
+	    return map;
+	  }
+
+
 	}
 }
