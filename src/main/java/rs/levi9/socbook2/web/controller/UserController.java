@@ -71,7 +71,7 @@ public class UserController {
 	  @RequestMapping("/user")
 	  public Map<String, Object> getUser(Authentication autentication) {
 	    Map<String, Object> map = new LinkedHashMap<String, Object>();
-	    map.put("name", autentication.getName());
+	    map.put("username", autentication.getName());
 	    map.put("roles", AuthorityUtils.authorityListToSet(((Authentication) autentication)
 	        .getAuthorities()));
 	    return map;

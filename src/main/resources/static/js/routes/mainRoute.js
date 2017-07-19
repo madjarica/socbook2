@@ -18,7 +18,7 @@
             })
             .when('/login', {
             	templateUrl: '/views/login.html',
-            	controller: 'registerController',
+            	controller: 'mainController',
             	controllerAs: 'vm'
             })            
             .otherwise('/');
