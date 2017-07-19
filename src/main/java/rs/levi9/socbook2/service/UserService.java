@@ -1,8 +1,10 @@
 package rs.levi9.socbook2.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import rs.levi9.socbook2.domain.BookmarkUser;
 import rs.levi9.socbook2.repository.UserRepository;
 
@@ -32,11 +34,11 @@ public class UserService {
 		return userRepository.save(bookmarkUser);
 	}
 	
-//	public BookmarkUser findByBookmarkUserUsername(String username){
-//		return userRepository.findByBookmarkUserUsername(username);
-//	}
-//	public BookmarkUser findByBookmarkUserEmail(String email){
-//		return userRepository.findByBookmarkUserUsername(email);
-//	}
+	public BookmarkUser findByUsername(String username){
+		return userRepository.findByUsername(username);
+	}
+	public BookmarkUser findByEmail(String email){
+		return userRepository.findByEmail(email);
+	}
 	
 }
