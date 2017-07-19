@@ -1,6 +1,6 @@
 (function(){
     angular.module('app')
-        .controller('MainController', MainController);
+        .controller('mainController', MainController);
     
         MainController.$inject = ['$location', '$anchorScroll'];
     

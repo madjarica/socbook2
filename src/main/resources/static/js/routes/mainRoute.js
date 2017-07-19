@@ -8,17 +8,17 @@
         $routeProvider
             .when('/', {
                 templateUrl: '/views/main.html',
-                controller: 'MainController',
+                controller: 'mainController',
                 controllerAs: 'vm'
             })
             .when('/register', {
             	templateUrl: '/views/register.html',
-            	controller: 'RegisterController',
+            	controller: 'registerController',
             	controllerAs: 'vm'
             })
             .when('/login', {
             	templateUrl: '/views/login.html',
-            	controller: 'LoginController',
+            	controller: 'registerController',
             	controllerAs: 'vm'
             })            
             .otherwise('/');
