@@ -48,13 +48,13 @@ public class UserController {
 		userService.delete(id);
 	}
 	
-//	@RequestMapping(path="{username}", method = RequestMethod.GET)
-//	public BookmarkUser findByBookmarkUserUsername(@PathVariable("username") String username){
-//		return findByBookmarkUserUsername(username);
-//	}
-//	
-//	@RequestMapping(path="{email}", method = RequestMethod.GET)
-//	public BookmarkUser findByBookmarkUserEmail(@PathVariable("email") String email){
-//		return findByBookmarkUserUsername(email);
-//	}
+	@RequestMapping(path="username/{username}", method = RequestMethod.GET)
+	public BookmarkUser findByUsername(@PathVariable("username") String username){
+		return userService.findByUsername(username);
+	}
+	
+	@RequestMapping(path="email/{email}/", method = RequestMethod.GET)
+	public BookmarkUser findByEmail(@PathVariable("email") String email){
+		return userService.findByEmail(email);
+	}
 }
