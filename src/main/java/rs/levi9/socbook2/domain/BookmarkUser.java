@@ -32,6 +32,7 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 		this.roles = roles;
 		this.active = active;
     }
+    
 
 	@Column(nullable = false, unique = true)
     @NotNull
@@ -57,15 +58,16 @@ public class BookmarkUser extends BaseEntity implements Serializable {
     @Length(min = 2, max = 50)
     @Column(nullable = false)
     private String lastName;
-    
+   
     @NotNull
     @Column(nullable = false)
     private boolean active;
     
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+	 @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
+	 inverseJoinColumns = @JoinColumn(name = "role_id"))
+	 private Set<Role> roles;
+    
 
 	public String getUsername() {
 		return username;

@@ -14,11 +14,16 @@ import org.hibernate.validator.constraints.Length;
 public class Tag extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 5179206020566195635L;
-	
+		
 	@NotNull
 	@Length(min = 2, max = 30)
 	@Column(nullable = false, unique = true)
 	private String tagName;
+	
+	public Tag(String tagName) {
+
+		this.tagName = tagName;
+	}
 
 	public String getTagName() {
 		return tagName;
