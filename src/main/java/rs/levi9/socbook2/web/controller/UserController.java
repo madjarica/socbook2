@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.domain.BookmarkUser;
+import rs.levi9.socbook2.exception.EmailTakenException;
+import rs.levi9.socbook2.exception.UsernameTakenException;
 import rs.levi9.socbook2.service.UserService;
 
 @RestController
@@ -40,7 +42,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser){
+	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException{
+		if(findByEmail(bookmarkUser.getEmail()) != null) throw new EmailTakenException("email is already taken");
+		if(findByUsername(bookmarkUser.getUsername()) != null) throw new UsernameTakenException("username is already taken");
 		return userService.save(bookmarkUser);
 	}
 	
