@@ -48,11 +48,8 @@
 				$window.location.href = '/';
 			}, function(error) {
 
-				vm.error = error.message;
-				console.log(error.message);
-				angular.forEach(error.message, function(e) {
-					errorHandler(e);
-				});
+				vm.error = error;
+				console.log(error);
 			});
 
 			// remove input value after submit
