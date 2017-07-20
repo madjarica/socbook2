@@ -1,17 +1,37 @@
 package rs.levi9.socbook2.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "rate")
-public class Rate extends BaseEntity {
+public class Rate extends BaseEntity implements Serializable {
 
-	private BookmarkUser bookmarkUser;
+	private static final long serialVersionUID = 453451243910264188L;
+
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private BookmarkUser bookmarkUser; 
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "bookmark_id", nullable = false)
 	private Bookmark bookmark;
+	
+	@Column(nullable = false)
+	@NotNull	
 	private Integer rateMark;
+	
+	@Column(nullable = false)
+	@NotNull	
 	private Date createdAt;
 	
 	public Rate() {}

@@ -23,6 +23,16 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private BookmarkUser bookmarkUser;
 	
+	 @NotNull
+	 @ManyToOne
+	 @JoinColumn(name = "category_id", nullable = false)
+	 private Category category;
+	 
+	 @NotNull
+	 @ManyToOne
+	 @JoinColumn(name = "tag_id", nullable = false)
+	 private Tag tag;
+	
 	@Column(nullable = false)
 	@NotNull
 	@DateTimeFormat
@@ -46,8 +56,8 @@ public class Bookmark extends BaseEntity implements Serializable {
 	
 	public Bookmark() {}
 
-	public Bookmark(BookmarkUser bookmarkUser, Date created_at, boolean visible, String title, String description,
-			String url) {
+	public Bookmark(BookmarkUser bookmarkUser, Date created_at, boolean visible, String title, String description, String url) {
+		
 		this.bookmarkUser = bookmarkUser;
 		this.created_at = created_at;
 		this.visible = visible;
