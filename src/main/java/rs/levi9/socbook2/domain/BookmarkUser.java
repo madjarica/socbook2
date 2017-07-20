@@ -20,10 +20,8 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = -4701874782142564830L;
 
-
 	@Autowired
-	public BookmarkUser(){}	
-	
+	public BookmarkUser(){}		
 	
     public BookmarkUser(String email, String username, String password, String firstName, String lastName, Set<Role> roles, boolean active) {
 		this.email = email;
@@ -126,4 +124,7 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 		this.active = active;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

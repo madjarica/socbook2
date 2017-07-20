@@ -10,7 +10,7 @@
         vm.login = login;
         vm.logout = logout;
         vm.user;
-        vm.error;
+        vm.error = '';
 
         vm.loginCredentials = {};
         authenticate();
@@ -60,7 +60,7 @@
             $http.defaults.headers.common['Authorization'] = null;
             // clearing all data
             delete vm.user;
-            delete vm.error;
+            vm.error = '';
         }
         
     }

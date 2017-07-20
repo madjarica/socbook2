@@ -4,8 +4,8 @@
 		<div style="height: 100px;"></div>
 			<!-- Log in form -->
 			<div class="row">
-				<div class="alert alert-danger">
-					There was a problem logging in. Please try again.
+				<div class="alert alert-danger" ng-class="{'hidden': vm.error == ''}">
+					{{vm.error}}
 				</div>
 				<form role="form" ng-submit="vm.login(vm.loginCredentials)">
 					<div class="form-group">

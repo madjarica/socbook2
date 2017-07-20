@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-import rs.levi9.socbook2.service.UserService;
-
 @Configurable
 @EnableWebSecurity
 public class WebSecurityConfig<LibraryUserService> extends WebSecurityConfigurerAdapter {
