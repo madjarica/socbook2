@@ -1,24 +1,23 @@
-<div class="container">
-	<div class="row">
-		<div class="col-sm-6 col-sm-offset-3 col-xs-12">
-		<div style="height: 100px;"></div>
-			<!-- Log in form -->
-			<div class="row">
-				<div class="alert alert-danger" ng-class="{'hidden': vm.error == ''}">
-					{{vm.error}}
-				</div>
-				<form role="form" ng-submit="vm.login(vm.loginCredentials)">
-					<div class="form-group">
-						<label for="login_username">Username:</label>
-						<input type="text" class="form-control" id="login_username" name="login_username" ng-model="vm.loginCredentials.username"/>
-					</div>
-					<div class="form-group">
-						<label for="login_password">Password:</label>
-						<input type="password" class="form-control" id="login_password" name="login_password" ng-model="vm.loginCredentials.password"/>
-					</div>	
-					<button type="submit" class="btn btn-primary">Login</button>			
-				</form>		
-			</div>					
+<form id="login-form" role="form" style="display: block;" ng-submit="vm.login(vm.loginCredentials)">
+	<div class="alert alert-danger" ng-class="{'hidden': vm.login.error == ''}">{{vm.login.error}}</div>	
+
+	<div class="form-group">
+		<input type="text" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="vm.loginCredentials.username" required>
+	</div>
+	
+	<div class="form-group">
+		<input type="password" tabindex="2" class="form-control" placeholder="Password" ng-model="vm.loginCredentials.password" required>
+	</div>
+	
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary" value="Log In">
+			</div>
 		</div>
 	</div>
-</div>
+</form>
+
+
+
+

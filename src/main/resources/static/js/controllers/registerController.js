@@ -2,18 +2,16 @@
     angular.module('app')
         .controller('registerController', RegisterController);
 
-    RegisterController.$inject = ['registerService'];
+    RegisterController.$inject = ['registerService', '$window'];
     
-    function RegisterController(RegisterService) {
+    function RegisterController(RegisterService, $window) {
     	var vm = this;
     	vm.registerUser = registerUser;
     	vm.registrationError;
     	vm.registerUserForm;
     	vm.errorHandler = errorHandler;
     	vm.registerInput = {};
-    	vm.error = '';
-    	
-    	
+    	vm.error = '';   	
     	
     	 function capitalize(error){
             return '* ' + error[0].toUpperCase() + error.slice(1); 
@@ -33,8 +31,8 @@
         	user.roles = [{"id": 2}];
         	console.log(user);
         	vm.registerUserForm.$setPristine();
-        	RegisterService.saveUser(user).then(function(response){
-        		
+        	MainService.saveUser(user).then(function(response){
+        		$window.location.href = '/';
         	}, function(error){
         		
         		vm.error = error.message; 

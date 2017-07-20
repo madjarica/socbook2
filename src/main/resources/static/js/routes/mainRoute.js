@@ -13,7 +13,7 @@
             })
             .when('/register', {
             	templateUrl: '/views/register.html',
-            	controller: 'registerController',
+            	controller: 'mainController',
             	controllerAs: 'vm'
             })
             .when('/login', {

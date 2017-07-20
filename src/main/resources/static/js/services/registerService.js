@@ -7,7 +7,8 @@
     function RegisterService($http, $q) {
 
         var register = {
-            saveUser: saveUser
+            saveUser : saveUser,
+            user : {}
         }
 
         return register;
