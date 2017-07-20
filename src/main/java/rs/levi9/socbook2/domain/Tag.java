@@ -18,18 +18,24 @@ public class Tag extends BaseEntity implements Serializable {
 	@NotNull
 	@Length(min = 2, max = 30)
 	@Column(nullable = false, unique = true)
-	private String tagName;
+	private String name;
+
+	public Tag() {}
 	
-	public Tag(String tagName) {
-
-		this.tagName = tagName;
+	public Tag(String name) {
+		this.name = name;
 	}
 
-	public String getTagName() {
-		return tagName;
+	public String getName() {
+		return name;
 	}
 
-	public void setTagName(String tagName) {
-		this.tagName = tagName;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}	
+	
 }

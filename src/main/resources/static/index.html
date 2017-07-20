@@ -70,7 +70,6 @@
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li><a href="#/">Home </a></li>
-							<li ng-if="!vm.user"><a href="#/register">Register </a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
@@ -88,7 +87,7 @@
 		
 			<div style="height: 100px;"></div>	
 
-			<div class="container" ng-include src="'views/bookmark.html'" ng-controller="bookmarkController as bo"></div>
+			<div class="container" ng-include src="'views/bookmark.html'"></div>
 			
 			<hr />
 					
@@ -118,12 +117,13 @@
 
 	<!-- controllers -->
 	<script src="js/controllers/mainController.js"></script>
-	<script src="js/controllers/registerController.js"></script>
 	<script src="js/controllers/bookmarkController.js"></script>
+	<script src="js/controllers/categoryController.js"></script>
 
 	<!-- services -->
 	<script src="js/services/registerService.js" type="text/javascript"></script>
 	<script src="js/services/bookmarkService.js" type="text/javascript"></script>
+	<script src="js/services/categoryService.js" type="text/javascript"></script>
 
 	<script src="js/routes/mainRoute.js" type="text/javascript"></script>
 	

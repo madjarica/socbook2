@@ -2,7 +2,6 @@ package rs.levi9.socbook2.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,15 +22,15 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private BookmarkUser bookmarkUser;
 	
-	 @NotNull
-	 @ManyToOne
-	 @JoinColumn(name = "category_id", nullable = false)
-	 private Category category;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
 	 
-	 @NotNull
-	 @ManyToOne
-	 @JoinColumn(name = "tag_id", nullable = false)
-	 private Tag tag;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "tag_id", nullable = false)
+	private Tag tag;
 	
 	@Column(nullable = false)
 	@NotNull
@@ -56,9 +55,10 @@ public class Bookmark extends BaseEntity implements Serializable {
 	
 	public Bookmark() {}
 
-	public Bookmark(BookmarkUser bookmarkUser, Date created_at, boolean visible, String title, String description, String url) {
-		
+	public Bookmark(BookmarkUser bookmarkUser, Category category, Tag tag, Date created_at, boolean visible, String title, String description, String url) {
 		this.bookmarkUser = bookmarkUser;
+		this.category = category;
+		this.tag = tag;
 		this.created_at = created_at;
 		this.visible = visible;
 		this.title = title;
