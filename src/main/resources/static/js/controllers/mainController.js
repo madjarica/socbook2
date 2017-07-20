@@ -102,8 +102,7 @@
 			console.log('logged out');
 			$http.defaults.headers.common['Authorization'] = null;
 			delete vm.user;
-			vm.error = {};
-			$window.location.href = '/';
+			vm.error = '';
 		}
 
 		// nav-bar

@@ -1,36 +1,63 @@
 <div>
-	<button type="button" class="btn btn-primary" data-toggle="modal"
-		data-target="#exampleModal" data-whatever="@mdo">Add</button>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add</button>
 
-
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="exampleModalLabel">Add new
+					<h4 class="modal-title" id="exampleModalLabel">Add new bookmark</h4>
+				</div>
+				<div class="modal-body">
+					<form name="addBookmarkForm" ng-submit="bo.saveBookmark(bo.bookmarkInput)">
+						<div class="form-group">
+							<label for="title-text" class="control-label">Title:</label> 
+							<input type="text" class="form-control" id="title-text" placeholder="enter title" ng-model="bo.bookmarkInput.title">
+						</div>
+						<div class="form-group">
+							<label for="description-text" class="control-label">Description:</label>
+							<textarea class="form-control" id="description-text" placeholder="enter description" ng-model="bo.bookmarkInput.description"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="url-text" class="control-label">URL:</label> 
+							<input type="url" class="form-control" id="url-text" placeholder="enter URL" ng-model="bo.bookmarkInput.url">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="exampleModal1" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div>
+					<h4 class="modal-title" id="exampleModalLabel">Edit
 						bookmark</h4>
 				</div>
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<label for="title-text" class="control-label">Title:</label> <input
-								type="text" class="form-control" id="title-text"
-								placeholder="enter title">
+							<label for="title-text" class="control-label">Title:</label>
+							<input type="text" class="form-control" id="title-text"
+								placeholder="edit title">
 						</div>
 						<div class="form-group">
 							<label for="description-text" class="control-label">Description:</label>
 							<textarea class="form-control" id="description-text"
-								placeholder="enter description"></textarea>
+								placeholder="edit description"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="url-text" class="control-label">URL:</label> <input
 								type="url" class="form-control" id="url-text"
-								placeholder="enter URL">
+								placeholder="edit URL">
 						</div>
 						<div class="form-group">
 							<label for="createDate-text" class="control-label">Create
@@ -39,12 +66,15 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send message</button>
+					<button type="button" class="btn btn-default"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Send
+						message</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<table class="table table-bordered">
 		<thead>
 			<th>#</th>
@@ -66,46 +96,7 @@
 				<td><button type="button" class="btn btn-primary"
 						data-toggle="modal" data-target="#exampleModal1"
 						data-whatever="@fat">Edit</button>
-					<div class="modal fade" id="exampleModal1" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div>
-									<h4 class="modal-title" id="exampleModalLabel">Edit
-										bookmark</h4>
-								</div>
-								<div class="modal-body">
-									<form>
-										<div class="form-group">
-											<label for="title-text" class="control-label">Title:</label>
-											<input type="text" class="form-control" id="title-text"
-												placeholder="edit title">
-										</div>
-										<div class="form-group">
-											<label for="description-text" class="control-label">Description:</label>
-											<textarea class="form-control" id="description-text"
-												placeholder="edit description"></textarea>
-										</div>
-										<div class="form-group">
-											<label for="url-text" class="control-label">URL:</label> <input
-												type="url" class="form-control" id="url-text"
-												placeholder="edit URL">
-										</div>
-										<div class="form-group">
-											<label for="createDate-text" class="control-label">Create
-												Date:</label> <input type="date" class="form-control" id="date-text">
-										</div>
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Send
-										message</button>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 					<button type="button" class="btn btn-primary"
 						data-whatever="delete">Delete</button></td>
 			</tr>

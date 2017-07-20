@@ -11,16 +11,16 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/register', {
-            	templateUrl: '/views/register.html',
-            	controller: 'mainController',
-            	controllerAs: 'vm'
-            })
-            .when('/login', {
-            	templateUrl: '/views/login.html',
-            	controller: 'mainController',
-            	controllerAs: 'vm'
-            })            
+//            .when('/register', {
+//            	templateUrl: '/views/register.html',
+//            	controller: 'mainController',
+//            	controllerAs: 'vm'
+//            })
+//            .when('/login', {
+//            	templateUrl: '/views/login.html',
+//            	controller: 'mainController',
+//            	controllerAs: 'vm'
+//            })            
             .otherwise('/');
     }
 }());
