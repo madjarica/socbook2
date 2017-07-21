@@ -13,10 +13,8 @@ import org.hibernate.validator.constraints.Length;
 @Table(name = "tag")
 public class Tag extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 5179206020566195635L;
-		
-	@NotNull
-	@Length(min = 2, max = 30)
+	private static final long serialVersionUID = -3230059375563994627L;
+	
 	@Column(nullable = false, unique = true)
 	private String name;
 
@@ -33,9 +31,5 @@ public class Tag extends BaseEntity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}	
 	
 }
