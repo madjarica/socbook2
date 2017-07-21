@@ -101,6 +101,7 @@ angular.module('app')
             var tag = bookmark.tags;
             bookmark.tags = {"name":tag};
             vm.nesto = RegisterService.user;
+            bookmark.visible = true;
             bookmark.bookmarkUser = vm.nesto;
             console.log(bookmark);
             BookmarkService.saveBookmark(bookmark).then(function(response){
