@@ -26,6 +26,7 @@ public class ValidationErrorHandler {
         response.addItem("email", INTEGRITY_VIOLATION);
         return response;
     }
+    
     @ExceptionHandler(UsernameTakenException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ValidationResponse processValidationErrors(UsernameTakenException ex) {

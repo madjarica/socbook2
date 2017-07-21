@@ -3,33 +3,33 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-           			<th>#</th>
-					<th>Title</th>
-					<th>Category</th>
-					<th>Description</th>
-					<th>URL</th>
-					<th>Create date</th>
-					<th>Visible</th>
-					<th>Edit</th>
-					<th>Delete</th>
+           			<th style="text-align: center;">#</th>
+					<th style="text-align: center;">Title</th>
+					<th style="text-align: center;">Category</th>
+					<th style="text-align: center; max-width: 25%;">Description</th>
+					<th style="text-align: center;">URL</th>
+					<th style="text-align: center;">Create date</th>
+					<th style="text-align: center;">Visible</th>
+					<th style="text-align: center;">Edit</th>
+					<th style="text-align: center;">Delete</th>
                 </tr>
             </thead>
             <tbody ng-repeat="bookmark in vm.bookmarks track by $index">
                 <tr>
-                    <td>{{$index}}</td>
+                    <td style="text-align: center;">{{$index}}</td>
                     <td>{{bookmark.title}}</td>
                     <td>{{bookmark.category.name}}</td>
                     <td>{{bookmark.description}}</td>
-                    <td>{{bookmark.url}}</td>
-                    <td>{{bookmark.created_at}}</td>
-                    <td>{{bookmark.visible}}</td>
-                    <td class="option">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="vm.editBookmark(bookmark)">
+                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
+                    <td style="text-align: center;">{{bookmark.created_at | date:'dd-MMM-yyyy'}}</td>
+                    <td style="text-align: center;">{{ bookmark.visible == true ? "Yes" : "No"}}</td>
+                    <td class="option" style="text-align: center;">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="vm.editBookmark(bookmark)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                     </td>
-                    <td class="option">
-                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="vm.selectBookmark(bookmark)">
+                    <td class="option" style="text-align: center;">
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="vm.selectBookmark(bookmark)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </td>
@@ -39,7 +39,7 @@
         <div>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#add-bookmark-modal" ng-click="vm.addBookmark()">
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-bookmark-modal" ng-click="vm.addBookmark()">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
@@ -57,7 +57,7 @@
                         <h4 class="modal-title">Delete bookmark</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Do you want to delete <i>{{vm.bookmark.title}}</i>, by <i>{{vm.bookmark.author}}</i> ?</p>
+                        <p>Do you want to delete <i>{{vm.bookmark.title}}</i> ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.deleteBookmark(vm.selectedBookmark.id)">OK</button>

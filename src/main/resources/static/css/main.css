@@ -23,8 +23,8 @@ body {
 	transition: all 0.1s linear;
 }
 .panel-login>.panel-heading a.active{
-	color: #4582ec;
-	font-size: 18px;
+	color: #d34615;
+	font-size: 24px;
 }
 .panel-login>.panel-heading hr{
 	margin-top: 10px;
@@ -96,4 +96,7 @@ body {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
+}
+.panel-login input:hover, .panel-login input:focus {
+	border-color: #d34615;
 }

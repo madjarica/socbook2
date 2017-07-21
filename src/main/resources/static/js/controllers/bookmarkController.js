@@ -56,7 +56,8 @@ angular.module('app')
         	vm.error = {};
             vm.operation = "Edit";
             vm.bookmark = angular.copy(bookmark);
-            vm.bookmark.creationDate = new Date(vm.bookmark.creationDate.split('-').join(' '));
+//            vm.bookmark.created_at = new Date(vm.bookmark.created_at.split('-').join(' '));
+            vm.bookmark.created_at = new Date(vm.bookmark.created_at);
         }
 
         function getCategories(){
