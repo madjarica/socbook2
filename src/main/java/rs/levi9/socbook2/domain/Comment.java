@@ -1,5 +1,6 @@
 package rs.levi9.socbook2.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,8 +12,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "comment")
-public class Comment extends BaseEntity {
+public class Comment extends BaseEntity implements Serializable {
 	
+	private static final long serialVersionUID = 6217177650076639639L;
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)

@@ -2,9 +2,13 @@ package rs.levi9.socbook2.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -15,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "bookmark")
 public class Bookmark extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -4887631063917911430L;
+	private static final long serialVersionUID = -4781514238958474034L;
 
 	@NotNull
 	@ManyToOne
@@ -27,10 +31,10 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 	 
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "tag_id", nullable = false)
-	private Tag tag;
+	@ManyToMany
+	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"),
+	inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private Set<Tag> tag;
 	
 	@Column(nullable = false)
 	@NotNull
@@ -55,7 +59,7 @@ public class Bookmark extends BaseEntity implements Serializable {
 	
 	public Bookmark() {}
 
-	public Bookmark(BookmarkUser bookmarkUser, Category category, Tag tag, Date created_at, boolean visible, String title, String description, String url) {
+	public Bookmark(BookmarkUser bookmarkUser, Category category, Set<Tag> tag, Date created_at, boolean visible, String title, String description, String url) {
 		this.bookmarkUser = bookmarkUser;
 		this.category = category;
 		this.tag = tag;
@@ -69,6 +73,7 @@ public class Bookmark extends BaseEntity implements Serializable {
 	public BookmarkUser getBookmarkUser() {
 		return bookmarkUser;
 	}
+
 
 	public void setBookmarkUser(BookmarkUser bookmarkUser) {
 		this.bookmarkUser = bookmarkUser;
@@ -113,4 +118,20 @@ public class Bookmark extends BaseEntity implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}		
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Set<Tag> getTag() {
+		return tag;
+	}
+
+	public void setTag(Set<Tag> tag) {
+		this.tag = tag;
+	}
 }
