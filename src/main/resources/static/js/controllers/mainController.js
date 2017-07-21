@@ -2,9 +2,9 @@
 	angular.module('app').controller('mainController', MainController);
 
 	MainController.$inject = [ '$location', '$anchorScroll', '$http', '$rootScope', '$route', '$window',
-		'registerService', 'bookmarkService'];
+		'registerService', 'bookmarkService', 'userService'];
 
-	function MainController($location, $anchorScroll, $http, $rootScope, $route, $window, RegisterService, BookmarkService) {
+	function MainController($location, $anchorScroll, $http, $rootScope, $route, $window, RegisterService, BookmarkService, UserService) {
 
 		var vm = this;
 		vm.isActive = isActive;
@@ -20,6 +20,7 @@
 		vm.registerInput = {};
 		vm.login.error = '';
 		vm.error = '';
+		vm.loggedUser;
 
 		function capitalize(error) {
 			return '* ' + error[0].toUpperCase() + error.slice(1);
@@ -88,6 +89,11 @@
 										+ base64Credential;
 								vm.user = res;
 								console.log(vm.user);
+								UserService.getUserByUsername(vm.user.username).then(function(response){
+									vm.loggedUser = response;
+									console.log(vm.loggedUser);
+									RegisterService.user = vm.loggedUser;
+								});								
 								init();
 							}).error(function(error) {
 						vm.login.error = 'Bad credentials!';

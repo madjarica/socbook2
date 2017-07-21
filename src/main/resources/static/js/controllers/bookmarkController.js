@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('bookmarkController', BookmarkController);
     
-    BookmarkController.$inject = ['$filter', 'categoryService', 'bookmarkService', 'uibDateParser'];
+    BookmarkController.$inject = ['$filter', 'categoryService', 'bookmarkService', 'uibDateParser', 'registerService'];
    
-    function BookmarkController($filter, CategoryService, BookmarkService, uibDateParser) {
+    function BookmarkController($filter, CategoryService, BookmarkService, uibDateParser, RegisterService) {
         
         var vm = this;
         vm.addBookmark = addBookmark;
@@ -13,7 +13,8 @@ angular.module('app')
         vm.openCalendar = openCalendar;
         vm.saveBookmark = saveBookmark;
         vm.selectBookmark = selectBookmark;
-        vm.operation;        
+        vm.operation;
+        vm.nesto;
 
         init();
 
@@ -99,6 +100,9 @@ angular.module('app')
             bookmark.creationDate = $filter('date')(bookmark.creationDate, "yyyy-MM-dd");
             var tag = bookmark.tags;
             bookmark.tags = {"name":tag};
+            vm.nesto = RegisterService.user;
+            bookmark.bookmarkUser = vm.nesto;
+            console.log(bookmark);
             BookmarkService.saveBookmark(bookmark).then(function(response){
                 getBookmarks();
                 $('#add-bookmark-modal').modal('hide');
