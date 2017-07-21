@@ -11,9 +11,9 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-//            .when('/register', {
-//            	templateUrl: '/views/register.html',
-//            	controller: 'mainController',
+//            .when('/bookmarks', {
+//            	templateUrl: '/views/bookmark.html',
+//            	controller: 'bookmarkController',
 //            	controllerAs: 'vm'
 //            })
 //            .when('/login', {

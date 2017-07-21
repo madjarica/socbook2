@@ -2,10 +2,10 @@
 	angular.module('app').controller('mainController', MainController);
 
 	MainController.$inject = [ '$location', '$anchorScroll', '$http',
-			'$rootScope', '$route', '$window', 'registerService'];
+			'$rootScope', '$route', '$window', 'registerService', 'bookmarkService'];
 
 	function MainController($location, $anchorScroll, $http, $rootScope,
-			$route, $window, RegisterService) {
+			$route, $window, RegisterService, BookmarkService) {
 
 		var vm = this;
 		vm.isActive = isActive;
@@ -60,7 +60,7 @@
 		init();
 
 		function init() {
-			if (vm.user) {
+			if (vm.user) {				
 				$route.reload();
 			}
 		}

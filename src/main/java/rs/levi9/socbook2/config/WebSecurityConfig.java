@@ -32,7 +32,7 @@ public class WebSecurityConfig<LibraryUserService> extends WebSecurityConfigurer
 		  http
           
           .authorizeRequests()
-          .antMatchers("/", "/bower_components/**", "/css/**", "/js/**", "/views/**", "/images/**").permitAll()
+          .antMatchers("/", "/bower_components/**", "/css/**", "/js/**", "/views/**", "/images/**", "/favicon.ico").permitAll()
           .antMatchers(HttpMethod.POST,"/users").permitAll()
           .anyRequest().fullyAuthenticated().and()
           .httpBasic().and()
