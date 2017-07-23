@@ -1,6 +1,6 @@
 (function () {
     angular.module("app")
-        .factory('userService', UserService);
+        .factory('UserService', UserService);
     
     UserService.$inject = ['$http', '$q'];
     

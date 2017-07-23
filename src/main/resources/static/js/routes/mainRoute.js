@@ -7,20 +7,25 @@
     function config($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: '/views/main.html',
-                controller: 'mainController',
+                templateUrl: '/views/home.html',
+                controller: 'HomeController',
                 controllerAs: 'vm'
             })
-//            .when('/bookmarks', {
-//            	templateUrl: '/views/bookmark.html',
-//            	controller: 'bookmarkController',
-//            	controllerAs: 'vm'
-//            })
-//            .when('/login', {
-//            	templateUrl: '/views/login.html',
-//            	controller: 'mainController',
-//            	controllerAs: 'vm'
-//            })            
+            .when('/categories', {
+            	templateUrl: '/views/categories.html',
+            	controller: 'CategoryController',
+            	controllerAs: 'vm'
+            })
+            .when('/tags', {
+            	templateUrl: '/views/tags.html',
+            	controller: 'TagController',
+            	controllerAs: 'vm'
+            })          
+            .when('/users', {
+            	templateUrl: '/views/users.html',
+            	controller: 'UserController',
+            	controllerAs: 'vm'
+            })          
             .otherwise('/');
     }
 }());

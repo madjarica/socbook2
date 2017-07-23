@@ -49,7 +49,7 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@NotNull
 	private String title;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TEXT")
 	@NotNull
 	private String description;
 	

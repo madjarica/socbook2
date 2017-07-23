@@ -1,6 +1,6 @@
 (function () {
     angular.module("app")
-            .service('bookmarkService', BookmarkService);
+            .service('BookmarkService', BookmarkService);
 
     BookmarkService.$inject = ['$http', '$q'];
 

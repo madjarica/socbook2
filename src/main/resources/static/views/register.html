@@ -1,23 +1,21 @@
-<form id="register-form" role="form" style="display: none;" name="vm.registerUserForm" ng-submit="vm.registerUser(vm.registerInput)">
+<form id="register-form" role="form" style="display: none;" name="mainCtrl.registerUserForm" ng-submit="mainCtrl.registerUser(mainCtrl.registerInput)">
 
-	<div class="alert alert-danger" ng-class="{'hidden': vm.error == ''}">
-		{{vm.error}}
-	</div>
+	<div class="alert alert-danger" ng-class="{'hidden': mainCtrl.errors.register == ''}">{{mainCtrl.errors.register}}</div>	
 
 	<div class="form-group">
-		<input type="text" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="vm.registerInput.username" required>
+		<input type="text" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="mainCtrl.registerInput.username" required>
 	</div>
 	<div class="form-group">
-		<input type="email" tabindex="2" class="form-control" placeholder="Email Address" value="" ng-model="vm.registerInput.email" required>
+		<input type="email" tabindex="2" class="form-control" placeholder="Email Address" value="" ng-model="mainCtrl.registerInput.email" required>
 	</div>
 	<div class="form-group">
-		<input type="password" tabindex="3" class="form-control" placeholder="Password (Minimal 6 characters)" pattern=".{6,}"  ng-model="vm.registerInput.password" required>
+		<input type="password" tabindex="3" class="form-control" placeholder="Password (Minimal 6 characters)" pattern=".{6,}"  ng-model="mainCtrl.registerInput.password" required>
 	</div>
 	<div class="form-group">
-		<input type="text" tabindex="4" class="form-control" placeholder="First Name" value=""  ng-model="vm.registerInput.firstName" required>
+		<input type="text" tabindex="4" class="form-control" placeholder="First Name" value=""  ng-model="mainCtrl.registerInput.firstName" required>
 	</div>
 	<div class="form-group">
-		<input type="text" tabindex="5" class="form-control" placeholder="Last Name" value=""  ng-model="vm.registerInput.lastName" required>
+		<input type="text" tabindex="5" class="form-control" placeholder="Last Name" value=""  ng-model="mainCtrl.registerInput.lastName" required>
 	</div>
 	<div class="form-group">
 		<div class="row">

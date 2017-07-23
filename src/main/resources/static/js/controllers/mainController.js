@@ -1,27 +1,104 @@
-(function() {
-	angular.module('app').controller('mainController', MainController);
+(function () {
+    angular.module('app')
+            .controller('MainController', MainController);
 
-	MainController.$inject = [ '$location', '$anchorScroll', '$http', '$rootScope', '$route', '$window',
-		'registerService', 'bookmarkService', 'userService'];
+    MainController.$inject = ['$location', '$http', '$route', '$window', 'RegisterService', 'UserService'];
 
-	function MainController($location, $anchorScroll, $http, $rootScope, $route, $window, RegisterService, BookmarkService, UserService) {
+    function MainController($location, $http, $route, $window, RegisterService, UserService) {
 
-		var vm = this;
-		vm.isActive = isActive;
-		vm.scrollTo = scrollTo;
+        var self = this;
+        self.isActive = isActive;
+        self.login = login;
+        self.logout = logout;
+        self.user;
+        
+        self.errors = {};
+        self.success = {};
+        self.errors.login = '';
+        self.errors.register = '';
+        self.success.register = '';
+        
+        self.registerInput = {};
+        self.loginCredentials = {};
+        
+        self.registerUserForm;
 
-		vm.login = login;
-		vm.logout = logout;
-		vm.user;
-		vm.registerUser = registerUser;
-		vm.registrationError;
-		vm.registerUserForm;
-		vm.errorHandler = errorHandler;
-		vm.registerInput = {};
-		vm.login.error = '';
-		vm.error = '';
-		vm.loggedUser;
+        self.registerUser = registerUser;
+        self.registrationError;        
+        self.errorHandler = errorHandler;        	
+        self.loggedUser;
 
+        init();
+
+        function init() {
+            if (self.user) {
+                $route.reload();
+            }
+        }
+
+        function isActive(viewLocation) {
+            return viewLocation === $location.path();
+        }
+        
+		function registerUser(user) {
+			user.active = true;
+			user.roles = [{
+				"id" : 2
+			}];
+			console.log(user);
+//			self.registerUserForm.$setPristine();
+			RegisterService.saveUser(user).then(function(response) {
+				self.success.register = "Successfully registered. You can now log in.";				
+				
+				$("#login-form").delay(20).fadeIn(100);
+				$("#register-form").fadeOut(100);
+				$('#register-form-link').removeClass('active');
+				$('#login-form-link').addClass('active');
+				
+			}, function(error) {
+				self.errors.register = error;
+				console.log(error);
+			});
+			
+			self.registerUserForm.$setPristine();
+			self.registerInput = {};
+			self.errors.register = '';
+		}
+
+    	function login() {
+			var base64Credential = btoa(self.loginCredentials.username + ':' + self.loginCredentials.password);
+			$http
+				.get('user', {
+					headers : {						
+						'Authorization' : 'Basic ' + base64Credential
+					}
+				})
+				.success(
+					function(res) {
+						self.loginCredentials.password = null;
+						self.message = '';						
+						$http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
+						self.user = res;						
+						UserService.getUserByUsername(self.user.username).then(function(response) {
+							self.loggedUser = response;
+							RegisterService.user = self.loggedUser;
+						});								
+						init();
+					})
+				.error(
+					function(error) {
+						self.errors.login = 'Bad credentials!';
+			});
+		}
+       
+        function logout() {
+			$http.defaults.headers.common['Authorization'] = null;
+			delete self.user;
+			self.error = '';
+			self.login.error = '';
+			self.success.register = '';
+        }
+        
 		function capitalize(error) {
 			return '* ' + error[0].toUpperCase() + error.slice(1);
 		}
@@ -36,85 +113,6 @@
 				break;
 			}
 		}
+    }
 
-		function registerUser(user) {
-			user.active = true;
-			user.roles = [ {
-				"id" : 2
-			} ];
-			console.log(user);
-			vm.registerUserForm.$setPristine();
-			RegisterService.saveUser(user).then(function(response) {
-				$window.location.href = '/';
-			}, function(error) {
-
-				vm.error = error;
-				console.log(error);
-			});
-
-			// remove input value after submit
-			vm.registerUserForm.$setPristine();
-			vm.error = '';
-		}
-
-		init();
-
-		function init() {
-			if (vm.user) {
-				$route.reload();
-			}
-		}
-
-		function login() {
-			
-			// creating base64 encoded String from username and password
-			var base64Credential = btoa(vm.loginCredentials.username + ':'
-					+ vm.loginCredentials.password);
-
-			// calling GET request for getting the user details
-			$http
-					.get('user', {
-						headers : {
-							// setting the Authorization Header
-							'Authorization' : 'Basic ' + base64Credential
-						}
-					})
-					.success(
-							function(res) {
-								vm.loginCredentials.password = null;
-								vm.message = '';
-								// setting the same header value for all request
-								// calling from this app
-								$http.defaults.headers.common['Authorization'] = 'Basic '
-										+ base64Credential;
-								vm.user = res;
-								console.log(vm.user);
-								UserService.getUserByUsername(vm.user.username).then(function(response){
-									vm.loggedUser = response;
-									console.log(vm.loggedUser);
-									RegisterService.user = vm.loggedUser;
-								});								
-								init();
-							}).error(function(error) {
-						vm.login.error = 'Bad credentials!';
-					});
-		}
-
-		function logout() {
-			console.log('logged out');
-			$http.defaults.headers.common['Authorization'] = null;
-			delete vm.user;
-			vm.error = '';
-		}
-
-		// nav-bar
-		function isActive(viewLocation) {
-			return viewLocation === $location.path();
-		}
-
-		function scrollTo(id) {
-			$location.hash(id);
-			$anchorScroll();
-		}
-	}
 })();
