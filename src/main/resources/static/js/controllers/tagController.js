@@ -1,12 +1,65 @@
-(function () {
+(function(){
     angular.module('app')
-            .controller('TagController', TagController);
-
-    TagController.$inject = ['$location', '$http', '$route' ];
-	
-	function TagController($location, $http, $route) {
-
+    .controller('TagController', TagController);   
+    
+    TagController.$inject = ['TagService'];
+    
+    function TagController(TagService) {
         
-    }
+        var vm = this;
+        vm.addTag = addTag;
+        vm.deleteTag = deleteTag;
+        vm.editTag = editTag;
+        vm.saveTag = saveTag;
+        vm.selectTag = selectTag;
+        vm.operation;
+        
+        //Create new tag
+        vm.tag = {};
 
+        getTags();
+        
+        function addTag() {
+            vm.operation = "Add";
+            vm.addTagForm;
+            vm.tag = {};
+        }
+
+        function deleteTag(){
+            TagService.deleteTag(vm.tag.id).then(function(response){
+                getTags();
+            }, function(error){
+
+            });
+            vm.tag = {};
+        }
+        
+        function editTag(tag) {
+            vm.operation = "Edit";
+            vm.tag = angular.copy(tag);
+        }
+        
+        function getTags(){
+            TagService.getTags().then(handleSuccessTag);
+        }
+        
+        //Get all tags
+        function handleSuccessTag(data, status){
+            vm.tags = data;
+        }
+
+        function saveTag(tag){
+            TagService.saveTag(tag).then(function(response){
+                getTags();
+            }, function(error){
+
+            })
+            //remove input value after submit
+            vm.addTagForm.$setPristine();
+        }
+        
+        function selectTag(tag){
+            vm.tag = tag;
+        }
+    };
 })();
