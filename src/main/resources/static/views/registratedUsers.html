@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <h1>Users</h1>
+        </div>
+    </div>    
+</div>
+<div class="row" ng-controller="UserController as uCtrl">
+    <div class="col-sm-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+           			<th style="text-align: center;">#</th>
+					<th style="text-align: center;">Email</th>
+					<th style="text-align: center;">Username</th>
+					<th style="text-align: center;">First name</th>
+					<th style="text-align: center;">Last name</th>
+					<th style="text-align: center;">Roles</th>
+					<th style="text-align: center;">Active</th>
+					<th style="text-align: center;">Delete</th>
+					<th style="text-align: center;">Block</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="user in uCtrl.users track by $index">
+                <tr>
+                    <td style="text-align: center;">{{$index}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.roles[0].type}}</br>
+                    	{{user.roles[1].type}}
+                    </td>
+                    <td>{{user.active}}</td>
+                    <td class="option" style="text-align: center;">
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-user-modal" ng-click="uCtrl.selectUser(user)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        </td>
+            <td class="panel panel-default">
+                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#block-user-modal" ng-click="uCtrl.selectUser(user)">
+                        <span class="glyphicon glyphicon-ban-circle"></span>
+                    </button>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+        </div>
+
+        <!-- Modal -->
+        <!-- Delete user -->
+        <div class="modal fade" id="delete-user-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete user</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete <i>{{uCtrl.user.username}}</i> ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="uCtrl.deleteUser(uCtrl.user.id)">OK</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <!-- Block -->
+        <div class="modal fade" id="block-user-modal" role="dialog">
+            <div class="modal-dialog">
+                Modal content
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Block</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to block <i>{{uCtrl.user.username}}</i> ?</p>
+                    </div>                                  
+                        <div class="modal-footer">
+                            <button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="uCtrl.blockUser(uCtrl.user)">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

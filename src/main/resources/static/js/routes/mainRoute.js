@@ -21,8 +21,8 @@
             	controller: 'TagController',
             	controllerAs: 'vm'
             })          
-            .when('/users', {
-            	templateUrl: '/views/users.html',
+            .when('/registratedUsers', {
+            	templateUrl: '/views/registratedUsers.html',
             	controller: 'UserController',
             	controllerAs: 'vm'
             })          

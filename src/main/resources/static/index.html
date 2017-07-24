@@ -70,7 +70,7 @@
 									<li ng-class="{ 'active': mainCtrl.isActive('/') }"><a href="#/">Home </a></li>
                                     <li ng-if="mainCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" ng-class="{ 'active': mainCtrl.isActive('/categories') }"><a href="#/categories">Categories </a></li>
                                     <li ng-if="mainCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" ng-class="{ 'active': mainCtrl.isActive('/tags') }"><a href="#/tags">Tags </a></li>
-                                    <li ng-if="mainCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" ng-class="{ 'active': mainCtrl.isActive('/users') }"><a href="#/users">Users </a></li>
+                                    <li ng-if="mainCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" ng-class="{ 'active': mainCtrl.isActive('/users') }"><a href="#/registratedUsers">Users </a></li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
 									<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ mainCtrl.user.username }} <span class="caret"></span></a>
