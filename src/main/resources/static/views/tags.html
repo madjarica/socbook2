@@ -1,39 +1,45 @@
+<div class="row">
+ <div class="col-sm-12">
+<div>
+	       <h1>Tags</h1>
+	       </div>
+	       </div>
+	       </div>
 <div class="row" ng-controller="TagController as tagCtrl">
     <div class="col-sm-12">
-        <div>
-            <h1>Tags</h1>
-                    <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-           			<th style="text-align: center;">#</th>
-					<th style="text-align: center;">Tag name</th>
-					<th style="text-align: center;">Edit</th>
-					<th style="text-align: center;">Delete</th>
-                </tr>
-            </thead>
-            <tbody ng-repeat="tag in tagCtrl.tags track by $index">
-            <tr>
-            	<td style="text-align: center;">{{$index}}</td>
-            	<td>{{tag.name}}</td>
-            	<td class="option" style="text-align: center;">
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#add-tag-modal" type="button" ng-click="tagCtrl.editTag(tag)">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                    <td class="option" style="text-align: center;">
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-tag-modal" ng-click="tagCtrl.selectTag(tag)">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-				</td>
-            </tr>
-        </div>
-        <div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-tag-modal" ng-click="tagCtrl.addTag()">
-                        <span class="glyphicon glyphicon-plus"></span>
+        <table class="table table-bordered table-hover">
+	            <thead>
+	                <tr>
+	           			<th style="text-align: center;">#</th>
+						<th style="text-align: center;">Tag name</th>
+						<th style="text-align: center;">Edit</th>
+						<th style="text-align: center;">Delete</th>
+	                </tr>
+	            </thead>
+	            <tbody ng-repeat="tag in tagCtrl.tags track by $index">
+	            <tr>
+	            	<td style="text-align: center;">{{$index}}</td>
+	            	<td>{{tag.name}}</td>
+	            	<td class="option" style="text-align: center;">
+	                        <button class="btn btn-warning" data-toggle="modal" data-target="#add-tag-modal" type="button" ng-click="tagCtrl.editTag(tag)">
+	                            <span class="glyphicon glyphicon-pencil"></span>
+	                        </button>
+	                    </td>
+	                    <td class="option" style="text-align: center;">
+	                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-tag-modal" ng-click="tagCtrl.selectTag(tag)">
+	                            <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+	            <div class="panel panel-default">
+	                <div class="panel-body">
+	                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-tag-modal" ng-click="tagCtrl.addTag()">
+	                        <span class="glyphicon glyphicon-plus"></span>
+	                    </button>
+	            </div>
             </div>
         </div>
 
@@ -76,15 +82,18 @@
                                 <div class="modal-item" ng-class="{ 'has-error' : tagCtrl.addTagForm.name.$invalid && !tagCtrl.addTagForm.name.$pristine }">
                                     <input name="name" type="text" class="form-control" required ng-model="tagCtrl.tag.name"/>
                                     <span class="error" ng-show="tagCtrl.addTagForm.name.$invalid && !tagCtrl.addTagForm.name.$pristine">* Name is required!</span>
-                                    <span ng-if="tagCtrl.error.name" class="error">{{tagCtrl.error.name}}</span>
+                                    <span ng-if="tagCtrl.error.name" class="error">{{tagCtrl.error.name}}</span>   
                                 </div>
-                        </form>
+                                </div>
+                                </div>
+                                </form>
                         <div class="modal-footer">
                             <button type="button" ng-disabled="tagCtrl.addTagForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="tagCtrl.saveTag(tagCtrl.tag)">OK</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+    	</div>
     </div>
-</div>
