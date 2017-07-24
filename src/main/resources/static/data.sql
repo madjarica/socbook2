@@ -22,4 +22,6 @@ INSERT INTO `bookmark` (`created_at`, `description`, `title`, `url`, `visible`, 
 
 INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(1,2);
 INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(2,1);
+INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(1,1);
+INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(1,3);
 

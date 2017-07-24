@@ -36,7 +36,7 @@ public class ValidationErrorHandler {
         return response;
     }
     
-    @ExceptionHandler(UsernameTakenException.class)
+    @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ValidationResponse processValidationErrors(BadCredentialsException ex) {
     	ValidationResponse response = new ValidationResponse();
