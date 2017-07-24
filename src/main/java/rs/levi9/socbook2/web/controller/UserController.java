@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.levi9.socbook2.domain.BookmarkUser;
 import rs.levi9.socbook2.exception.EmailTakenException;
 import rs.levi9.socbook2.exception.UsernameTakenException;
+import rs.levi9.socbook2.exception.BadCredentialsException;
 import rs.levi9.socbook2.service.UserService;
 
 @RestController
@@ -42,7 +43,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException{
+	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException {
 		if(findByEmail(bookmarkUser.getEmail()) != null) throw new EmailTakenException("email is already taken");
 		if(findByUsername(bookmarkUser.getUsername()) != null) throw new UsernameTakenException("username is already taken");
 		return userService.save(bookmarkUser);
@@ -59,8 +60,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(path="username/{username}", method = RequestMethod.GET)
-	public BookmarkUser findByUsername(@PathVariable("username") String username){
-		return userService.findByUsername(username);
+	public BookmarkUser findByUsername(@PathVariable("username") String username) throws BadCredentialsException {
+		try {
+			return userService.findByUsername(username);
+		} catch (Exception e) {
+			throw new BadCredentialsException("Bad credentials");
+		}
 	}
 	
 	@RequestMapping(path="email/{email}/", method = RequestMethod.GET)

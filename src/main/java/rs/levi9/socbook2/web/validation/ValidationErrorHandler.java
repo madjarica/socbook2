@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import rs.levi9.socbook2.exception.BadCredentialsException;
 import rs.levi9.socbook2.exception.EmailTakenException;
 import rs.levi9.socbook2.exception.UsernameTakenException;
 
@@ -33,6 +34,14 @@ public class ValidationErrorHandler {
         ValidationResponse response = new ValidationResponse();
         response.addItem("username", INTEGRITY_VIOLATION);
         return response;
+    }
+    
+    @ExceptionHandler(UsernameTakenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ValidationResponse processValidationErrors(BadCredentialsException ex) {
+    	ValidationResponse response = new ValidationResponse();
+    	response.addItem("username", ex.getMessage());
+    	return response;
     } 
     
     @ExceptionHandler(DataRetrievalFailureException.class)
