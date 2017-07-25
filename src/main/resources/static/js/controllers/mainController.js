@@ -56,7 +56,15 @@
 				$('#login-form-link').addClass('active');
 				
 			}, function(error) {
-				self.errors.register = error;
+				
+				if(self.registerInput.username == undefined) { 
+					self.errors.register = ""; 
+				} else if(self.registerInput.email == undefined) { 
+					self.errors.register = "";
+				} else { 
+					self.errors.register = error;
+				}
+				
 				console.log(error);
 			});
 			
@@ -87,10 +95,15 @@
 					})
 				.error(
 					function(error) {
-						if(self.loginCredentials.username == undefined && self.loginCredentials.email == undefined) self.errors.login = '';
-						else if(self.loginCredentials.username == undefined) self.errors.login = '';
-						else if(self.loginCredentials.email == undefined) self.errors.login = '';
-						else self.errors.login = 'Bad credentials';
+						if(self.loginCredentials.username == undefined && self.loginCredentials.email == undefined) {
+							self.errors.login = '';
+						} else if(self.loginCredentials.username == undefined) { 
+							self.errors.login = '';
+						} else if(self.loginCredentials.email == undefined) { 
+							self.errors.login = '';
+						} else {
+							self.errors.login = 'Bad credentials';
+						}
 					
 			});
 		}
