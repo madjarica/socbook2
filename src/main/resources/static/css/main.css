@@ -100,6 +100,7 @@ body {
 .panel-login input:hover, .panel-login input:focus {
 	border-color: #d34615;
 }
+<<<<<<< HEAD
 @import "compass/css3";
 
 .star-rating {
@@ -125,3 +126,10 @@ body {
     color: #666;
   }
 }
+=======
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+	color: white;
+	background-color: #d34615; 
+ }
+>>>>>>> 8e5f428bd3f0429b90612ebe17cc7c5d15be98a1

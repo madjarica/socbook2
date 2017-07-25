@@ -28,7 +28,7 @@
                     <td style="text-align: center;">{{$index}}</td>
                     <td>{{bookmark.title}}</td>
                     <td>{{bookmark.category.name}}</td>
-                    <td>{{bookmark.description}}</td>
+                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
                     <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
                     <td>
 	                    <span ng-repeat="tag in bookmark.tag">
@@ -114,12 +114,28 @@
                                     <span class="error" ng-show="bkmCtrl.addBookmarkForm.description.$invalid && !bkmCtrl.addBookmarkForm.description.$pristine">* Description is required!</span>
                                     <span ng-if="bkmCtrl.error.description" class="error">{{bkmCtrl.error.description}}</span>
                                 </div>
+                                
+                                <label>Tags: </label>                               
+                                <div class="" ng-controller="TagController as tagCtrl">                                	
+                                	<select class="js-tags-multiple form-control" multiple="multiple" ng-model="bkmCtrl.bookmark.tag" ng-options="tag as tag.name for tag in tagCtrl.tags track by tag.id" style="width: 100%;"></select>
+                                	
+                                	<span ng-repeat="tag in bkmCtrl.bookmark.tag">
+				                    	<span class="label label-primary">{{tag.name}}</span>
+			                    	</span>
+			                    	
+                                </div>
+                                
                                 <label>URL: </label>
                                 <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine }">
                                     <input name="url" type="url" class="form-control" required ng-model="bkmCtrl.bookmark.url"/>
                                     <span class="error" ng-show="bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine">* URL is required!</span>
                                     <span ng-if="bkmCtrl.error.url" class="error">{{bkmCtrl.error.url}}</span>
-                                </div>                                
+                                </div>
+                                <div class="checkbox">
+								    <label>
+								      <input type="checkbox" name="visible" ng-model="bkmCtrl.bookmark.visible"> Do you want this bookmark to be visible to others?
+								    </label>
+								</div>                                
                                 <label>Created at:</label>
                                 <div class="modal-item input-group" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.datePicker.$invalid && !bkmCtrl.addBookmarkForm.$pristine }">
                                     <span class="input-group-btn">
@@ -132,7 +148,7 @@
                         </form>
                         <div class="modal-footer">
                             <button type="button" ng-disabled="bkmCtrl.addBookmarkForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="bkmCtrl.saveBookmark(bkmCtrl.bookmark)">OK</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="bkmCtrl.clearTags();">Cancel</button>
                         </div>
                     </div>
                 </div>

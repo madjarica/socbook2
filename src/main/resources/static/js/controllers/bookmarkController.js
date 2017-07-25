@@ -17,6 +17,7 @@ angular.module('app')
         vm.user;
 
         init();
+        clearTags();
 
         function init() {
             getCategories();
@@ -25,7 +26,15 @@ angular.module('app')
             vm.bookmark = {
                 creationDate: new Date()
             };
-            vm.closeModal = false;
+            vm.closeModal = false;            
+            $(".js-tags-multiple").select2();
+            $(".js-tags-multiple").select2("destroy");
+            $(".js-tags-multiple").select2();
+        }
+        
+        function clearTags() {
+            $(".select2-selection__rendered").html("");
+            $(".select2-selection__choice").html("");
         }
 
         vm.datePickerOptions = {
@@ -53,10 +62,13 @@ angular.module('app')
         }
 
         function editBookmark(bookmark){
+            $(".js-tags-multiple").select2("destroy");
+            $(".js-tags-multiple").select2();
         	vm.error = {};
             vm.operation = "Edit";
             vm.bookmark = angular.copy(bookmark);
             vm.bookmark.created_at = new Date(vm.bookmark.created_at);
+            clearTags();
         }
 
         function getCategories(){
@@ -101,19 +113,21 @@ angular.module('app')
             var tag = bookmark.tags;
             bookmark.tags = {"name":tag};
             vm.user = RegisterService.user;
-            bookmark.visible = true;
             bookmark.bookmarkUser = vm.user;
             console.log(bookmark);
+            clearTags();
             BookmarkService.saveBookmark(bookmark).then(function(response){
                 getBookmarks();
                 $('#add-bookmark-modal').modal('hide');
+                $(".js-tags-multiple").select2("destroy");
+                $(".js-tags-multiple").select2();
             }, function(error){
                 vm.error = {};
                 angular.forEach(error.data.exceptions, function(e){
                     errorHandler(e);
                 });
             })
-            //remove input value after submit
+            //remove input value after submit            
             vm.addBookmarkForm.$setPristine();
             vm.error = {};
         }
