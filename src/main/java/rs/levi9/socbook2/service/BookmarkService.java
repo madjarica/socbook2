@@ -33,4 +33,20 @@ public class BookmarkService {
 	public Bookmark save(Bookmark bookmark){
 		return bookmarkRepository.save(bookmark);
 	}
+	
+	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(String currentUser, String categoryName){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(currentUser, categoryName);
+	}
+	
+	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(currentUser, searcherdUserame);
+	}
+	
+	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(currentUser, searcherdUserame);
+	}
+	
+	public List<Bookmark> findByVisibleTrue(){
+		return bookmarkRepository.findByVisibleTrue();
+	}
 }
