@@ -30,6 +30,11 @@
             	templateUrl: '/views/bookmarkDetails.html',
             	controller: 'BookmarkDetailsController',
             	controllerAs: 'vm'
+            })
+            .when('/search', {
+            	templateUrl: '/views/search.html',
+            	controller: 'SearchController',
+            	controllerAs: 'vm'
             })       
             .otherwise('/');
     }

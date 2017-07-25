@@ -28,7 +28,7 @@
                     <td style="text-align: center;">{{$index}}</td>
                     <td>{{bookmark.title}}</td>
                     <td>{{bookmark.category.name}}</td>
-                    <td>{{bookmark.description}}</td>
+                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
                     <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
                     <td>
 	                    <span ng-repeat="tag in bookmark.tag">
