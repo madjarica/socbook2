@@ -53,4 +53,8 @@ public class BookmarkService {
 	public List<Bookmark> findByVisibleTrue(){
 		return bookmarkRepository.findByVisibleTrue();
 	}
+	
+	public List<Bookmark> findByBookmarkUserUsername(String username) {
+		return bookmarkRepository.findByBookmarkUserUsername(username);
+	}
 }
