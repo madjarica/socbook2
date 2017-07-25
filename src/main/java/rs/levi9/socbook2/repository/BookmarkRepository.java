@@ -9,8 +9,9 @@ import rs.levi9.socbook2.domain.Bookmark;
 
 @Repository
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
-	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(String currentUser, String categoryName);
-	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(String currentUser, String tagName);
-	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(String currentUser, String searchedUser);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(String currentUser, String categoryName);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(String currentUser, String tagName);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(String currentUser, String searchedUser);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(String currentUser, String desc);
 	public List<Bookmark> findByVisibleTrue();
 }

@@ -34,16 +34,20 @@ public class BookmarkService {
 		return bookmarkRepository.save(bookmark);
 	}
 	
-	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(String currentUser, String categoryName){
-		return bookmarkRepository.findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(currentUser, categoryName);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(String currentUser, String categoryName){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(currentUser, categoryName);
 	}
 	
-	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
-		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(currentUser, searcherdUserame);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(String currentUser, String searcherdUserame){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(currentUser, searcherdUserame);
 	}
 	
-	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
-		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(currentUser, searcherdUserame);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(String currentUser, String searcherdUserame){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(currentUser, searcherdUserame);
+	}
+	
+	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(String currentUser, String desc){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(currentUser, desc);
 	}
 	
 	public List<Bookmark> findByVisibleTrue(){

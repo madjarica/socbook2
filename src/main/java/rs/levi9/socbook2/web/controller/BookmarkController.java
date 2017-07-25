@@ -49,18 +49,23 @@ public class BookmarkController {
 	}
 	
 	@RequestMapping(path="searchCategory/{username}+{category}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("category")String categoryName){
-		return bookmarkService.findByBookmarkUserUsernameNotAndCategoryNameLikeAndVisibleTrue(currentUser, categoryName);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("category")String categoryName){
+		return bookmarkService.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(currentUser, categoryName);
 	}
 	
 	@RequestMapping(path="searchTag/{username}+{tag}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("tag")String tagName){
-		return bookmarkService.findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(currentUser, tagName);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("tag")String tagName){
+		return bookmarkService.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(currentUser, tagName);
 	}
 	
 	@RequestMapping(path="searchUser/{username}+{searchedUsername}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("searchedUsername")String searchedUsername){
-		return bookmarkService.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(currentUser, searchedUsername);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("searchedUsername")String searchedUsername){
+		return bookmarkService.findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(currentUser, searchedUsername);
+	}
+	
+	@RequestMapping(path="searchDesc/{username}+{desc}", method = RequestMethod.GET)
+	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(@PathVariable("username")String currentUser,@PathVariable("desc")String desc){
+		return bookmarkService.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(currentUser, desc);
 	}
 	
 	@RequestMapping(path = "visible/", method = RequestMethod.GET)
