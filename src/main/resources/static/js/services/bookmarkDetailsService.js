@@ -1,4 +1,4 @@
-(function () {
+(function () {	
     angular.module("app")
             .service('BookmarkDetailsService', BookmarkDetailsService);
 
@@ -7,7 +7,12 @@
     function BookmarkService($http, $q) {
 
         var bookmarksList = [];
+        
+        var service= {
+        		getBookmarks:getBookmarks
+        }
 
+        return service;
         this.getBookmarks = function () {
             var def = $q.defer();
             var req = {

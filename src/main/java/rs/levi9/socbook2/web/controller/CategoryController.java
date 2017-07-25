@@ -15,6 +15,7 @@ import rs.levi9.socbook2.service.CategoryService;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
+	
 private CategoryService categoryService;
 	
 	@Autowired
