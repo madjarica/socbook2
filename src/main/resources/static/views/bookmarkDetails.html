@@ -41,46 +41,45 @@
                 </tr>
             </tbody>
         </table>
-        <div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-bookmark-modal" ng-click="bkmCtrl.addBookmark()">
-                        <span class="glyphicon glyphicon-save"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal -->
-        <!-- Comment and rate -->
-        <div class="container">
-	<div class="row" style="margin-top:40px;">
-		<div class="col-md-6">
-    	<div class="well well-sm">
-            <div class="text-right">
-                <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
-            </div>
-        	<div class="row" id="post-review-box" style="display:none;">
-                <div class="col-md-12">
-                    <form accept-charset="UTF-8" action="" method="post">
-                        <input id="ratings-hidden" name="rating" type="hidden"> 
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
-        
-                        <div class="text-right">
-                            <div class="stars starrr" data-rating="0"></div>
-                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                            <button class="btn btn-success btn-lg" type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> 
-         
-		</div>
-	</div>
+
+<!-- <div  class="container"> -->
+<!--   <h1>Rating</h1> -->
+<!--   <div star-rating ng-model="bkmdCtrl.rating1" max="5" on-rating-select="bkmdCtrl.rateFunction(rating)"></div> -->
+<!--   <star-rating ng-model="bkmdCtrl.rating2" readonly="bkmdCtrl.isReadonly"></star-rating> -->
+<!--   <label> -->
+<!--     <input type="checkbox" ng-model="bkmdCtrl.isReadonly"/> -->
+<!--     Is Readonly -->
+<!--   </label> -->
+
+<!--   <div><strong>Rating 1:</strong> {{bkmdCtrl.rating1}}</div> -->
+<!--   <div><strong>Rating 2:</strong> {{bkmdCtrl.rating2}}</div> -->
+<!-- </div> -->
+
+
+<body ng-app>
+<div class="container">
+    <hr/>
+    <div class="form-group">
+        <h2>Leave a Replay</h2>
+        <form ng-controller="Controller">
+            <textarea class="form-control" rows="5" ng-model="cmtName" placeholder="Your Comment"></textarea>
+            <br/>
+            <button class="btn btn-success btn-md pull-right" ng-click='btn_post();'>Comment</button>
+            <br/>
+            <hr/>
+            <h2>Comments</h2>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="cmt in comments"> {{ cmt }}
+                    <a href="" ng-click="post_cmt($home)"><span class="glyphicon glyphicon-trash" style="color:red; float:right;"></span></a>
+                </li>
+            </ul>
+        </form> 
+    </div>
 </div>
+</body>
 
+<div>
         <!-- Modal -->
         <!-- Add/Edit bookmark -->
         <div class="modal fade" id="add-bookmark-modal" role="dialog">

@@ -100,15 +100,28 @@ body {
 .panel-login input:hover, .panel-login input:focus {
 	border-color: #d34615;
 }
- .animated {
-    -webkit-transition: height 0.2s;
-    -moz-transition: height 0.2s;
-    transition: height 0.2s;
-}
+@import "compass/css3";
 
-.stars
-{
-    margin: 20px 0;
-    font-size: 24px;
-    color: #d17581;
+.star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  
+  .star {
+    padding: 1px;
+    color: #ddd;
+    font-size: 20px;
+    text-shadow: .05em .05em #aaa;
+    list-style-type: none;
+    display: inline-block;
+    cursor: pointer;
+
+    &.filled {
+      color: #fd0;
+    }
+  }
+
+  &.readonly .star.filled {
+    color: #666;
+  }
 }
