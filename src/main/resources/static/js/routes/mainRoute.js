@@ -25,7 +25,12 @@
             	templateUrl: '/views/registratedUsers.html',
             	controller: 'UserController',
             	controllerAs: 'vm'
-            })          
+            })
+            .when('/bookmarkDetails', {
+            	templateUrl: '/views/bookmarkDetails.html',
+            	controller: 'BookmarkDetailsController',
+            	controllerAs: 'vm'
+            })       
             .otherwise('/');
     }
 }());
