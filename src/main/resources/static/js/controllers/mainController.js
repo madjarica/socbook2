@@ -87,7 +87,7 @@
 					})
 				.error(
 					function(error) {
-						self.errors.login = 'Bad credentials!';
+						self.errors.login = 'Bad credentials';
 			});
 		}
        

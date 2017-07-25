@@ -23,8 +23,8 @@
                 def.resolve(data);
             })
                     .error(function (error) {
-                    	console.log(error.exceptions[0].field, error.exceptions[0].message);
-                        def.reject(error.exceptions[0].field + " " + error.exceptions[0].message);
+                    	console.log(error.message);
+                        def.reject(error.message);
                     });
             return def.promise;
         }

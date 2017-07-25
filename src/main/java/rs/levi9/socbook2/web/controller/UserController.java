@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -16,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.domain.BookmarkUser;
-import rs.levi9.socbook2.exception.EmailTakenException;
-import rs.levi9.socbook2.exception.UsernameTakenException;
 import rs.levi9.socbook2.exception.BadCredentialsException;
+import rs.levi9.socbook2.exception.EmailTakenException;
+import rs.levi9.socbook2.exception.TakenException;
+import rs.levi9.socbook2.exception.UsernameTakenException;
 import rs.levi9.socbook2.service.UserService;
 
 @RestController
@@ -43,9 +43,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException {
-		if(findByEmail(bookmarkUser.getEmail()) != null) throw new EmailTakenException("email is already taken");
-		if(findByUsername(bookmarkUser.getUsername()) != null) throw new UsernameTakenException("username is already taken");
+	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException, TakenException {
+		BookmarkUser email = findByEmail(bookmarkUser.getEmail());
+		BookmarkUser username = findByUsername(bookmarkUser.getUsername());
+		if(email != null && username != null) throw new TakenException("email and username are already taken");
+		else if(email != null) throw new EmailTakenException("email is already taken");
+		else if(username != null) throw new UsernameTakenException("username is already taken");
 		return userService.save(bookmarkUser);
 	}
 	

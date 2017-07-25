@@ -1,9 +1,6 @@
 package rs.levi9.socbook2.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-public class UsernameTakenException extends Exception {
+public class TakenException extends Exception {
 
 
 	private String message;
@@ -16,7 +13,7 @@ public class UsernameTakenException extends Exception {
 		this.message = message;
 	}
 
-	public UsernameTakenException(String message) {
+	public TakenException(String message) {
 		this.message = message;
 	}
 
