@@ -18,6 +18,7 @@ import rs.levi9.socbook2.repository.UserRepository;
 @Transactional
 @Service
 public class BookmarkUserService implements UserDetailsService {
+	private User currentUser;
 	private UserRepository userRepository;
 
     @Autowired
@@ -32,7 +33,8 @@ public class BookmarkUserService implements UserDetailsService {
             if (user == null) {
                 return null;
             }
-            return new User(user.getUsername(), user.getPassword(), getAuthorities(user));
+            currentUser =  new User(user.getUsername(), user.getPassword(), getAuthorities(user));
+            return currentUser;
         } catch (Exception e) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -45,6 +47,10 @@ public class BookmarkUserService implements UserDetailsService {
             authorities.add(grantedAuthority);
         }
         return authorities;
+    }
+    
+    public User getCurrentllyLoggedUser(){
+    	return currentUser;
     }
 
 }

@@ -42,8 +42,8 @@ public class BookmarkService {
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(currentUser, searcherdUserame);
 	}
 	
-	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(String currentUser, String searcherdUserame){
-		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(currentUser, searcherdUserame);
+	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(currentUser, searcherdUserame);
 	}
 	
 	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(String currentUser, String desc){

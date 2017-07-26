@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.levi9.socbook2.config.BookmarkUserService;
 import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.service.BookmarkService;
 
@@ -17,10 +18,12 @@ import rs.levi9.socbook2.service.BookmarkService;
 public class BookmarkController {
 
 	private BookmarkService bookmarkService;
+	private BookmarkUserService bookmarkUserService;
 	
 	@Autowired
-	public BookmarkController(BookmarkService bookmarkService){
+	public BookmarkController(BookmarkService bookmarkService, BookmarkUserService bookmarkUserService){
 		this.bookmarkService = bookmarkService;
+		this.bookmarkUserService = bookmarkUserService;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -48,24 +51,24 @@ public class BookmarkController {
 		bookmarkService.delete(id);
 	}
 	
-	@RequestMapping(path="searchCategory/{username}+{category}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("category")String categoryName){
-		return bookmarkService.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(currentUser, categoryName);
+	@RequestMapping(path="search/category/{category}", method = RequestMethod.GET)
+	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(@PathVariable("category")String categoryName){
+		return bookmarkService.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), categoryName);
 	}
 	
-	@RequestMapping(path="searchTag/{username}+{tag}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("tag")String tagName){
-		return bookmarkService.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(currentUser, tagName);
+	@RequestMapping(path="search/tag/{tag}", method = RequestMethod.GET)
+	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(@PathVariable("tag")String tagName){
+		return bookmarkService.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), tagName);
 	}
 	
-	@RequestMapping(path="searchUser/{username}+{searchedUsername}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(@PathVariable("username")String currentUser, @PathVariable("searchedUsername")String searchedUsername){
-		return bookmarkService.findByBookmarkUserUsernameNotAndBookmarkUserUsernameContainingAndVisibleTrue(currentUser, searchedUsername);
+	@RequestMapping(path="search/user/{searchedUsername}", method = RequestMethod.GET)
+	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(@PathVariable("searchedUsername")String searchedUsername){
+		return bookmarkService.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), searchedUsername);
 	}
 	
-	@RequestMapping(path="searchDesc/{username}+{desc}", method = RequestMethod.GET)
-	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(@PathVariable("username")String currentUser,@PathVariable("desc")String desc){
-		return bookmarkService.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(currentUser, desc);
+	@RequestMapping(path="search/desc/{desc}", method = RequestMethod.GET)
+	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(@PathVariable("desc")String desc){
+		return bookmarkService.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), desc);
 	}
 	
 	@RequestMapping(path = "visible", method = RequestMethod.GET)

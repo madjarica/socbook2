@@ -16,11 +16,11 @@
             }
         return service;         
 
-        function getByCategory(username, category) {
+        function getByCategory(category) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
-                url: "bookmarks/searchCategory/" + username + "+" + category
+                url: "bookmarks/search/category/" + category
             }
             return $http(req).success(function (response) {
                 return bookmarksList = response.data;
@@ -29,11 +29,11 @@
             });
         }
         
-        function getByUsername(username, searchedUser) {
+        function getByUsername(searchedUser) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
-                url: "bookmarks/searchUser/" + username + "+" + searchedUser
+                url: "bookmarks/search/user/" + searchedUser
             }
             return $http(req).success(function (response) {
                 return bookmarksList = response.data;
@@ -42,11 +42,11 @@
             });
         }
         
-        function getByTag(username, tagname) {
+        function getByTag(tagname) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
-                url: "bookmarks/searchTag/" + username + "+" + tagname
+                url: "bookmarks/search/tag/" + tagname
             }
             return $http(req).success(function (response) {
                 return bookmarksList = response.data;
@@ -55,11 +55,11 @@
             });
         }
         
-        function getByDesc(username, desc) {
+        function getByDesc(desc) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
-                url: "bookmarks/searchDesc/" + username + "+" + desc
+                url: "bookmarks/search/desc/"+ desc
             }
             return $http(req).success(function (response) {
                 return bookmarksList = response.data;

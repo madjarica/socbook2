@@ -24,17 +24,16 @@
     		vm.user = RegisterService.user;
     		switch(search.option) {
     			case 'category' :
-    				console.log(vm.user.username);
-    				getByCategory(vm.user.username, search.searchField);
+    				getByCategory(search.searchField);
     				break;
     			case 'username' :
-    				getByUsername(vm.user.username, search.searchField);
+    				getByUsername(search.searchField);
     				break;
     			case 'tag' :
-    				getByTag(vm.user.username, search.searchField);
+    				getByTag(search.searchField);
     				break;
     			case 'description' :
-    				getByDesc(vm.user.username, search.searchField);
+    				getByDesc(search.searchField);
     				break;    			
     		}
     	}
@@ -50,6 +49,7 @@
     	function getByUsername(username, searchedUser){
     		SearchService.getByUsername(username, searchedUser).then(function(response){
     			vm.bookmarks = response;
+    			console.log(response);
     		},function(error){
     			vm.searchError = error;
     		});
