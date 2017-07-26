@@ -38,16 +38,16 @@
     		}
     	}
     	
-    	function getByCategory(username, category){
-    		SearchService.getByCategory(username, category).then(function(response){
+    	function getByCategory(category){
+    		SearchService.getByCategory(category).then(function(response){
     			vm.bookmarks = response;
     		},function(error){
     			vm.searchError = error;
     		});
     	}
     	
-    	function getByUsername(username, searchedUser){
-    		SearchService.getByUsername(username, searchedUser).then(function(response){
+    	function getByUsername(searchedUser){
+    		SearchService.getByUsername(searchedUser).then(function(response){
     			vm.bookmarks = response;
     			console.log(response);
     		},function(error){
@@ -55,15 +55,15 @@
     		});
     	}
     	
-    	function getByTag(username, tag){
-    		SearchService.getByTag(username, tag).then(function(response){
+    	function getByTag(tag){
+    		SearchService.getByTag(tag).then(function(response){
     			vm.bookmarks = response;
     		},function(error){
     			vm.searchError = error;
     		});
     	}
-    	function getByDesc(username, desc){
-    		SearchService.getByDesc(username, desc).then(function(response){
+    	function getByDesc(desc){
+    		SearchService.getByDesc(desc).then(function(response){
     			vm.bookmarks = response;
     		},function(error){
     			vm.searchError = error;

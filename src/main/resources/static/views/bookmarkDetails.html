@@ -6,7 +6,7 @@
     </div>    
 </div>
 
-<div class="row" ng-controller="BookmarkDetailsController as bkmdCtrl">
+<div class="row" ng-controller="BookmarkDetailsController as BkmdCtrl">
     <div class="col-sm-12">
         <table class="table table-bordered table-hover">
             <thead>
@@ -24,18 +24,19 @@
             <tbody>
                 <tr>
                     <td style="text-align: center;">{{$index}}</td>
-                    <td>{{bookmark.title}}</td>
-                    <td>{{bookmark.category.name}}</td>
-                    <td>{{bookmark.description}}</td>
-                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
+                    <td>{{BkmdCtrl.bookmark.title}}</td>
+                    <td>{{BkmdCtrl.bookmark.category.name}}</td>
+                    <td>{{BkmdCtrl.bookmark.description}}</td>
+                    <td><a href="{{bookmark.url}}" target="_blank">{{BkmdCtrl.bookmark.url}}</a></td>
                     <td>
-	                    <span ng-repeat="tag in bookmark.tag">
+	                    <span ng-repeat="tag in BkmdCtrl.bookmark.tag">
 	                    	<a href="#"><span class="label label-primary">{{tag.name}}</span></a>
                     	</span>
                     </td>
-                    <td class="option" style="text-align: center;">
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="bkmCtrl.selectBookmark(bookmark)">
-                            <span class="glyphicon glyphicon-remove"></span>
+                     <td style="text-align: center;">{{BkmdCtrl.bookmark.created_at | date:'dd-MMM-yyyy'}}</td>
+                     <td class="option" style="text-align: center;">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#import-bookmark" type="button" ng-click="BkmdCtrl.importBookmark(bookmark)">
+                            <span class="glyphicon glyphicon-save"></span>
                         </button>
                     </td>
                 </tr>
@@ -57,85 +58,82 @@
 <!-- </div> -->
 
 
-<body ng-app>
-<div class="container">
-    <hr/>
-    <div class="form-group">
+
+<div class="row">
         <h2>Leave a Replay</h2>
-        <form ng-controller="Controller">
-            <textarea class="form-control" rows="5" ng-model="cmtName" placeholder="Your Comment"></textarea>
+            <textarea name="description" class="form-control" id="" cols="20" rows="10" required ng-model="BkmdCtrl.comment"></textarea>
             <br/>
-            <button class="btn btn-success btn-md pull-right" ng-click='btn_post();'>Comment</button>
+            <button type="button" ng-disabled="bkmCtrl.addBookmarkDetailsForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="BkmdCtrl.addComment(BkmdCtrl.comment)">Comment</button>
             <br/>
             <hr/>
             <h2>Comments</h2>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="cmt in comments"> {{ cmt }}
-                    <a href="" ng-click="post_cmt($home)"><span class="glyphicon glyphicon-trash" style="color:red; float:right;"></span></a>
+                <li class="list-group-item" ng-repeat="comment in comments"> {{ comment }}
+                 <a href="" ng-click="BkmdCtrl.saveComment(BkmdCtrl.comment)"><span class="glyphicon glyphicon-trash" style="color:red; float:right;"></span></a>
                 </li>
             </ul>
         </form> 
     </div>
 </div>
-</body>
 
-<div>
-        <!-- Modal -->
-        <!-- Add/Edit bookmark -->
-        <div class="modal fade" id="add-bookmark-modal" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add bookmark</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Category Form -->
-                        <form name="bkmCtrl.addBookmarkForm" novalidate>
-                            <div class="form-group">
-                                <label>Category: </label>
-                                <div class="modal-item">
-                                    <select class="form-control" name="selectCategory" ng-options="category.name for category in bkmCtrl.categories track by category.id"
-                                            ng-model="bkmCtrl.bookmark.category" required>
-                                        <option value="" ng-disabled="true" disabled>---Must select category---</option>
-                                    </select>
-                                </div>
-                                <label>Title: </label>
-                                <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.title.$invalid && !bkmCtrl.addBookmarkForm.title.$pristine }">
-                                    <input name="title" type="text" class="form-control" required ng-model="bkmCtrl.bookmark.title"/>
-                                    <span class="error" ng-show="bkmCtrl.addBookmarkForm.title.$invalid && !bkmCtrl.addBookmarkForm.title.$pristine">* Title is required!</span>
-                                    <span ng-if="bkmCtrl.error.title" class="error">{{bkmCtrl.error.title}}</span>
-                                </div>
-                                <label>Description: </label>
-                                <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.description.$invalid && !bkmCtrl.addBookmarkForm.description.$pristine }">
-                                	<textarea name="description" class="form-control" id="" cols="30" rows="10" required ng-model="bkmCtrl.bookmark.description"></textarea>
-                                    <span class="error" ng-show="bkmCtrl.addBookmarkForm.description.$invalid && !bkmCtrl.addBookmarkForm.description.$pristine">* Description is required!</span>
-                                    <span ng-if="bkmCtrl.error.description" class="error">{{bkmCtrl.error.description}}</span>
-                                </div>
-                                <label>URL: </label>
-                                <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine }">
-                                    <input name="url" type="url" class="form-control" required ng-model="bkmCtrl.bookmark.url"/>
-                                    <span class="error" ng-show="bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine">* URL is required!</span>
-                                    <span ng-if="bkmCtrl.error.url" class="error">{{bkmCtrl.error.url}}</span>
-                                </div>                                
-                                <label>Created at:</label>
-                                <div class="modal-item input-group" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.datePicker.$invalid && !bkmCtrl.addBookmarkForm.$pristine }">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-secondary" ng-click="bkmCtrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                    </span>
-                                    <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="bkmCtrl.bookmark.created_at" is-open="bkmCtrl.popupCalendar.opened" datepicker-options="bkmCtrl.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
-                                </div>
-                                <span class="input-group error "input-group"" ng-show="bkmCtrl.addBookForm.datePicker.$invalid && !bkmCtrl.addBookForm.$pristine">* Date is in wrong format!</span>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" ng-disabled="bkmCtrl.addBookmarkForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="bkmCtrl.saveBookmark(bkmCtrl.bookmark)">OK</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>    
-</div>
+
+<!-- <div> -->
+<!--         Modal -->
+<!--         Add/Edit bookmark -->
+<!--         <div class="modal fade" id="import-bookmark" role="dialog"> -->
+<!--             <div class="modal-dialog"> -->
+<!--                 Modal content -->
+<!--                 <div class="modal-content"> -->
+<!--                     <div class="modal-header"> -->
+<!--                         <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+<!--                         <h4 class="modal-title">Add bookmark</h4> -->
+<!--                     </div> -->
+<!--                     <div class="modal-body"> -->
+<!--                         Category Form -->
+<!--                         <form name="bkmCtrl.addBookmarkForm" novalidate> -->
+<!--                             <div class="form-group"> -->
+<!--                                 <label>Category: </label> -->
+<!--                                 <div class="modal-item"> -->
+<!--                                     <select class="form-control" name="selectCategory" ng-options="category.name for category in bkmCtrl.categories track by category.id" -->
+<!--                                             ng-model="bkmCtrl.bookmark.category" required> -->
+<!--                                         <option value="" ng-disabled="true" disabled>---Must select category---</option> -->
+<!--                                     </select> -->
+<!--                                 </div> -->
+<!--                                 <label>Title: </label> -->
+<!--                                 <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.title.$invalid && !bkmCtrl.addBookmarkForm.title.$pristine }"> -->
+<!--                                     <input name="title" type="text" class="form-control" required ng-model="bkmCtrl.bookmark.title"/> -->
+<!--                                     <span class="error" ng-show="bkmCtrl.addBookmarkForm.title.$invalid && !bkmCtrl.addBookmarkForm.title.$pristine">* Title is required!</span> -->
+<!--                                     <span ng-if="bkmCtrl.error.title" class="error">{{bkmCtrl.error.title}}</span> -->
+<!--                                 </div> -->
+<!--                                 <label>Description: </label> -->
+<!--                                 <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.description.$invalid && !bkmCtrl.addBookmarkForm.description.$pristine }"> -->
+<!--                                 	<textarea name="description" class="form-control" id="" cols="30" rows="10" required ng-model="bkmCtrl.bookmark.description"></textarea> -->
+<!--                                     <span class="error" ng-show="bkmCtrl.addBookmarkForm.description.$invalid && !bkmCtrl.addBookmarkForm.description.$pristine">* Description is required!</span> -->
+<!--                                     <span ng-if="bkmCtrl.error.description" class="error">{{bkmCtrl.error.description}}</span> -->
+<!--                                 </div> -->
+<!--                                 <label>URL: </label> -->
+<!--                                 <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine }"> -->
+<!--                                     <input name="url" type="url" class="form-control" required ng-model="bkmCtrl.bookmark.url"/> -->
+<!--                                     <span class="error" ng-show="bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine">* URL is required!</span> -->
+<!--                                     <span ng-if="bkmCtrl.error.url" class="error">{{bkmCtrl.error.url}}</span> -->
+<!--                                 </div>                                 -->
+<!--                                 <label>Created at:</label> -->
+<!--                                 <div class="modal-item input-group" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.datePicker.$invalid && !bkmCtrl.addBookmarkForm.$pristine }"> -->
+<!--                                     <span class="input-group-btn"> -->
+<!--                                         <button type="button" class="btn btn-secondary" ng-click="bkmCtrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button> -->
+<!--                                     </span> -->
+<!--                                     <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="bkmCtrl.bookmark.created_at" is-open="bkmCtrl.popupCalendar.opened" datepicker-options="bkmCtrl.datePickerOptions" ng-required="true" close-text="Close" date-parser required/> -->
+<!--                                 </div> -->
+<!--                                 <span class="input-group error "input-group"" ng-show="bkmCtrl.addBookForm.datePicker.$invalid && !bkmCtrl.addBookForm.$pristine">* Date is in wrong format!</span> -->
+<!--                             </div> -->
+<!--                         </form> -->
+<!--                         <div class="modal-footer"> -->
+<!--                             <button type="button" ng-disabled="bkmCtrl.addBookmarkForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="bkmCtrl.saveBookmark(bkmCtrl.bookmark)">OK</button> -->
+<!--                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div>     -->
+<!-- </div> -->

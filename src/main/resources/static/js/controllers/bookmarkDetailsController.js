@@ -2,26 +2,114 @@
 angular.module('app')
     .controller('BookmarkDetailsController', BookmarkDetailsController);
     
-    BookmarkController.$inject = ['$filter', 'BookmarkDetailsService'];
+    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService'];
    
-    function BookmarkDeatailsController($filter, BookmarkDetailsService) {
+    function BookmarkDetailsController($location ,BookmarkDetailsService) {
         
         var vm = this;
-        vm.comments = [];
-//     	'use strict';
-//
+        vm.addComment = addComment;
+        vm.deleteComment = deleteComment;
+        vm.editComment = editComment;
+        vm.saveComment = saveComment;
+        vm.post = post;
+        vm.postComment = postComment;
+        vm.operation;
+        vm.bookmark = BookmarkDetailsService.selectedBookmark;
+        vm.getBookmarkById = getBookmarkById;
+        vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;
+        
+        
+        vm.comment = {};
+        
+        init();
+        
+        function init() {
+        	
+        	getComments();
+        	
+             
+        }
+        
+        
+        function addComment() {
+            vm.operation = "Add";
+            vm.addCommentForm;
+            vm.comment = {};
+        }
+        
+        function post() {
+            if (vm.comment.commentContent != '') {
+            	getComments.push(vm.comment.commentContent);
+            	vm.comment.commentContent = "";
+            }
+        }
+        
+    	function postComment($home) {
+    		getComments.splice($home, 1);
+        }
+
+        function deleteComment(){
+        	BookmarkDetailsService.deleteComment(vm.comment.id).then(function(response){
+                getComments();
+            }, function(error){
+
+            });
+            vm.comment = {};
+        }
+        
+        function editComment(comment) {
+            vm.operation = "Edit";
+            vm.comment = angular.copy(comment);
+        }
+        
+        function getComments(){
+        	BookmarkDetailsService.getComments().then(handleSuccessComment);
+        }
+        
+        //Get all comments
+        function handleSuccessComment(data, status){
+            vm.comments = data;
+        }
+        
+        function getBookmarkById(id){
+        	console.log(id);
+        	BookmarkDetailsService.getBookmarkById(id).then(handleSuccessBookmarks);
+        	
+        }
+        
+        function handleSuccessBookmarks(data, status){
+            vm.bookmark = data;
+            console.log(vm.bookmark);
+            BookmarkDetailsService.selectedBookmark = vm.bookmark;
+        	console.log(BookmarkDetailsService.selectedBookmark);
+        	$location.url("bookmarkDetails");
+        }
+
+        function saveComment(comment){
+        	BookmarkDetailsService.saveComment(comment).then(function(response){
+                getComments();
+            }, function(error){
+
+            })
+            //remove input value after submit
+            vm.addCommentForm.$setPristine();
+        }
+        function goToBookmarksDetailsPage(id){
+        	getBookmarkById(id);
+        }
+        
 //    	vm.directive('starRating', starRating);
 
-        init();
+//        init();
 
-        function init() {
+//        function init() {
 /*            getBookmarks();
             vm.error = {};
             vm.bookmark = {
            creationDate: new Date()
             };
             vm.closeModal = false;*/
-        }
+ //       }
 
        
         
