@@ -16,8 +16,7 @@ angular.module('app')
         vm.operation;
         vm.user;
 
-        init();
-        clearTags();
+        init();        
 
         function init() {
             getCategories();
@@ -27,10 +26,17 @@ angular.module('app')
                 creationDate: new Date()
             };
             vm.closeModal = false;            
-            $(".js-tags-multiple").select2();
-            $(".js-tags-multiple").select2("destroy");
-            $(".js-tags-multiple").select2();
+            $(".js-tags-multiple").select2({
+            	selectOnClose: true,
+            	tags: true            	
+            });
         }
+        
+//		$('.select2-search__field').on('keyup', function(e) { 
+//			if(e.keyCode === 13) {
+//				console.log('enter key event');
+//			}; 
+//		});
         
         function clearTags() {
             $(".select2-selection__rendered").html("");
@@ -62,13 +68,10 @@ angular.module('app')
         }
 
         function editBookmark(bookmark){
-            $(".js-tags-multiple").select2("destroy");
-            $(".js-tags-multiple").select2();
         	vm.error = {};
             vm.operation = "Edit";
             vm.bookmark = angular.copy(bookmark);
             vm.bookmark.created_at = new Date(vm.bookmark.created_at);
-            clearTags();
         }
 
         function getCategories(){
@@ -110,17 +113,30 @@ angular.module('app')
 
         function saveBookmark(bookmark){
             bookmark.creationDate = $filter('date')(bookmark.creationDate, "yyyy-MM-dd");
-            var tag = bookmark.tags;
-            bookmark.tags = {"name":tag};
+            
+//            if(bookmark.tag) {
+//            	var tagsToSave = [];
+//            	var temp = bookmark.tag.split(' ');
+//            	
+//	            temp.forEach(function(t) {
+//	                var tag = {};
+//	                tag.name = t;
+//	                tagsToSave.push(tag);
+//	            });
+//	            
+//	            bookmark.tag = tagsToSave;
+//            	
+//            } else {
+//            	bookmark.tag = [];
+//            }         
+            
+            
+            
             vm.user = RegisterService.user;
             bookmark.bookmarkUser = vm.user;
             console.log(bookmark);
-            clearTags();
             BookmarkService.saveBookmark(bookmark).then(function(response){
                 getBookmarks();
-                $('#add-bookmark-modal').modal('hide');
-                $(".js-tags-multiple").select2("destroy");
-                $(".js-tags-multiple").select2();
             }, function(error){
                 vm.error = {};
                 angular.forEach(error.data.exceptions, function(e){

@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -30,8 +32,8 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
-	 
-	@ManyToMany
+		
+	@ManyToMany(cascade={CascadeType.ALL}, fetch = FetchType.LAZY)
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"),
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tag;

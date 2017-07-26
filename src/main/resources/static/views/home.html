@@ -115,15 +115,26 @@
                                     <span ng-if="bkmCtrl.error.description" class="error">{{bkmCtrl.error.description}}</span>
                                 </div>
                                 
-                                <label>Tags: </label>                               
-                                <div class="" ng-controller="TagController as tagCtrl">                                	
-                                	<select class="js-tags-multiple form-control" multiple="multiple" ng-model="bkmCtrl.bookmark.tag" ng-options="tag as tag.name for tag in tagCtrl.tags track by tag.id" style="width: 100%;"></select>
-                                	
-                                	<span ng-repeat="tag in bkmCtrl.bookmark.tag">
-				                    	<span class="label label-primary">{{tag.name}}</span>
-			                    	</span>
-			                    	
+                                <label>Tags:</label>
+                                <div class="modal-item">
+<!--                                     <input name="tag" type="text" class="form-control" ng-model="bkmCtrl.bookmark.tag" />-->
+                                  <tags-input ng-model="bkmCtrl.bookmark.tag" display-property="name"></tags-input>                                  
+                                    
+                                    <span ng-repeat="tag in bkmCtrl.bookmark.tag">
+ 				                    	<span class="label label-primary">{{tag.name}}</span> 
+		                    		</span>	 
                                 </div>
+                                
+                                                             
+                                
+<!--                                 <label>Tags: </label>                                -->
+<!--                                 <div class="" ng-controller="TagController as tagCtrl">                                	 -->
+<!--                                 	<select class="js-tags-multiple form-control" multiple="multiple" ng-model="bkmCtrl.bookmark.tag" ng-options="tag as tag.name for tag in tagCtrl.tags track by tag.id" style="width: 100%;"></select> -->
+                                	
+<!--                                 	<span ng-repeat="tag in bkmCtrl.bookmark.tag"> -->
+<!-- 				                    	<span class="label label-primary">{{tag.name}}</span> -->
+<!-- 			                    	</span>			                    	 -->
+<!--                                 </div> -->
                                 
                                 <label>URL: </label>
                                 <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine }">
