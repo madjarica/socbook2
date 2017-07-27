@@ -61,21 +61,47 @@
 
 <div class="row">
         <h2>Leave a Replay</h2>
-            <textarea name="description" class="form-control" id="" cols="20" rows="10" required ng-model="BkmdCtrl.comment"></textarea>
+            <textarea name="description" class="form-control" id="" cols="20" rows="10" required ng-model="BkmdCtrl.commentContent"></textarea>
             <br/>
-            <button type="button" ng-disabled="bkmCtrl.addBookmarkDetailsForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="BkmdCtrl.addComment(BkmdCtrl.comment)">Comment</button>
+            <button type="button" ng-disabled="bkmCtrl.addBookmarkDetailsForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="BkmdCtrl.addComment(BkmdCtrl.commentContent)">Comment</button>
             <br/>
             <hr/>
             <h2>Comments</h2>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="comment in comments"> {{ comment }}
-                 <a href="" ng-click="BkmdCtrl.saveComment(BkmdCtrl.comment)"><span class="glyphicon glyphicon-trash" style="color:red; float:right;"></span></a>
+                <li class="list-group-item" ng-repeat="comment in BkmdCtrl.comments"> {{ comment.bookmarkUser.username }} 
+                </br>
+                {{ comment.commentContent }}
+                </br>
+                <span>{{comment.createdAt | date:'dd-MMM-yyyy'}}</span>
+                <button class="btn btn-default" type="button"  data-toggle="modal" data-target="#delete-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
+						<span  class="glyphicon glyphicon-trash" style="color:red; float:right;"></span>
+				</button>
                 </li>
             </ul>
         </form> 
     </div>
 </div>
 
+        <!-- Modal -->
+        <!-- Delete comment -->
+        <div class="modal fade" id="delete-comment-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete bookmark</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete <i>{{bkmCtrl.bookmark.title}}</i> ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="BkmdCtrl.deleteComment(BkmdCtrl.selectedComment.id)">OK</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <!-- <div> -->
 <!--         Modal -->

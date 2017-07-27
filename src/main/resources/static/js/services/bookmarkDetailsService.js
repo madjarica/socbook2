@@ -12,6 +12,7 @@
                 deleteComment: deleteComment,
                 getComments: getComments,
                 getBookmarkById: getBookmarkById,
+                getCommentByBookmarkId: getCommentByBookmarkId,
                 selectedBookmark: {}
         }
 
@@ -79,6 +80,21 @@
             });
             return def.promise;
         }
-
+        
+        function getCommentByBookmarkId(id){
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "comments/bookmark/" + id
+            }
+            $http(req).success(function (data) {
+            	console.log(data);
+                def.resolve(data);
+            })
+            .error(function () {
+                return def.reject("Failed to get bookmark");
+            });
+            return def.promise;
+        }
     };
 }());

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.domain.Comment;
-import rs.levi9.socbook2.service.CategoryService;
 import rs.levi9.socbook2.service.CommentService;
 
 
@@ -48,6 +47,10 @@ public class CommentController {
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
 		commentService.delete(id);
+	}
+	@RequestMapping(path="bookmark/{id}")
+	public List<Comment> getByBookmarkId(@PathVariable("id") Long id){
+		return commentService.getByBookmarkId(id);
 	}
 	
 	

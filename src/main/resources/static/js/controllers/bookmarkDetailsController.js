@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('BookmarkDetailsController', BookmarkDetailsController);
     
-    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService'];
+    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService', 'RegisterService', '$filter'];
    
-    function BookmarkDetailsController($location ,BookmarkDetailsService) {
+    function BookmarkDetailsController($location ,BookmarkDetailsService, RegisterService, $filter) {
         
         var vm = this;
         vm.addComment = addComment;
@@ -12,9 +12,12 @@ angular.module('app')
         vm.editComment = editComment;
         vm.saveComment = saveComment;
         vm.post = post;
-        vm.postComment = postComment;
+        vm.comment;
+        vm.selectedComment;
+        vm.user = RegisterService.user;
         vm.operation;
         vm.bookmark = BookmarkDetailsService.selectedBookmark;
+        vm.selectComment = selectComment;
         vm.getBookmarkById = getBookmarkById;
         vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;
         
@@ -25,36 +28,44 @@ angular.module('app')
         
         function init() {
         	
-        	getComments();
+        	getComments(vm.bookmark.id);
         	
              
         }
         
         
-        function addComment() {
+        function addComment(commentContent) {
+        	vm.comment = {};
+        	vm.comment.commentContent = commentContent;
+        	vm.comment.bookmark = vm.bookmark;
+        	vm.comment.bookmarkUser =  vm.user;
+        	vm.comment.createdAt = new Date();
             vm.operation = "Add";
-            vm.addCommentForm;
-            vm.comment = {};
+            console.log(vm.comment);
+            saveComment(vm.comment);
         }
         
         function post() {
             if (vm.comment.commentContent != '') {
-            	getComments.push(vm.comment.commentContent);
+            	vm.comments.push(vm.comment.commentContent);
             	vm.comment.commentContent = "";
             }
         }
         
-    	function postComment($home) {
-    		getComments.splice($home, 1);
-        }
 
-        function deleteComment(){
-        	BookmarkDetailsService.deleteComment(vm.comment.id).then(function(response){
-                getComments();
+        function deleteComment(id){
+        	console.log(id);
+        	BookmarkDetailsService.deleteComment(id).then(function(response){
+                getComments(vm.bookmark.id);
             }, function(error){
 
             });
             vm.comment = {};
+        }
+        
+        function selectComment(comment){
+            vm.selectedComment = comment;
+            console.log(vm.selectedComment);
         }
         
         function editComment(comment) {
@@ -62,13 +73,14 @@ angular.module('app')
             vm.comment = angular.copy(comment);
         }
         
-        function getComments(){
-        	BookmarkDetailsService.getComments().then(handleSuccessComment);
+        function getComments(id){
+        	BookmarkDetailsService.getCommentByBookmarkId(id).then(handleSuccessComment);
         }
         
         //Get all comments
         function handleSuccessComment(data, status){
             vm.comments = data;
+            console.log(vm.comments);
         }
         
         function getBookmarkById(id){
@@ -87,12 +99,11 @@ angular.module('app')
 
         function saveComment(comment){
         	BookmarkDetailsService.saveComment(comment).then(function(response){
-                getComments();
+                getComments(vm.bookmark.id);
             }, function(error){
 
             })
             //remove input value after submit
-            vm.addCommentForm.$setPristine();
         }
         function goToBookmarksDetailsPage(id){
         	getBookmarkById(id);
