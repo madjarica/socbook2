@@ -14,6 +14,11 @@
 
         return service;
 
+        /**
+         * Getting single user from database
+         * @param {String} username
+         * @return {Object} data
+         */
         function getUserByUsername(username) {
             var def = $q.defer();
             var user;
@@ -22,15 +27,20 @@
                 url: "users/username/" + username,
                 data: user
             }
-            $http(req).success(function (data) {
-                def.resolve(data);
-            })
-                    .error(function (error) {
-                        def.reject("error");
-                    });
+            $http(req)
+	            .success(function (data) {
+	                def.resolve(data);
+	            })
+                .error(function (error) {
+                    def.reject("error");
+                });
             return def.promise;
         }
         
+        /**
+         * Getting all users from database
+         * @return {Object} data
+         */
         function findAll(){
         	var def = $q.defer();
         	var users;
@@ -39,27 +49,34 @@
         			url: "users/",
         			data: users
         	}
-        	 $http(req).success(function (data) {
-                 def.resolve(data);
-             })
-                     .error(function () {
-                         def.reject("Failed");
-                     });
+        	$http(req)
+	        	.success(function (data) {
+	                 def.resolve(data);
+	            })
+                 .error(function () {
+                     def.reject("Failed");
+                 });
              return def.promise;
          } 	
         
+        /**
+         * Deleting user from database
+         * @param {Long} id
+         * @return {Object} data
+         */
         function deleteUser(id) {
             var def = $q.defer();
             var req = {
                 method: 'DELETE',
                 url: "users/" + id
             }
-            $http(req).success(function (data) {
-                def.resolve(data);
-            })
-                    .error(function () {
-                        def.reject("Failed");
-                    });
+            $http(req)
+	            .success(function (data) {
+	                def.resolve(data);
+	            })
+                .error(function () {
+                    def.reject("Failed");
+                });
             return def.promise;
         }
     }

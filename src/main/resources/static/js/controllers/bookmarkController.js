@@ -109,25 +109,6 @@ angular.module('app')
 
         function saveBookmark(bookmark){
             bookmark.creationDate = $filter('date')(bookmark.creationDate, "yyyy-MM-dd");
-            
-//            if(bookmark.tag) {
-//            	var tagsToSave = [];
-//            	var temp = bookmark.tag.split(' ');
-//            	
-//	            temp.forEach(function(t) {
-//	                var tag = {};
-//	                tag.name = t;
-//	                tagsToSave.push(tag);
-//	            });
-//	            
-//	            bookmark.tag = tagsToSave;
-//            	
-//            } else {
-//            	bookmark.tag = [];
-//            }         
-            
-            
-            
             vm.user = RegisterService.user;
             bookmark.bookmarkUser = vm.user;
             BookmarkService.saveBookmark(bookmark).then(function(response){

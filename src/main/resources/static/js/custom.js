@@ -14,8 +14,3 @@ $(function() {
 		e.preventDefault();
 	});	
 });
-
-$(document).ready(function() {
-	
-});
-
