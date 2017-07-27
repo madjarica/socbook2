@@ -17,8 +17,13 @@
     	vm.getByUsername = getByUsername;
     	vm.getByTag = getByTag;
     	vm.getByDesc = getByDesc;
+    	vm.testClick = testClick;
     	
     	vm.searchBookmarks = searchBookmarks;
+    	
+    	function testClick() {
+    		console.log('click');
+    	}
     	
     	function searchBookmarks(search) {
     		vm.user = RegisterService.user;

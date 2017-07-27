@@ -8,56 +8,63 @@
 
 <div class="row" ng-controller="BookmarkController as bkmCtrl">
     <div class="col-sm-12">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-           			<th style="text-align: center;">#</th>
-					<th style="text-align: center;">Title</th>
-					<th style="text-align: center;">Category</th>
-					<th style="text-align: center; max-width: 25%;">Description</th>
-					<th style="text-align: center;">URL</th>
-					<th style="text-align: center;">Tags</th>
-					<th style="text-align: center;">Create date</th>
-					<th style="text-align: center;">Visible</th>
-					<th style="text-align: center;">Edit</th>
-					<th style="text-align: center;">Delete</th>
-                </tr>
-            </thead>
-            <tbody ng-repeat="bookmark in bkmCtrl.bookmarks track by $index">
-                <tr>
-                    <td style="text-align: center;">{{$index}}</td>
-                    <td>{{bookmark.title}}</td>
-                    <td>{{bookmark.category.name}}</td>
-                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
-                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
-                    <td>
-	                    <span ng-repeat="tag in bookmark.tag">
-	                    	<a href="#"><span class="label label-primary">{{tag.name}}</span></a>
-                    	</span>
-                    </td>
-                    <td style="text-align: center;">{{bookmark.created_at | date:'dd-MMM-yyyy'}}</td>
-                    <td style="text-align: center;">{{ bookmark.visible == true ? "Yes" : "No"}}</td>
-                    <td class="option" style="text-align: center;">
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="bkmCtrl.editBookmark(bookmark)">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                    <td class="option" style="text-align: center;">
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="bkmCtrl.selectBookmark(bookmark)">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-bookmark-modal" ng-click="bkmCtrl.addBookmark()">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </div>
-            </div>
+	    <div class="table-responsive">
+	        <table class="table table-bordered table-hover table-condensed">
+	            <thead>
+	                <tr>           			
+						<th style="text-align: center;">Title</th>
+						<th style="text-align: center;">Category</th>
+						<th style="text-align: center; max-width: 25%;">Description</th>
+						<th style="text-align: center;">URL</th>
+						<th style="text-align: center;">Tags</th>
+						<th style="text-align: center;">Create date</th>
+						<th style="text-align: center;">Visible</th>
+						<th style="text-align: center;">Details</th>
+						<th style="text-align: center;">Edit</th>
+						<th style="text-align: center;">Delete</th>
+	                </tr>
+	            </thead>
+	            <tbody ng-repeat="bookmark in bkmCtrl.userBookmarks track by $index">
+	                <tr>                    
+	                    <td>{{bookmark.title}}</td>
+	                    <td ng-controller="SearchController as srchCtrl"><a ng-click="srchCtrl.testClick()" href="">{{bookmark.category.name}}</a></td>
+	                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
+	                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
+	                    <td>
+		                    <span ng-repeat="tag in bookmark.tag">
+		                    	<a href="#"><span class="label label-primary">{{tag.name}}</span></a>
+	                    	</span>
+	                    </td>
+	                    <td style="text-align: center;">{{bookmark.created_at | date:'dd-MMM-yyyy'}}</td>
+	                    <td style="text-align: center;">{{ bookmark.visible == true ? "Yes" : "No"}}</td>
+                		<td class="option" style="text-align: center;">
+	                        <button ng-controller="BookmarkDetailsController as BkmdCtrl" class="btn btn-info" type="button" ng-click="BkmdCtrl.goToBookmarksDetailsPage(bookmark.id)">
+	                            <span class="glyphicon glyphicon-file"></span>
+	                        </button>
+	                    </td>
+	                    <td class="option" style="text-align: center;">
+	                        <button class="btn btn-warning" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="bkmCtrl.editBookmark(bookmark)">
+	                            <span class="glyphicon glyphicon-pencil"></span>
+	                        </button>
+	                    </td>
+	                    <td class="option" style="text-align: center;">
+	                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="bkmCtrl.selectBookmark(bookmark)">
+	                            <span class="glyphicon glyphicon-trash"></span>
+	                        </button>
+	                    </td>
+	                </tr>
+	            </tbody>
+	        </table>
+	        
+	        <div>
+	            <div class="panel panel-default">
+	                <div class="panel-body">
+	                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-bookmark-modal" ng-click="bkmCtrl.addBookmark()">
+	                        <span class="glyphicon glyphicon-plus"></span>
+	                    </button>
+	                </div>
+	            </div>
+	        </div>
         </div>
 
         <!-- Modal -->
@@ -115,26 +122,10 @@
                                     <span ng-if="bkmCtrl.error.description" class="error">{{bkmCtrl.error.description}}</span>
                                 </div>
                                 
-                                <label>Tags:</label>
+                                <label>Tags: (add new on enter key)</label>
                                 <div class="modal-item">
-<!--                                     <input name="tag" type="text" class="form-control" ng-model="bkmCtrl.bookmark.tag" />-->
-                                  <tags-input ng-model="bkmCtrl.bookmark.tag" display-property="name" min-length="0"></tags-input>
-                                    
-                                    <span ng-repeat="tag in bkmCtrl.bookmark.tag">
- 				                    	<span class="label label-primary">{{tag.name}}</span> 
-		                    		</span>	 
+                                    <tags-input ng-model="bkmCtrl.bookmark.tag" display-property="name" min-length="0"></tags-input>
                                 </div>
-                                
-                                                             
-                                
-<!--                                 <label>Tags: </label>                                -->
-<!--                                 <div class="" ng-controller="TagController as tagCtrl">                                	 -->
-<!--                                 	<select class="js-tags-multiple form-control" multiple="multiple" ng-model="bkmCtrl.bookmark.tag" ng-options="tag as tag.name for tag in tagCtrl.tags track by tag.id" style="width: 100%;"></select> -->
-                                	
-<!--                                 	<span ng-repeat="tag in bkmCtrl.bookmark.tag"> -->
-<!-- 				                    	<span class="label label-primary">{{tag.name}}</span> -->
-<!-- 			                    	</span>			                    	 -->
-<!--                                 </div> -->
                                 
                                 <label>URL: </label>
                                 <div class="modal-item" ng-class="{ 'has-error' : bkmCtrl.addBookmarkForm.url.$invalid && !bkmCtrl.addBookmarkForm.url.$pristine }">

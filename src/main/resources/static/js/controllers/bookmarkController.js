@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('BookmarkController', BookmarkController);
     
-    BookmarkController.$inject = ['$filter', 'CategoryService', 'BookmarkService', 'uibDateParser', 'RegisterService'];
+    BookmarkController.$inject = ['$filter', 'CategoryService', 'BookmarkService', 'uibDateParser', 'RegisterService', '$rootScope'];
    
-    function BookmarkController($filter, CategoryService, BookmarkService, uibDateParser, RegisterService) {
+    function BookmarkController($filter, CategoryService, BookmarkService, uibDateParser, RegisterService, $rootScope) {
         
         var vm = this;
         vm.addBookmark = addBookmark;
@@ -13,19 +13,21 @@ angular.module('app')
         vm.openCalendar = openCalendar;
         vm.saveBookmark = saveBookmark;
         vm.selectBookmark = selectBookmark;
+        vm.getUserBookmarks = getUserBookmarks;
         vm.operation;
-        vm.user;
+        vm.user;         
 
         init();        
 
         function init() {
             getCategories();
+            getUserBookmarks();
             getBookmarks();
             vm.error = {};
             vm.bookmark = {
                 creationDate: new Date()
             };
-            vm.closeModal = false; 
+            vm.closeModal = false;
         }
 
         vm.datePickerOptions = {
@@ -66,6 +68,11 @@ angular.module('app')
         function getBookmarks(){
             BookmarkService.getBookmarks().then(handleSuccessBookmarks);
         }
+        
+        function getUserBookmarks() {
+        	vm.user = RegisterService.user;
+        	BookmarkService.getUserBookmarks(vm.user.username).then(handleSuccessUserBookmarks);
+        }
 
         //Get all category
         function handleSuccessCategories(data, status){
@@ -75,6 +82,10 @@ angular.module('app')
         //Get all books
         function handleSuccessBookmarks(data, status){
             vm.bookmarks = data.data;
+        }
+        
+        function handleSuccessUserBookmarks(data, status) {
+        	vm.userBookmarks = data.data;
         }
 
         function openCalendar() {
@@ -119,9 +130,8 @@ angular.module('app')
             
             vm.user = RegisterService.user;
             bookmark.bookmarkUser = vm.user;
-            console.log(bookmark);
             BookmarkService.saveBookmark(bookmark).then(function(response){
-                getBookmarks();
+                getUserBookmarks();
             }, function(error){
                 vm.error = {};
                 angular.forEach(error.data.exceptions, function(e){

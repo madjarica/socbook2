@@ -100,36 +100,14 @@ body {
 .panel-login input:hover, .panel-login input:focus {
 	border-color: #d34615;
 }
-<<<<<<< HEAD
-@import "compass/css3";
 
-.star-rating {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  
-  .star {
-    padding: 1px;
-    color: #ddd;
-    font-size: 20px;
-    text-shadow: .05em .05em #aaa;
-    list-style-type: none;
-    display: inline-block;
-    cursor: pointer;
-
-    &.filled {
-      color: #fd0;
-    }
-  }
-
-  &.readonly .star.filled {
-    color: #666;
-  }
+tags-input .tags .tag-item {
+    color: #fff;
+    background: #e95420;
+    border: 1px solid #e95420;
+    border-radius: 4px;
 }
-=======
 
-.select2-container--default .select2-results__option[aria-selected=true] {
-	color: white;
-	background-color: #d34615; 
- }
->>>>>>> 8e5f428bd3f0429b90612ebe17cc7c5d15be98a1
+tags-input .tags .tag-item .remove-button {
+	color: #fff;
+}

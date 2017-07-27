@@ -2,9 +2,9 @@
     angular.module('app')
             .controller('MainController', MainController);
 
-    MainController.$inject = ['$location', '$http', '$route', '$window', 'RegisterService', 'UserService'];
+    MainController.$inject = ['$rootScope', '$location', '$http', '$route', '$window', 'RegisterService', 'UserService'];
 
-    function MainController($location, $http, $route, $window, RegisterService, UserService) {
+    function MainController($rootScope, $location, $http, $route, $window, RegisterService, UserService) {
 
         var self = this;
         self.isActive = isActive;
@@ -90,8 +90,9 @@
 						UserService.getUserByUsername(self.user.username).then(function(response) {
 							self.loggedUser = response;
 							RegisterService.user = self.loggedUser;
-						});								
-						init();
+						}).then(function() {
+							init();
+						});						
 					})
 				.error(
 					function(error) {
