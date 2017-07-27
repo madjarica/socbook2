@@ -45,6 +45,7 @@ angular.module('app')
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
             	vm.bookmark = response.data;
             	console.log(vm.bookmark);
+            	getComments(vm.bookmark.id);
             })
         }
         
@@ -58,7 +59,7 @@ angular.module('app')
 
         function deleteComment(id){
         	console.log(id);
-        	BookmarkDetailsService.deleteComment(id).then(function(response){
+        	BookmarkDetailsService.deleteComment(id).then(function(){
                 getComments(vm.bookmark.id);
             }, function(error){
 

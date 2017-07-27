@@ -30,7 +30,7 @@ public class Comment extends BaseEntity implements Serializable {
 ////	@JoinColumn(name = "bookmark_id", nullable = false)
 //	private Bookmark bookmark;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TEXT")
 	@NotNull	
 	private String commentContent;
 	
