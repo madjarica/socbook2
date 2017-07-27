@@ -63,7 +63,7 @@
 		                    	<a href="#"><span class="label label-primary">{{tag.name}}</span></a>
 	                    	</span>
 	                    </td>
-	                    <td style="text-align: center;">{{bookmark.created_at | date:'dd-MMM-yyyy'}}</td>
+	                    <td style="text-align: center;">{{bookmark.createdDate | date:'dd-MMM-yyyy'}}</td>
 	                    <td class="option" style="text-align: center;">
 	                        <button ng-controller="BookmarkDetailsController as BkmdCtrl" class="btn btn-warning" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="BkmdCtrl.goToBookmarksDetailsPage(bookmark.id)">
 	                            <span class="glyphicon glyphicon-pencil"></span>
