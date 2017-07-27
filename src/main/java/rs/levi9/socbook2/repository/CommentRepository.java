@@ -9,7 +9,7 @@ import rs.levi9.socbook2.domain.Comment;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-	
-	public List<Comment> getByBookmarkId(Long id);
+//	
+//	public List<Comment> getByBookmarkId(Long id);
 
 }

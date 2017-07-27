@@ -33,7 +33,7 @@ private CommentRepository commentRepository;
 	public Comment save(Comment comment){
 		return commentRepository.save(comment);
 	}
-	public List<Comment> getByBookmarkId(Long id){
-		return commentRepository.getByBookmarkId(id);
-	}
+//	public List<Comment> getByBookmarkId(Long id){
+//		return commentRepository.getByBookmarkId(id);
+//	}
 }

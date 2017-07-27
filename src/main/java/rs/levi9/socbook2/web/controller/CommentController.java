@@ -48,10 +48,10 @@ public class CommentController {
 	public void delete(@PathVariable("id") Long id){
 		commentService.delete(id);
 	}
-	@RequestMapping(path="bookmark/{id}")
-	public List<Comment> getByBookmarkId(@PathVariable("id") Long id){
-		return commentService.getByBookmarkId(id);
-	}
-	
+//	@RequestMapping(path="bookmark/{id}")
+//	public List<Comment> getByBookmarkId(@PathVariable("id") Long id){
+//		return commentService.getByBookmarkId(id);
+//	}
+//	
 	
 }

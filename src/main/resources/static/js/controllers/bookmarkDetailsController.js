@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('BookmarkDetailsController', BookmarkDetailsController);
     
-    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService', 'RegisterService', '$filter'];
+    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService', 'RegisterService', '$filter', 'BookmarkService'];
    
-    function BookmarkDetailsController($location ,BookmarkDetailsService, RegisterService, $filter) {
+    function BookmarkDetailsController($location ,BookmarkDetailsService, RegisterService, $filter, BookmarkService) {
         
         var vm = this;
         vm.addComment = addComment;
@@ -37,12 +37,15 @@ angular.module('app')
         function addComment(commentContent) {
         	vm.comment = {};
         	vm.comment.commentContent = commentContent;
-        	vm.comment.bookmark = vm.bookmark;
         	vm.comment.bookmarkUser =  vm.user;
         	vm.comment.createdAt = new Date();
+        	vm.bookmark.comment.push(vm.comment);
             vm.operation = "Add";
             console.log(vm.comment);
-            saveComment(vm.comment);
+            BookmarkService.saveBookmark(vm.bookmark).then(function(response){
+            	vm.bookmark = response.data;
+            	console.log(vm.bookmark);
+            })
         }
         
         function post() {
@@ -74,7 +77,12 @@ angular.module('app')
         }
         
         function getComments(id){
-        	BookmarkDetailsService.getCommentByBookmarkId(id).then(handleSuccessComment);
+        	BookmarkService.getBookmark(id).then(function(response){
+        		vm.bookmark = response;
+        	}).then(function(){
+        		vm.comments = vm.bookmark.comment;
+        	})
+        	
         }
         
         //Get all comments

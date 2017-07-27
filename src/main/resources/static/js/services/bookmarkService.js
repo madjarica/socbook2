@@ -86,6 +86,21 @@
 	                def.reject("Failed");
 	            });
             return def.promise;
-        }        
+        }   
+        
+        this.getBookmark = function (id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "bookmarks/" + id
+            }
+            $http(req)
+	            .success(function (data) {
+	                def.resolve(data);
+	            }).error(function () {
+	                def.reject("Failed");
+	            });
+            return def.promise;
+        } 
     };
 }());

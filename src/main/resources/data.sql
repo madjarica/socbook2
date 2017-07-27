@@ -34,4 +34,4 @@ INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(2,1);
 INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(1,1);
 INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`)VALUES(1,3);
 
-INSERT INTO `comment`(`comment_content`,`created_at`, `bookmark_id`, `user_id`) VALUES ("Fejsbuk je strava", NOW(), 3, 3);
+INSERT INTO `comment`(`comment_content`,`created_at`, `user_id`, `bookmark_id`) VALUES ("Fejsbuk je strava", NOW(), 3, 3);

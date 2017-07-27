@@ -126,7 +126,4 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 		this.active = active;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 }

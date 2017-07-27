@@ -2,6 +2,7 @@ package rs.levi9.socbook2.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -37,7 +39,11 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"),
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tag;
-	
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="bookmark_id")
+	private Set<Comment> comment;
+
 	@Column(nullable = false)
 	@NotNull
 	@DateTimeFormat
@@ -61,7 +67,7 @@ public class Bookmark extends BaseEntity implements Serializable {
 	
 	public Bookmark() {}
 
-	public Bookmark(BookmarkUser bookmarkUser, Category category, Set<Tag> tag, Date created_at, boolean visible, String title, String description, String url) {
+	public Bookmark(BookmarkUser bookmarkUser, Category category, Set<Tag> tag, Date created_at, boolean visible, String title, String description, String url, Set<Comment> comment) {
 		this.bookmarkUser = bookmarkUser;
 		this.category = category;
 		this.tag = tag;
@@ -70,7 +76,8 @@ public class Bookmark extends BaseEntity implements Serializable {
 		this.title = title;
 		this.description = description;
 		this.url = url;
-	}
+		this.comment = comment;
+		}
 
 	public BookmarkUser getBookmarkUser() {
 		return bookmarkUser;
@@ -95,6 +102,14 @@ public class Bookmark extends BaseEntity implements Serializable {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public Set<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(Set<Comment> comment) {
+		this.comment = comment;
 	}
 
 	public String getTitle() {
