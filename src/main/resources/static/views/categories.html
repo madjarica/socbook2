@@ -12,8 +12,8 @@
                 <tr>
            			<th style="text-align: center;">#</th>
 					<th style="text-align: center;">Category name</th>
-					<th style="text-align: center;">Edit</th>
-					<th style="text-align: center;">Delete</th>
+					<th style="text-align: center; width: 80px;">Edit</th>
+					<th style="text-align: center; width: 80px;">Delete</th>
                 </tr>
             </thead>
             <tbody ng-repeat="category in CatCtrl.categories track by $index">
@@ -27,7 +27,7 @@
                     </td>
                     <td class="option" style="text-align: center;">
                         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-category-modal" ng-click="CatCtrl.selectCategory(category)">
-                            <span class="glyphicon glyphicon-remove"></span>
+                            <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </td>
                 </tr>

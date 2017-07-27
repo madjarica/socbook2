@@ -10,20 +10,18 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-           			<th style="text-align: center;">#</th>
 					<th style="text-align: center;">Email</th>
 					<th style="text-align: center;">Username</th>
 					<th style="text-align: center;">First name</th>
 					<th style="text-align: center;">Last name</th>
 					<th style="text-align: center;">Roles</th>
 					<th style="text-align: center;">Active</th>
-					<th style="text-align: center;">Delete</th>
-					<th style="text-align: center;">Block</th>
+					<th style="text-align: center; width: 80px;">Block/Unblock</th>
+					<th style="text-align: center; width: 80px;">Delete</th>					
                 </tr>
             </thead>
             <tbody ng-repeat="user in uCtrl.users track by $index">
                 <tr>
-                    <td style="text-align: center;">{{$index}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.firstName}}</td>
@@ -31,16 +29,16 @@
                     <td>{{user.roles[0].type}}</br>
                     	{{user.roles[1].type}}
                     </td>
-                    <td>{{user.active}}</td>
+                    <td style="text-align: center;">{{user.active}}</td>
+               		<td class="panel panel-default" style="text-align: center;">
+	                    <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#block-user-modal" ng-click="uCtrl.selectUser(user)">
+	                        <span class="glyphicon glyphicon-ban-circle"></span>
+	                    </button>
+                    </td>
                     <td class="option" style="text-align: center;">
                         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-user-modal" ng-click="uCtrl.selectUser(user)">
-                            <span class="glyphicon glyphicon-remove"></span>
+                            <span class="glyphicon glyphicon-trash"></span>
                         </button>
-                        </td>
-            <td class="panel panel-default">
-                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#block-user-modal" ng-click="uCtrl.selectUser(user)">
-                        <span class="glyphicon glyphicon-ban-circle"></span>
-                    </button>
                     </td>
                 </tr>
             </tbody>
