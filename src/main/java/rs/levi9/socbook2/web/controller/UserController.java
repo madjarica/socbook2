@@ -46,9 +46,9 @@ public class UserController {
 	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException, TakenException {
 		BookmarkUser email = findByEmail(bookmarkUser.getEmail());
 		BookmarkUser username = findByUsername(bookmarkUser.getUsername());
-		if(email != null && username != null) throw new TakenException("email and username are already taken");
-		else if(email != null) throw new EmailTakenException("email is already taken");
-		else if(username != null) throw new UsernameTakenException("username is already taken");
+		if(email != null && username != null) throw new TakenException("Email and username are already taken");
+		else if(email != null) throw new EmailTakenException("Email is already taken");
+		else if(username != null) throw new UsernameTakenException("Username is already taken");
 		return userService.save(bookmarkUser);
 	}
 	
@@ -63,20 +63,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(path="username/{username}", method = RequestMethod.GET)
-	public BookmarkUser findByUsername(@PathVariable("username") String username) throws BadCredentialsException {
-		try {
-			return userService.findByUsername(username);
-		} catch (Exception e) {
-			throw new BadCredentialsException("Bad credentials");
-		}
+	public BookmarkUser findByUsername(@PathVariable("username") String username) {
+		return userService.findByUsername(username);
 	}
 	
 	@RequestMapping(path="email/{email}/", method = RequestMethod.GET)
 	public BookmarkUser findByEmail(@PathVariable("email") String email){
 		return userService.findByEmail(email);
-	}
-	
-	@SpringBootApplication
+	}	
+
 	@RestController
 	public class AdminApplication {
 

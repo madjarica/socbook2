@@ -71,12 +71,12 @@ public class BookmarkController {
 		return bookmarkService.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), desc);
 	}
 	
-	@RequestMapping(path = "visible", method = RequestMethod.GET)
+	@RequestMapping(path = "public", method = RequestMethod.GET)
 	public List<Bookmark> findByVisibleTrue(){
 		return bookmarkService.findByVisibleTrue();
 	}
 	
-	@RequestMapping(path="searchUser/{username}", method = RequestMethod.GET)
+	@RequestMapping(path="search/user/{username}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsername(@PathVariable("username") String currentUser) {
 		return bookmarkService.findByBookmarkUserUsername(currentUser);
 	}	
