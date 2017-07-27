@@ -96,16 +96,13 @@
 					})
 				.error(
 					function(error) {
-						if(self.loginCredentials.username == undefined && self.loginCredentials.email == undefined) {
-							self.errors.login = '';
-						} else if(self.loginCredentials.username == undefined) { 
-							self.errors.login = '';
-						} else if(self.loginCredentials.email == undefined) { 
-							self.errors.login = '';
-						} else {
+						if (self.loginCredentials.username == undefined) { 
+							self.errors.login = ""; 
+						} else if(self.loginCredentials.password == undefined) { 
+							self.errors.login = "";
+						} else { 
 							self.errors.login = 'Bad credentials';
-						}
-					
+						}											
 			});
 		}
        
