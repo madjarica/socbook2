@@ -27,8 +27,10 @@
     	
     	function searchBookmarks(search) {
     		vm.user = RegisterService.user;
+    		console.log(search.option)
     		switch(search.option) {
     			case 'category' :
+    				
     				getByCategory(search.searchField);
     				break;
     			case 'username' :
@@ -46,6 +48,7 @@
     	function getByCategory(category){
     		SearchService.getByCategory(category).then(function(response){
     			vm.bookmarks = response;
+    			console.log(response);
     		},function(error){
     			vm.searchError = error;
     		});
@@ -54,7 +57,6 @@
     	function getByUsername(searchedUser){
     		SearchService.getByUsername(searchedUser).then(function(response){
     			vm.bookmarks = response;
-    			console.log(response);
     		},function(error){
     			vm.searchError = error;
     		});

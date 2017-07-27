@@ -29,6 +29,7 @@
             }
             return $http(req)
 	            .success(function (response) {
+	            	console.log(response);
 	                return bookmarksList = response.data;
 	            })
 	            .error(function () {
