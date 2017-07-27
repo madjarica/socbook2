@@ -36,7 +36,7 @@
         	var def = $q.defer();
         	var req = {
         		method: 'GET',
-        		url: "bookmarks/searchUser/" + username
+        		url: "bookmarks/search/user/" + username
         	}
         	return $http(req)
 	        	.success(function (response) {
