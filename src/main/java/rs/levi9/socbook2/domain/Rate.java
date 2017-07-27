@@ -32,15 +32,16 @@ public class Rate extends BaseEntity implements Serializable {
 	
 	@Column(nullable = false)
 	@NotNull	
-	private Date createdAt;
+	private Date createdDate;
 	
 	public Rate() {}
-	
-	public Rate(BookmarkUser bookmarkUser, Bookmark bookmark, Integer rateMark, Date createdAt) {		
+
+	public Rate(BookmarkUser bookmarkUser, Bookmark bookmark, Integer rateMark, Date createdDate) {
+		super();
 		this.bookmarkUser = bookmarkUser;
 		this.bookmark = bookmark;
 		this.rateMark = rateMark;
-		this.createdAt = createdAt;
+		this.createdDate = createdDate;
 	}
 
 	public BookmarkUser getBookmarkUser() {
@@ -67,11 +68,11 @@ public class Rate extends BaseEntity implements Serializable {
 		this.rateMark = rateMark;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}	
 }

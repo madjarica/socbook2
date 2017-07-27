@@ -45,7 +45,5 @@ private TagService tagService;
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
 		tagService.delete(id);
-	}
-	
+	}	
 }
-

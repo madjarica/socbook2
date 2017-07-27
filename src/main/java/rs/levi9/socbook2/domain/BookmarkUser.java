@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
@@ -31,31 +31,26 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 		this.lastName = lastName;
 		this.roles = roles;
 		this.active = active;
-    }
-    
+    }    
 
 	@Column(nullable = false, unique = true)
     @NotNull
-    @Length(min = 2, max = 50)
+    @Email
     private String email;
 
 	@Column(nullable = false, unique = true)
     @NotNull
-    @Length(min = 2, max = 50)
     private String username;
     
     @NotNull
-    @Length(min = 6, max = 30)
     @Column(nullable = false)
     private String password;
     
     @NotNull
-    @Length(min = 2, max = 50)
     @Column(nullable = false)
     private String firstName;
     
     @NotNull
-    @Length(min = 2, max = 50)
     @Column(nullable = false)
     private String lastName;
    
@@ -120,7 +115,6 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 	public boolean isActive() {
 		return active;
 	}
-
 
 	public void setActive(boolean active) {
 		this.active = active;

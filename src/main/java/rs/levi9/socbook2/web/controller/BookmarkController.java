@@ -49,33 +49,45 @@ public class BookmarkController {
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
 		bookmarkService.delete(id);
-	}
-	
+	}	
+	/*
+	 * Find all visible bookmarks of certain category without logged user bookmarks
+	 */
 	@RequestMapping(path="search/category/{category}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(@PathVariable("category")String categoryName){
 		return bookmarkService.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), categoryName);
 	}
-	
+	/*
+	 * Find all visible bookmarks of certain tag without logged user bookmarks
+	 */
 	@RequestMapping(path="search/tag/{tag}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(@PathVariable("tag")String tagName){
 		return bookmarkService.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), tagName);
 	}
-	
+	/*
+	 * Find all visible bookmarks of certain username without logged user bookmarks	
+	 */
 	@RequestMapping(path="search/user/{searchedUsername}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(@PathVariable("searchedUsername")String searchedUsername){
 		return bookmarkService.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), searchedUsername);
 	}
-	
+	/*
+	 * Find all visible bookmarks searching description without logged user bookmarks	
+	 */
 	@RequestMapping(path="search/desc/{desc}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(@PathVariable("desc")String desc){
 		return bookmarkService.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), desc);
 	}
-	
+	/*
+	 * Find all visible bookmarks	
+	 */
 	@RequestMapping(path = "public", method = RequestMethod.GET)
 	public List<Bookmark> findByVisibleTrue(){
 		return bookmarkService.findByVisibleTrue();
 	}
-	
+	/*
+	 * Find all bookmarks of logged user	
+	 */
 	@RequestMapping(path="search/current-user/{username}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsername(@PathVariable("username") String currentUser) {
 		return bookmarkService.findByBookmarkUserUsername(currentUser);

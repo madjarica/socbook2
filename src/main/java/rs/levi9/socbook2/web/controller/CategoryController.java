@@ -46,6 +46,5 @@ private CategoryService categoryService;
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
 		categoryService.delete(id);
-	}
-	
+	}	
 }

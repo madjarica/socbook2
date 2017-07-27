@@ -10,7 +10,6 @@ angular.module('app')
         vm.addBookmark = addBookmark;
         vm.deleteBookmark = deleteBookmark;
         vm.editBookmark = editBookmark;
-        vm.openCalendar = openCalendar;
         vm.saveBookmark = saveBookmark;
         vm.selectBookmark = selectBookmark;
         vm.getUserBookmarks = getUserBookmarks;
@@ -25,19 +24,10 @@ angular.module('app')
             getBookmarks();
             vm.error = {};
             vm.bookmark = {
-                creationDate: new Date()
+            	createdDate: new Date()
             };
             vm.closeModal = false;
         }
-
-        vm.datePickerOptions = {
-            formatYear: 'yy',
-            maxDate : new Date()
-        };
-
-        vm.popupCalendar = {
-           opened: false
-        }; 
 
         function addBookmark() {
             vm.addBookmarkForm.$setPristine();
@@ -58,7 +48,7 @@ angular.module('app')
         	vm.error = {};
             vm.operation = "Edit";
             vm.bookmark = angular.copy(bookmark);
-            vm.bookmark.created_at = new Date(vm.bookmark.created_at);
+            vm.bookmark.createdDate = new Date(vm.bookmark.createdDate);
         }
 
         function getCategories(){
@@ -108,7 +98,6 @@ angular.module('app')
         }
 
         function saveBookmark(bookmark){
-            bookmark.creationDate = $filter('date')(bookmark.creationDate, "yyyy-MM-dd");
             vm.user = RegisterService.user;
             bookmark.bookmarkUser = vm.user;
             BookmarkService.saveBookmark(bookmark).then(function(response){

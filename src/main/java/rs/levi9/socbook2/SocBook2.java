@@ -11,5 +11,4 @@ public class SocBook2 {
 	public static void main(String[] args) {
         SpringApplication.run(SocBook2.class, args);
 	}
-
 }

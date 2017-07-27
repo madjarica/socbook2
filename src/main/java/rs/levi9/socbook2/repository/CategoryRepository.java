@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 import rs.levi9.socbook2.domain.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-
-	
-}
+public interface CategoryRepository extends JpaRepository<Category, Long> {}

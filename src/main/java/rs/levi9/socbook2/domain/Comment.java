@@ -5,14 +5,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "comment")
@@ -24,11 +20,6 @@ public class Comment extends BaseEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private BookmarkUser bookmarkUser; 
-	
-//	@NotNull
-////	@ManyToOne(fetch = FetchType.LAZY)
-////	@JoinColumn(name = "bookmark_id", nullable = false)
-//	private Bookmark bookmark;
 
 	@Column(nullable = false, columnDefinition = "TEXT")
 	@NotNull	
@@ -36,16 +27,15 @@ public class Comment extends BaseEntity implements Serializable {
 	
 	@Column(nullable = false)
 	@NotNull	
-	private Date createdAt;
+	private Date createdDate;
 	
 	public Comment() {}
-	
-	public Comment(BookmarkUser bookmarkUser,  String commentContent, Date createdAt) {
-		
+
+	public Comment(BookmarkUser bookmarkUser, String commentContent, Date createdDate) {
+		super();
 		this.bookmarkUser = bookmarkUser;
-//		this.bookmark = bookmark;
 		this.commentContent = commentContent;
-		this.createdAt = createdAt;
+		this.createdDate = createdDate;
 	}
 
 	public BookmarkUser getBookmarkUser() {
@@ -56,14 +46,6 @@ public class Comment extends BaseEntity implements Serializable {
 		this.bookmarkUser = bookmarkUser;
 	}
 
-//	public Bookmark getBookmark() {
-//		return bookmark;
-//	}
-
-//	public void setBookmark(Bookmark bookmark) {
-//		this.bookmark = bookmark;
-//	}
-
 	public String getCommentContent() {
 		return commentContent;
 	}
@@ -72,18 +54,11 @@ public class Comment extends BaseEntity implements Serializable {
 		this.commentContent = commentContent;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	
-	
 }

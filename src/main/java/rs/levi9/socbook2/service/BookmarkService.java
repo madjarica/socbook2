@@ -34,26 +34,40 @@ public class BookmarkService {
 		return bookmarkRepository.save(bookmark);
 	}
 	
+	/*
+	 * Find all visible bookmarks of certain category without logged user bookmarks
+	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(String currentUser, String categoryName){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(currentUser, categoryName);
 	}
 	
+	/*
+	 * Find all visible bookmarks of certain tag without logged user bookmarks
+	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(String currentUser, String searcherdUserame){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(currentUser, searcherdUserame);
 	}
-	
+	/*
+	 * Find all visible bookmarks of certain username without logged user bookmarks	
+	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(currentUser, searcherdUserame);
 	}
-	
+	/*
+	 * Find all visible bookmarks searching description without logged user bookmarks	
+	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(String currentUser, String desc){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(currentUser, desc);
 	}
-	
+	/*
+	 * Find all visible bookmarks	
+	 */
 	public List<Bookmark> findByVisibleTrue(){
 		return bookmarkRepository.findByVisibleTrue();
 	}
-	
+	/*
+	 * Find all bookmarks of logged user	
+	 */
 	public List<Bookmark> findByBookmarkUserUsername(String username) {
 		return bookmarkRepository.findByBookmarkUserUsername(username);
 	}

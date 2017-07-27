@@ -11,7 +11,7 @@ import rs.levi9.socbook2.domain.Bookmark;
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 	/*
 	 * Find all visible bookmarks of certain category without logged user bookmarks
-	 * */
+	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(String currentUser, String categoryName);
 	/*
 	 * Find all visible bookmarks of certain tag without logged user bookmarks

@@ -46,14 +46,14 @@
 				"id" : 2
 			}];
 			console.log(user);
-//			self.registerUserForm.$setPristine();
 			RegisterService.saveUser(user).then(function(response) {
 				self.success.register = "Successfully registered. You can now log in.";				
 				
+				self.errors.login = "";
 				$("#login-form").delay(20).fadeIn(100);
 				$("#register-form").fadeOut(100);
 				$('#register-form-link').removeClass('active');
-				$('#login-form-link').addClass('active');
+				$('#login-form-link').addClass('active');			
 				
 			}, function(error) {
 				
@@ -92,10 +92,12 @@
 							RegisterService.user = self.loggedUser;
 						}).then(function() {
 							init();
-						});						
+						});
+						self.errors.register = "";						
 					})
 				.error(
 					function(error) {
+						self.success.register = "";
 						if (self.loginCredentials.username == undefined) { 
 							self.errors.login = ""; 
 						} else if(self.loginCredentials.password == undefined) { 

@@ -2,7 +2,6 @@ package rs.levi9.socbook2.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -47,7 +46,7 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@Column(nullable = false)
 	@NotNull
 	@DateTimeFormat
-	private Date created_at;
+	private Date createdDate;
 	
 	@Column(nullable = false)
 	@NotNull	
@@ -61,17 +60,17 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@NotNull
 	private String description;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TEXT")
 	@NotNull
 	private String url;
 	
 	public Bookmark() {}
 
-	public Bookmark(BookmarkUser bookmarkUser, Category category, Set<Tag> tag, Date created_at, boolean visible, String title, String description, String url, Set<Comment> comment) {
+	public Bookmark(BookmarkUser bookmarkUser, Category category, Set<Tag> tag, Date createdDate, boolean visible, String title, String description, String url, Set<Comment> comment) {
 		this.bookmarkUser = bookmarkUser;
 		this.category = category;
 		this.tag = tag;
-		this.created_at = created_at;
+		this.createdDate = createdDate;
 		this.visible = visible;
 		this.title = title;
 		this.description = description;
@@ -88,12 +87,12 @@ public class Bookmark extends BaseEntity implements Serializable {
 		this.bookmarkUser = bookmarkUser;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public boolean isVisible() {

@@ -5,6 +5,4 @@ import org.springframework.stereotype.Repository;
 import rs.levi9.socbook2.domain.Tag;
 
 @Repository
-public interface TagRepository extends JpaRepository<Tag, Long> {
-
-}
+public interface TagRepository extends JpaRepository<Tag, Long> {}

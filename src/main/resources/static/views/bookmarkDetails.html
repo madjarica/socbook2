@@ -1,75 +1,93 @@
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-12" style="padding-left: 0;">
 		<div>
-			<h1>Bookmark Details</h1>
+			<h1 style="padding-left: 0;">Bookmark Details</h1>
 		</div>
 	</div>
 </div>
 
 <div class="row" ng-controller="BookmarkDetailsController as BkmdCtrl">
-	<div class="col-sm-12">
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th style="text-align: center;">Title</th>
-					<th style="text-align: center;">Category</th>
-					<th style="text-align: center; max-width: 25%;">Description</th>
-					<th style="text-align: center;">URL</th>
-					<th style="text-align: center;">Tags</th>
-					<th style="text-align: center;">Create date</th>
-					<th style="text-align: center; width: 80px;">Import</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>{{BkmdCtrl.bookmark.title}}</td>
-					<td>{{BkmdCtrl.bookmark.category.name}}</td>
-					<td>{{BkmdCtrl.bookmark.description}}</td>
-					<td><a href="{{bookmark.url}}" target="_blank">{{BkmdCtrl.bookmark.url}}</a></td>
-					<td><span ng-repeat="tag in BkmdCtrl.bookmark.tag"> <a
-							href="#"><span class="label label-primary">{{tag.name}}</span></a>
-					</span></td>
-					<td style="text-align: center;">{{BkmdCtrl.bookmark.created_at
-						| date:'dd-MMM-yyyy'}}</td>
-					<td class="option" style="text-align: center;">
-						<button class="btn btn-warning" data-toggle="modal"
-							data-target="#import-bookmark" type="button"
-							ng-click="BkmdCtrl.importBookmark(bookmark)">
-							<span class="glyphicon glyphicon-save"></span>
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-
+	<div class="col-xs-12">
 		<div class="row">
-			<h2>Leave a Replay</h2>
-			<textarea name="description" class="form-control" id="" cols="20"
-				rows="10" required ng-model="BkmdCtrl.commentContent"></textarea>
-			<br />
-			<button type="button"
-				ng-disabled="bkmCtrl.addBookmarkDetailsForm.$invalid"
-				data-dismiss="modal" class="btn btn-default"
-				ng-click="BkmdCtrl.addComment(BkmdCtrl.commentContent)">Comment</button>
-			<br />
-			<hr />
-			<h2>Comments</h2>
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="comment in BkmdCtrl.comments">
-					{{ comment.bookmarkUser.username }} </br> {{ comment.commentContent }} </br>
-					<span>{{comment.createdAt | date:'dd-MMM-yyyy'}}</span>
-					<button class="btn btn-default" type="button" data-toggle="modal"
-						data-target="#delete-comment-modal"
-						ng-click="BkmdCtrl.selectComment(comment)">
-						<span class="glyphicon glyphicon-trash"
-							style="color: red; float: right;"></span>
-					</button>
-				</li>
-			</ul>
+			<h2>{{BkmdCtrl.bookmark.title}}</h2>
+		</div>
+		<div class="row">
+			<h4>Saved in category <b>{{ BkmdCtrl.bookmark.category.name }}</b> at <b>{{ BkmdCtrl.bookmark.createdDate | date:'dd-MMM-yyyy'}}</b></h4>
+		</div>
+		<div class="row">
+			<p><span ng-repeat="tag in BkmdCtrl.bookmark.tag"><span class="label label-primary" style="margin-right: 3px;">{{tag.name}}</span></span></p>
+		</div>		
+		
+		<div class="row">
+			<p>{{BkmdCtrl.bookmark.description}}</p>
+		</div>
+		
+		<div class="row">
+			<p>Visit: <a href="{{bookmark.url}}" target="_blank">{{ BkmdCtrl.bookmark.url }}</a></p>
+		</div>
+		<div class="row">
+			<button class="btn btn-primary" data-toggle="modal" data-target="#import-bookmark" type="button"
+				ng-click="BkmdCtrl.importBookmark(bookmark)">
+				Import this bookmark
+			</button>
 		</div>
 	</div>
-
+	
+	<div class="col-xs-12" style="height: 50px;"></div>
+	
+	<div class="col-xs-12 col-sm-6">
+		<form name="comment-form" ng-controller="BookmarkDetailsController as BkmdCtrl" ng-submit="BkmdCtrl.addComment(BkmdCtrl.commentContent)">
+			<div class="row">
+				<h3>Write a comment</h3>
+			</div>
+			<div class="row">
+				<textarea rows="5" class="form-control" ng-model="BkmdCtrl.commentContent"></textarea>
+			</div>
+			<div class="row">
+				<button type="submit" class="btn btn-primary pull-right" style="margin: 5px 0;">OK</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-sm-6"></div>
+	
+	<div class="col-xs-12">
+		<div class="row">
+			<h3>Older comments</h3>
+		</div>		
+	</div>
+	
+	<div class="col-sm-12" ng-repeat="comment in BkmdCtrl.comments">
+		<div class="row">
+			<div class="col-sm-1 hidden-xs">
+				<div class="thumbnail">
+					<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>{{ comment.bookmarkUser.username }}</strong> <span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>
+					</div>
+					<div class="panel-body">
+						{{ comment.commentContent }}
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row hidden">
+			<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#edit-comment-modal" ng-click="">
+				<span class="glyphicon glyphicon-pencil"></span>
+			</button>
+			<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#delete-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
+				<span class="glyphicon glyphicon-trash"></span>
+			</button>
+		</div>		
+	</div>
+	
+	<div class="col-xs-12" style="height: 50px;"></div>	
+	
 	<!-- Modal -->
 	<!-- Delete comment -->
 	<div class="modal fade" id="delete-comment-modal" role="dialog">
@@ -82,16 +100,14 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Do you want to delete <i>{{bkmCtrl.bookmark.title}}</i> ?
+						Do you want to delete <i>{{BkmdCtrl.selectedComment.commentContent}}</i> ?
 					</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-					{{BkmdCtrl.selectedComment.id}}
-						ng-click="BkmdCtrl.deleteComment(BkmdCtrl.selectedComment.id)">OK</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="BkmdCtrl.deleteComment(BkmdCtrl.selectedComment.id)">OK</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 </div>

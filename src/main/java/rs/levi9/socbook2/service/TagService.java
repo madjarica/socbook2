@@ -32,6 +32,5 @@ private TagRepository tagRepository;
 	
 	public Tag save(Tag tag){
 		return tagRepository.save(tag);
-	}
-	
+	}	
 }

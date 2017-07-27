@@ -39,6 +39,5 @@ public class UserService {
 	}
 	public BookmarkUser findByEmail(String email){
 		return userRepository.findByEmail(email);
-	}
-	
+	}	
 }
