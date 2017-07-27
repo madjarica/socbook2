@@ -118,7 +118,7 @@
                                 <label>Tags:</label>
                                 <div class="modal-item">
 <!--                                     <input name="tag" type="text" class="form-control" ng-model="bkmCtrl.bookmark.tag" />-->
-                                  <tags-input ng-model="bkmCtrl.bookmark.tag" display-property="name"></tags-input>                                  
+                                  <tags-input ng-model="bkmCtrl.bookmark.tag" display-property="name" min-length="0"></tags-input>
                                     
                                     <span ng-repeat="tag in bkmCtrl.bookmark.tag">
  				                    	<span class="label label-primary">{{tag.name}}</span> 

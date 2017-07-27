@@ -33,7 +33,7 @@ public class Bookmark extends BaseEntity implements Serializable {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 		
-	@ManyToMany(cascade={CascadeType.ALL}, fetch = FetchType.LAZY)
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"),
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tag;

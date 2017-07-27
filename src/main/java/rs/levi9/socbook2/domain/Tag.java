@@ -15,7 +15,7 @@ public class Tag extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -3230059375563994627L;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = false)
 	private String name;
 
 	public Tag() {}

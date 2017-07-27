@@ -25,22 +25,7 @@ angular.module('app')
             vm.bookmark = {
                 creationDate: new Date()
             };
-            vm.closeModal = false;            
-            $(".js-tags-multiple").select2({
-            	selectOnClose: true,
-            	tags: true            	
-            });
-        }
-        
-//		$('.select2-search__field').on('keyup', function(e) { 
-//			if(e.keyCode === 13) {
-//				console.log('enter key event');
-//			}; 
-//		});
-        
-        function clearTags() {
-            $(".select2-selection__rendered").html("");
-            $(".select2-selection__choice").html("");
+            vm.closeModal = false; 
         }
 
         vm.datePickerOptions = {
