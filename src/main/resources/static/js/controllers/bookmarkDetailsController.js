@@ -16,6 +16,7 @@ angular.module('app')
         vm.selectedComment;
         vm.user = RegisterService.user;
         vm.operation;
+        vm.comments;
         vm.bookmark = BookmarkDetailsService.selectedBookmark;
         vm.selectComment = selectComment;
         vm.getBookmarkById = getBookmarkById;
@@ -35,7 +36,7 @@ angular.module('app')
         	vm.comment = {};
         	vm.comment.commentContent = commentContent;
         	vm.comment.bookmarkUser =  vm.user;
-        	vm.comment.createdAt = new Date();
+        	vm.comment.createdDate = new Date();
         	vm.bookmark.comment.push(vm.comment);
             vm.operation = "Add";
             console.log(vm.comment);
@@ -43,7 +44,10 @@ angular.module('app')
             BookmarkService.saveBookmark(vm.bookmark).then(function(response) {
             	vm.bookmark = response.data;
             	console.log(vm.bookmark);
+            	
+            }).then(function(){
             	getComments(vm.bookmark.id);
+            	console.log(vm.comments);
             })
         }
         
@@ -79,6 +83,7 @@ angular.module('app')
         		vm.bookmark = response;
         	}).then(function(){
         		vm.comments = vm.bookmark.comment;
+        		
         	})        	
         }
         
