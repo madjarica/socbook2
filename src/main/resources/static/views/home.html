@@ -27,13 +27,14 @@
 	            <tbody ng-repeat="bookmark in bkmCtrl.userBookmarks track by $index">	            	
 	                <tr valign="middle">
 	                    <td>{{ bookmark.title }}</td>
-	                    <td ng-controller="SearchController as srchCtrl">{{ bookmark.category.name }}</td>
+	                    <td ng-controller="SearchController as srchCtrl"><a href="" ng-click="srchCtrl.getCategoryByClick(bookmark.category.name)">{{ bookmark.category.name }}</a>
+	                    </td>
 	                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
 	                    <td><a href="{{bookmark.url}}" target="_blank">{{ bookmark.url }}</a></td>
-	                    <td>
+	                    <td ng-controller="SearchController as srchCtrl">
 		                    <span ng-repeat="tag in bookmark.tag">
-		                    	<span class="label label-primary">{{ tag.name }}</span>
-	                    	</span>
+		                    	<a href="" ng-click="srchCtrl.getTagByClick(tag.name)"><span class="label label-primary">{{ tag.name }}</span></a>
+		                    </span>
 	                    </td>
 	                    <td style="text-align: center;">{{ bookmark.createdDate | date:'dd-MMM-yyyy' }}</td>
 	                    <td style="text-align: center;">{{ bookmark.visible == true ? "Yes" : "No" }}</td>

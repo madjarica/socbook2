@@ -7,10 +7,12 @@
 </div>
 
 <div class="row" ng-controller = "SearchController as srchCtrl">
-	
 	<form id="search-form" role="form" name="searchForm" novalidate ng-submit="srchCtrl.searchBookmarks(srchCtrl.searchInput)">
 		<div class="row">
-			<div class="col-sm-8">
+		<div class="col-sm-2">
+		<button type="button" class="btn btn-primary" ng-click="srchCtrl.getAllPublicBookmarks()" >Show all</button>
+		</div>
+			<div class="col-sm-6">
 				<label class="radio-inline">
 				  <input type="radio" name="searchOption" id="searchOptionCategory" value="category" ng-model="srchCtrl.searchInput.option"> Category
 				</label>
@@ -36,10 +38,9 @@
 	</form>
 	
 	<hr />
-	
 	<div class="row">
 		<div class="col-sm-12">
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover" ng-if = "srchCtrl.bookmarks.data.length > 0 ">
 				<thead>
 				    <tr>
 						<th style="text-align: center;">Title</th>
@@ -77,6 +78,9 @@
 					</tr>
 				</tbody>
 			</table>
+			<div ng-if= "srchCtrl.bookmarks.data.length == 0">
+			No results found for this search criteria!
+			</div>
 		</div>
 	</div>
 	<div class="col-xs-12" style="height: 50px;"></div>        

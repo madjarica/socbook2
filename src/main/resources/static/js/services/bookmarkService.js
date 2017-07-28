@@ -102,5 +102,20 @@
 	            });
             return def.promise;
         } 
+        
+        this.getAllPublicBookmarks = function () {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "bookmarks/public"
+            }
+            return $http(req)
+	            .success(function (response) {
+	                return bookmarksList = response.data;
+	            })
+	            .error(function () {
+	                return def.reject("Failed to get bookmarks");
+	            });
+        }
     };
 }());

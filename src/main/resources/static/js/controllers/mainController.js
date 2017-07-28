@@ -11,6 +11,7 @@
         self.login = login;
         self.logout = logout;
         self.user;
+        self.checkUser;
         
         self.errors = {};
         self.success = {};
@@ -72,8 +73,8 @@
 			self.registerInput = {};
 			self.errors.register = '';
 		}
-
-    	function login() {
+		
+		function login() {
 			var base64Credential = btoa(self.loginCredentials.username + ':' + self.loginCredentials.password);
 			$http
 				.get('user', {
@@ -86,15 +87,28 @@
 						self.loginCredentials.password = null;
 						self.message = '';						
 						$http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
-						self.user = res;						
-						UserService.getUserByUsername(self.user.username).then(function(response) {
-							self.loggedUser = response;
-							RegisterService.user = self.loggedUser;
-						}).then(function() {
-							init();
-						});
-						self.errors.register = "";						
-					})
+						self.user = res;
+						
+						UserService.getUserByUsername(self.loginCredentials.username).then(function(response) {
+							self.checkUser = response;
+							
+							if(self.checkUser.active != true) {
+			    				self.errors.login = "This user is not active";
+			    				self.checkUser = null;
+			    				logout();			    				
+							} else {								
+    							UserService.getUserByUsername(self.user.username).then(function(response) {
+    								self.loggedUser = response;
+    								RegisterService.user = self.loggedUser;
+    							}).then(function() {
+    								init();
+    							});
+    							self.errors.register = "";	
+    							self.errors.login = "";
+							}
+						})
+					}	
+				)
 				.error(
 					function(error) {
 						self.success.register = "";
@@ -105,7 +119,8 @@
 						} else { 
 							self.errors.login = 'Bad credentials';
 						}											
-			});
+					}
+				)				
 		}
        
         function logout() {

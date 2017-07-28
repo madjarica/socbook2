@@ -12,7 +12,8 @@
             getByCategory: getByCategory,
             getByUsername: getByUsername,
             getByTag: getByTag,
-            getByDesc: getByDesc
+            getByDesc: getByDesc,
+            bookmarks: []
         }
         return service;         
 
