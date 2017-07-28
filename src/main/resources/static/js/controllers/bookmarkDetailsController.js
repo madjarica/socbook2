@@ -107,8 +107,10 @@ angular.module('app')
         }
 
         function saveComment(comment){
+        	comment.createdDate = new Date();
+        	console.log(comment.id);
         	BookmarkDetailsService.saveComment(comment).then(function(response){
-                getComments(vm.bookmark.id);
+                init();
             }, function(error){
 
             })
