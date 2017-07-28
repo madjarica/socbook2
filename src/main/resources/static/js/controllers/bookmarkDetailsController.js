@@ -79,13 +79,9 @@ angular.module('app')
         }
         
         function getComments(id){
-        	BookmarkService.getBookmark(id).then(function(response){
-        		vm.bookmark = response;
-        	}).then(function(){
-        		vm.comments = vm.bookmark.comment;
-        		
-        	})        	
-        }
+        	vm.comments = vm.bookmark.comment;
+        }        	
+        
         
         //Get all comments
         function handleSuccessComment(data, status){
