@@ -16,7 +16,6 @@ angular.module('app')
         vm.selectedComment;
         vm.user = RegisterService.user;
         vm.operation;
-        vm.comments;
         vm.bookmark = BookmarkDetailsService.selectedBookmark;
         vm.selectComment = selectComment;
         vm.getBookmarkById = getBookmarkById;
@@ -27,8 +26,11 @@ angular.module('app')
         
         init();
         
-        function init() {        	
+        function init() {
+        	
         	getComments(vm.bookmark.id);
+        	
+             
         }
         
         
@@ -40,14 +42,10 @@ angular.module('app')
         	vm.bookmark.comment.push(vm.comment);
             vm.operation = "Add";
             console.log(vm.comment);
-            
-            BookmarkService.saveBookmark(vm.bookmark).then(function(response) {
+            BookmarkService.saveBookmark(vm.bookmark).then(function(response){
             	vm.bookmark = response.data;
             	console.log(vm.bookmark);
-            	
-            }).then(function(){
             	getComments(vm.bookmark.id);
-            	console.log(vm.comments);
             })
         }
         
@@ -56,7 +54,8 @@ angular.module('app')
             	vm.comments.push(vm.comment.commentContent);
             	vm.comment.commentContent = "";
             }
-        }        
+        }
+        
 
         function deleteComment(id){
         	console.log(id);
@@ -79,9 +78,13 @@ angular.module('app')
         }
         
         function getComments(id){
-        	vm.comments = vm.bookmark.comment;
-        }        	
-        
+        	BookmarkService.getBookmark(id).then(function(response){
+        		vm.bookmark = response;
+        	}).then(function(){
+        		vm.comments = vm.bookmark.comment;
+        	})
+        	
+        }
         
         //Get all comments
         function handleSuccessComment(data, status){
@@ -104,18 +107,17 @@ angular.module('app')
         }
 
         function saveComment(comment){
-        	BookmarkDetailsService.saveComment(comment).then(function(response) {
+        	BookmarkDetailsService.saveComment(comment).then(function(response){
                 getComments(vm.bookmark.id);
             }, function(error){
 
             })
             //remove input value after submit
         }
-        
         function goToBookmarksDetailsPage(id){
         	getBookmarkById(id);
-        }  
+        }
+        
 
     };
 })();
-

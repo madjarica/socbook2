@@ -48,7 +48,7 @@
 						<th style="text-align: center;">URL</th>
 						<th style="text-align: center;">Tags</th>
 						<th style="text-align: center;">Create date</th>
-						<th style="text-align: center; width: 80px;">Show</th>
+						<th style="text-align: center; width: 80px;">Details</th>
 						<th style="text-align: center; width: 80px;">Import</th>
 	                </tr>
 				</thead>
@@ -65,18 +65,19 @@
 	                    </td>
 	                    <td style="text-align: center;">{{bookmark.createdDate | date:'dd-MMM-yyyy'}}</td>
 	                    <td class="option" style="text-align: center;">
-	                        <button ng-controller="BookmarkDetailsController as BkmdCtrl" class="btn btn-warning" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="BkmdCtrl.goToBookmarksDetailsPage(bookmark.id)">
-	                            <span class="glyphicon glyphicon-pencil"></span>
+	                        <button ng-controller="BookmarkDetailsController as BkmdCtrl" class="btn btn-info" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="BkmdCtrl.goToBookmarksDetailsPage(bookmark.id)">
+	                            <span class="glyphicon glyphicon-file"></span>
 	                        </button>
 	                    </td>
 	                    <td class="option" style="text-align: center;">
-	                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="bkmCtrl.selectBookmark(bookmark)">
-	                            <span class="glyphicon glyphicon-remove"></span>
+	                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#delete-bookmark-modal" ng-click="bkmCtrl.selectBookmark(bookmark)">
+	                            <span class="glyphicon glyphicon-save"></span>
 	                        </button>
 	                    </td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</div>        
+	</div>
+	<div class="col-xs-12" style="height: 50px;"></div>        
 </div>
