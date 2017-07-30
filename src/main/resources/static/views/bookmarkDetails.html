@@ -1,7 +1,7 @@
 <div class="row">
-	<div class="col-sm-12" style="padding-left: 0;">
-		<div>
-			<h1 style="padding-left: 0;">Bookmark Details</h1>
+	<div class="col-xs-12">
+		<div class="row">
+			<h1 style="margin-left: 0;">Bookmark Details</h1>
 		</div>
 	</div>
 </div>
@@ -16,14 +16,15 @@
 		</div>
 		<div class="row">
 			<h4>
-				Saved in category <b>{{ BkmdCtrl.bookmark.category.name }}</b> at <b>{{
+				Saved in category <b ng-controller="SearchController as srchCtrl"><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClick(BkmdCtrl.bookmark.category.name)">{{ BkmdCtrl.bookmark.category.name }}</a></b> at <b>{{
 					BkmdCtrl.bookmark.createdDate | date:'dd-MMM-yyyy'}}</b>
 			</h4>
 		</div>
 		<div class="row">
-			<p>
-				<span ng-repeat="tag in BkmdCtrl.bookmark.tag"><span
-					class="label label-primary" style="margin-right: 3px;">{{tag.name}}</span></span>
+			<p ng-controller="SearchController as srchCtrl">
+				<span ng-repeat="tag in BkmdCtrl.bookmark.tag">
+					<a href="" class="tag-link" ng-click="srchCtrl.getTagByClick(tag.name)"><span style="margin-right: 3px;" class="label label-primary">{{ tag.name }}</span></a>
+				</span>
 			</p>
 		</div>
 
@@ -47,7 +48,31 @@
 	<div class="col-xs-12 col-sm-6">
 		<form name="comment-form" ng-submit="BkmdCtrl.addComment(BkmdCtrl.commentContent)">
 			<div class="row">
-				<h3>Write a comment</h3>
+				<h3>Write a comment and/or leave a rating for a bookmark</h3>
+			</div>
+			<div class="row">
+				<fieldset class="rating" style="float: right;">
+			    <input type="radio" id="star5" name="rating" value="10" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class = "full" for="star5" title="Awesome - 5 stars"></label>
+			    <input type="radio" id="star4half" name="rating" value="9" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+			    <input type="radio" id="star4" name="rating" value="8" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+			    <input type="radio" id="star3half" name="rating" value="7" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+			    <input type="radio" id="star3" name="rating" value="6" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class = "full" for="star3" title="Meh - 3 stars"></label>
+			    <input type="radio" id="star2half" name="rating" value="5" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+			    <input type="radio" id="star2" name="rating" value="4" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+			    <input type="radio" id="star1half" name="rating" value="3" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+			    <input type="radio" id="star1" name="rating" value="2" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+			    <input type="radio" id="starhalf" name="rating" value="1" ng-model="BkmdCtrl.rateMark"/>
+			    	<label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+			</fieldset>
 			</div>
 			<div class="row">
 				<textarea rows="5" class="form-control" ng-model="BkmdCtrl.commentContent"></textarea>
@@ -60,42 +85,42 @@
 	<div class="col-sm-6"></div>
 
 
-	<div class="row">
 	
-		<div class="col-xs-12">
-			<div class="row">
-				<h3>Older comments</h3>
+	
+	<div class="col-xs-12">
+		<div class="row">
+			<h3>Older comments</h3>
+		</div>
+	</div>
+
+	<div class="col-xs-12" ng-repeat="comment in BkmdCtrl.comments | orderBy: '-createdDate'">
+		<div class="row">
+			<div class="col-sm-1 hidden-xs">
+				<div class="thumbnail">
+					<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>{{ comment.bookmarkUser.username }}</strong> <span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>
+					</div>
+					<div class="panel-body">{{ comment.commentContent }}</div>
+					<div class="panel-footer">
+						<div class="row">
+							<button style="float: right; margin: 0 5px;" class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+							<button style="float: right; margin: 0 5px;" class="btn btn-warning" type="button" data-toggle="modal" data-target="#edit-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</button>
+						</div>	
+					</div>
+				</div>
 			</div>
 		</div>
-
-		<div class="col-sm-12" ng-repeat="comment in BkmdCtrl.comments | orderBy: '-createdDate'">
-			<div class="row">
-				<div class="col-sm-1 hidden-xs">
-					<div class="thumbnail">
-						<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-					</div>
-				</div>
-				<div class="col-sm-5">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<strong>{{ comment.bookmarkUser.username }}</strong> <span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>
-						</div>
-						<div class="panel-body">{{ comment.commentContent }}</div>
-						<div class="panel-footer">
-							<div class="row">
-								<button style="float: right; margin: 0 5px;" class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
-									<span class="glyphicon glyphicon-trash"></span>
-								</button>
-								<button style="float: right; margin: 0 5px;" class="btn btn-warning" type="button" data-toggle="modal" data-target="#edit-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
+	</div>	
+	
 
 	<div class="col-xs-12" style="height: 50px;"></div>
 

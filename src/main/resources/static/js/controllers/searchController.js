@@ -29,28 +29,30 @@
 
 		function searchBookmarks(search) {
 			vm.user = RegisterService.user;
-			console.log(search.option)
-			switch (search.option) {
-			case 'category':
+			if(search) {
+				switch (search.option) {
+				case 'category':
 
-				getByCategory(search.searchField);
-				break;
-			case 'username':
-				getByUsername(search.searchField);
-				break;
-			case 'tag':
-				getByTag(search.searchField);
-				break;
-			case 'description':
-				getByDesc(search.searchField);
-				break;
+					getByCategory(search.searchField);
+					break;
+				case 'username':
+					getByUsername(search.searchField);
+					break;
+				case 'tag':
+					getByTag(search.searchField);
+					break;
+				case 'description':
+					getByDesc(search.searchField);
+					break;
+				}
+			} else {
+				getAllPublicBookmarks();
 			}
 		}
 
 		function getByCategory(category) {
 			SearchService.getByCategory(category).then(function(response) {
 				vm.bookmarks = response;
-				console.log(response);
 			}, function(error) {
 				vm.searchError = error;
 			});
@@ -64,13 +66,14 @@
 			});
 		}
 
-		function getByTag(tag) {
+		function getByTag(tag) {			
 			SearchService.getByTag(tag).then(function(response) {
 				vm.bookmarks = response;
 			}, function(error) {
 				vm.searchError = error;
 			});
 		}
+		
 		function getByDesc(desc) {
 			SearchService.getByDesc(desc).then(function(response) {
 				vm.bookmarks = response;
@@ -80,7 +83,6 @@
 		}
 
 		function getAllPublicBookmarks() {
-			console.log("click");
 			BookmarkService.getAllPublicBookmarks().then(function(response) {
 				vm.bookmarks = response;
 			}, function(error) {
@@ -90,10 +92,8 @@
 		}
 
 		function getCategoryByClick(category) {
-			console.log("category");
 			SearchService.getByCategory(category).then(function(response) {
 				SearchService.bookmarks = response;
-				console.log(vm.bookmarks.data);
 			}).then(function(){
 				$location.url("search");
 			});
@@ -101,10 +101,8 @@
 		}
 		
 		function getTagByClick(tag) {
-			console.log("tag");
 			SearchService.getByTag(tag).then(function(response) {
 				SearchService.bookmarks = response;
-				console.log(vm.bookmarks.data);
 			}).then(function(){
 				$location.url("search");
 			});

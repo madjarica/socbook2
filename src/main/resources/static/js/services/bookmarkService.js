@@ -88,7 +88,12 @@
             return def.promise;
         }   
         
-        this.getBookmark = function (id) {
+        /**
+         * Getting single bookmark
+         * @param {Long} id
+         * @return {Object} data
+         */
+        this.getBookmark = function (id) {        	
             var def = $q.defer();
             var req = {
                 method: 'GET',
@@ -103,6 +108,10 @@
             return def.promise;
         } 
         
+        /**
+         * Getting all public bookmarks
+         * @return {Object} data
+         */
         this.getAllPublicBookmarks = function () {
             var def = $q.defer();
             var req = {

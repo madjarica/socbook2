@@ -19,18 +19,14 @@ angular.module('app')
         vm.bookmark = BookmarkDetailsService.selectedBookmark;
         vm.selectComment = selectComment;
         vm.getBookmarkById = getBookmarkById;
-        vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;
-        
+        vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;        
         
         vm.comment = {};
         
         init();
         
-        function init() {
-        	
-        	getComments(vm.bookmark.id);
-        	
-             
+        function init() {        	
+        	getComments(vm.bookmark.id);             
         }
         
         
@@ -41,7 +37,6 @@ angular.module('app')
         	vm.comment.createdDate = new Date();
         	vm.bookmark.comment.push(vm.comment);
             vm.operation = "Add";
-            console.log(vm.comment);
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
             	vm.bookmark = response.data;
             	console.log(vm.bookmark);
@@ -58,7 +53,6 @@ angular.module('app')
         
 
         function deleteComment(id){
-        	console.log(id);
         	BookmarkDetailsService.deleteComment(id).then(function(){
                 getComments(vm.bookmark.id);
             }, function(error){
@@ -87,28 +81,22 @@ angular.module('app')
         }
         
         //Get all comments
-        function handleSuccessComment(data, status){
+        function handleSuccessComment(data, status) {
             vm.comments = data;
-            console.log(vm.comments);
         }
         
-        function getBookmarkById(id){
-        	console.log(id);
-        	BookmarkDetailsService.getBookmarkById(id).then(handleSuccessBookmarks);
-        	
+        function getBookmarkById(id) {
+        	BookmarkDetailsService.getBookmarkById(id).then(handleSuccessBookmarks);        	
         }
         
         function handleSuccessBookmarks(data, status){
             vm.bookmark = data;
-            console.log(vm.bookmark);
             BookmarkDetailsService.selectedBookmark = vm.bookmark;
-        	console.log(BookmarkDetailsService.selectedBookmark);
         	$location.url("bookmarkDetails");
         }
 
         function saveComment(comment){
         	comment.createdDate = new Date();
-        	console.log(comment.id);
         	BookmarkDetailsService.saveComment(comment).then(function(response){
                 init();
             }, function(error){
@@ -116,10 +104,9 @@ angular.module('app')
             })
             //remove input value after submit
         }
+        
         function goToBookmarksDetailsPage(id){
         	getBookmarkById(id);
-        }
-        
-
+        } 
     };
 })();

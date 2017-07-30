@@ -19,8 +19,7 @@
 		function findAll(){
 			UserService.findAll().then(function(response){
 				vm.users = response;
-			})
-			
+			})			
 		}
 		
         function selectUser(user){
@@ -29,10 +28,11 @@
         
         function blockUser(user){
         	console.log(user);
-        	if(user.active==false)
+        	if(user.active==false) {
         		user.active=true;
-        	else user.active=false;
-        	
+        	} else {
+        		user.active=false;
+        	}        	
         	RegisterService.saveUser(user);
         }
         

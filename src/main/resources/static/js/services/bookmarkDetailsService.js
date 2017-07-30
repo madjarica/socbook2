@@ -92,8 +92,7 @@
                 url: "bookmarks/" + id
             }
             $http(req)
-		        .success(function (data) {
-		        	console.log(data);
+		        .success(function (data) {		        	
 		            def.resolve(data);
 		        })
 		        .error(function () {

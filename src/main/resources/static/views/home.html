@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="col-sm-12">
-        <div>
-            <h1>Bookmarks</h1>
-        </div>
-    </div>    
+	<div class="col-xs-12">
+		<div class="row">
+			<h1 style="margin-left: 0;">Bookmarks</h1>
+		</div>
+	</div>
 </div>
 
 <div class="row" ng-controller="BookmarkController as bkmCtrl">
@@ -27,13 +27,12 @@
 	            <tbody ng-repeat="bookmark in bkmCtrl.userBookmarks track by $index">	            	
 	                <tr valign="middle">
 	                    <td>{{ bookmark.title }}</td>
-	                    <td ng-controller="SearchController as srchCtrl"><a href="" ng-click="srchCtrl.getCategoryByClick(bookmark.category.name)">{{ bookmark.category.name }}</a>
-	                    </td>
+	                    <td ng-controller="SearchController as srchCtrl"><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClick(bookmark.category.name)">{{ bookmark.category.name }}</a></td>
 	                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
 	                    <td><a href="{{bookmark.url}}" target="_blank">{{ bookmark.url }}</a></td>
 	                    <td ng-controller="SearchController as srchCtrl">
 		                    <span ng-repeat="tag in bookmark.tag">
-		                    	<a href="" ng-click="srchCtrl.getTagByClick(tag.name)"><span class="label label-primary">{{ tag.name }}</span></a>
+		                    	<a href="" class="tag-link" ng-click="srchCtrl.getTagByClick(tag.name)"><span class="label label-primary">{{ tag.name }}</span></a>
 		                    </span>
 	                    </td>
 	                    <td style="text-align: center;">{{ bookmark.createdDate | date:'dd-MMM-yyyy' }}</td>
