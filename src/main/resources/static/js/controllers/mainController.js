@@ -147,9 +147,9 @@
 				break;
 			}
 		}
+		
 		function showSearch(){
-			console.log('sear');
-			SearchService.getByDesc().then(function(response){
+			SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
 				SearchService.bookmarks = response;
 			})
 		}

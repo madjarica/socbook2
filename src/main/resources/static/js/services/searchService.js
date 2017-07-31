@@ -13,6 +13,7 @@
             getByUsername: getByUsername,
             getByTag: getByTag,
             getByDesc: getByDesc,
+            getAllPublicBookmarksExceptCurrentUser: getAllPublicBookmarksExceptCurrentUser,
             bookmarks: []
         }
         return service;         
@@ -97,8 +98,10 @@
 	            });
         }
         
-        function getByDesc() {
+        
+        function getAllPublicBookmarksExceptCurrentUser() {
             var def = $q.defer();
+            
             var req = {
                 method: 'GET',
                 url: "bookmarks/search/public/not-current-user"
