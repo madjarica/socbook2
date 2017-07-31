@@ -12,6 +12,8 @@
 		vm.bookmarks = SearchService.bookmarks;
 		vm.searchError;
 		vm.user;
+		vm.getCategoryByClickOnSearch = getCategoryByClickOnSearch;
+		vm.getTagByClickOnSearch = getTagByClickOnSearch;
 		vm.getByCategory = getByCategory;
 		vm.getByUsername = getByUsername;
 		vm.getByTag = getByTag;
@@ -107,6 +109,17 @@
 				$location.url("search");
 			});
 
+		}
+		
+		function getCategoryByClickOnSearch(category) {
+			SearchService.getByCategory(category).then(function(response) {
+				vm.bookmarks = response;
+			});
+		}
+		function getTagByClickOnSearch(tag) {
+			SearchService.getByTag(tag).then(function(response) {
+				vm.bookmarks = response;
+			});
 		}
 	};
 })();

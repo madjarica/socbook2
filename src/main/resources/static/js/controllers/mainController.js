@@ -149,7 +149,7 @@
 		}
 		function showSearch(){
 			console.log('sear');
-			BookmarkService.getAllPublicBookmarks().then(function(response){
+			SearchService.getByDesc().then(function(response){
 				SearchService.bookmarks = response;
 			})
 		}

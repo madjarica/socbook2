@@ -97,6 +97,21 @@
 	            });
         }
         
+        function getByDesc() {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "bookmarks/search/public/not-current-user"
+            }
+            return $http(req)
+	            .success(function (response) {
+	                return bookmarksList = response.data;
+	            })
+	            .error(function () {
+	                return def.reject("Failed to get bookmarks with given criteria");
+	            });
+        }
+        
 
     };
 }());

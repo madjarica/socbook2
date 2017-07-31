@@ -57,13 +57,12 @@
 					<tbody ng-repeat="bookmark in srchCtrl.bookmarks.data track by $index">
 						<tr>
 							<td>{{bookmark.title}}</td>
-		                    <td>{{bookmark.category.name}}</td>
+		                    <td><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClickOnSearch(bookmark.category.name)">{{ bookmark.category.name }}</a></td>
 		                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
 		                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
 		                    <td>
 			                    <span ng-repeat="tag in bookmark.tag">
-			                    	<span class="label label-primary">{{ tag.name }}</span>
-		                    	</span>
+								<a href="" class="tag-link" ng-click="srchCtrl.getTagByClickOnSearch(tag.name)"><span class="label label-primary">{{ tag.name }}</span></a>		                    	</span>
 		                    </td>
 		                    <td style="text-align: center;">{{bookmark.createdDate | date:'dd-MMM-yyyy'}}</td>
 		                    <td class="option" style="text-align: center;">
