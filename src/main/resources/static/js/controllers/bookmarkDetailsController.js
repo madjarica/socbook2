@@ -19,7 +19,9 @@ angular.module('app')
         vm.bookmark = BookmarkDetailsService.selectedBookmark;
         vm.selectComment = selectComment;
         vm.getBookmarkById = getBookmarkById;
-        vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;        
+        vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;
+        vm.rate;
+        vm.rate = {};
         
         vm.comment = {};
         
@@ -30,9 +32,12 @@ angular.module('app')
         }
         
         
-        function addComment(commentContent) {
+        function addComment(commentInput) {
         	vm.comment = {};
-        	vm.comment.commentContent = commentContent;
+        	console.log(commentInput.commentContent);
+        	console.log(commentInput.rateMark);
+        	vm.comment.commentContent = commentInput.commentContent;
+        	vm.comment.rateMark = commentInput.rateMark;
         	vm.comment.bookmarkUser =  vm.user;
         	vm.comment.createdDate = new Date();
         	vm.bookmark.comment.push(vm.comment);
@@ -102,6 +107,7 @@ angular.module('app')
             })
             //remove input value after submit
         }
+        
         
         function goToBookmarksDetailsPage(id){
         	getBookmarkById(id);

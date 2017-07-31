@@ -122,5 +122,6 @@
 	            });
             return def.promise;
         }
+        
     };
 }());
