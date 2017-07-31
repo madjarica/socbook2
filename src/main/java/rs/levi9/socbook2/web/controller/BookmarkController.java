@@ -1,6 +1,10 @@
 package rs.levi9.socbook2.web.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.config.BookmarkUserService;
 import rs.levi9.socbook2.domain.Bookmark;
+import rs.levi9.socbook2.domain.BookmarkUser;
+import rs.levi9.socbook2.domain.Tag;
+import rs.levi9.socbook2.exception.UsernameTakenException;
 import rs.levi9.socbook2.service.BookmarkService;
+import rs.levi9.socbook2.service.UserService;
 
 @RestController
 @RequestMapping("/bookmarks")
@@ -20,13 +28,17 @@ public class BookmarkController {
 
 	private BookmarkService bookmarkService;
 	private BookmarkUserService bookmarkUserService;
+	private UserService userService;
+	
 	
 	@Autowired
-	public BookmarkController(BookmarkService bookmarkService, BookmarkUserService bookmarkUserService){
+	public BookmarkController(BookmarkService bookmarkService, BookmarkUserService bookmarkUserService,
+			UserService userService) {
 		this.bookmarkService = bookmarkService;
 		this.bookmarkUserService = bookmarkUserService;
+		this.userService = userService;
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Bookmark> findAll(){
@@ -112,5 +124,31 @@ public class BookmarkController {
 	@RequestMapping(path="search/current-user/{username}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsername(@PathVariable("username") String currentUser) {
 		return bookmarkService.findByBookmarkUserUsername(currentUser);
+	}
+	
+	@RequestMapping(path = "/import/bookmark/{bookmarkId}/username/{usernameId}", method = RequestMethod.POST)
+	public Bookmark importBookmarkFromUser(@Valid @PathVariable("bookmarkId") Long bookmarkId,
+			@PathVariable("usernameId") Long usernameId) {
+		Bookmark sourceBookmark = bookmarkService.findOne(bookmarkId);
+		Bookmark newBookmark = new Bookmark();
+		BookmarkUser newAuthor = userService.findOne(usernameId);
+		
+		Set<Tag> newTags = new HashSet<>();
+		newTags.addAll(sourceBookmark.getTag());
+
+		newBookmark.setTag(newTags);
+		newBookmark.setCategory(sourceBookmark.getCategory());
+		newBookmark.setBookmarkUser(newAuthor);
+		newBookmark.setUrl(sourceBookmark.getUrl());
+		newBookmark.setTitle(sourceBookmark.getTitle());
+		newBookmark.setCreatedDate(sourceBookmark.getCreatedDate());
+		newBookmark.setVisible(sourceBookmark.isVisible());
+		newBookmark.setDescription(sourceBookmark.getDescription());
+		
+		return bookmarkService.save(newBookmark);	
+	}
+	
+	public List<Bookmark> findByTitle(String title){
+		return bookmarkService.findByTitle(title);
 	}
 }

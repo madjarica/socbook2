@@ -76,4 +76,9 @@ public class BookmarkService {
 		// TODO Auto-generated method stub
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndVisibleTrue(currentUser);
 	}
+	
+	public List<Bookmark> findByTitle(String title){
+		
+		return bookmarkRepository.findByTitle(title);
+	}
 }

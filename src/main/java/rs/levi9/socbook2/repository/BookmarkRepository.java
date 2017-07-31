@@ -37,4 +37,6 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 	 * Find all visible bookmarks without logged user bookmarks	
 	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndVisibleTrue(String currentUser);
+	
+	public List<Bookmark> findByTitle(String title);
 }
