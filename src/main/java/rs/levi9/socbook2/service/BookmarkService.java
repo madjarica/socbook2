@@ -37,26 +37,26 @@ public class BookmarkService {
 	/*
 	 * Find all visible bookmarks of certain category without logged user bookmarks
 	 */
-	public List<Bookmark> findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(String currentUser, String categoryName){
+	public List<Bookmark> getPublicBookmarkByCategory(String currentUser, String categoryName){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndCategoryNameContainingAndVisibleTrue(currentUser, categoryName);
 	}
 	
 	/*
 	 * Find all visible bookmarks of certain tag without logged user bookmarks
 	 */
-	public List<Bookmark> findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(String currentUser, String searcherdUserame){
-		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameContainingAndVisibleTrue(currentUser, searcherdUserame);
+	public List<Bookmark> getPublicBookmarkByTag(String currentUser, String searcherdUserame){
+		return bookmarkRepository.findByBookmarkUserUsernameNotAndTagNameLikeAndVisibleTrue(currentUser, searcherdUserame);
 	}
 	/*
 	 * Find all visible bookmarks of certain username without logged user bookmarks	
 	 */
-	public List<Bookmark> findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(String currentUser, String searcherdUserame){
+	public List<Bookmark> getPublicBookmarkByUsername(String currentUser, String searcherdUserame){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndBookmarkUserUsernameLikeAndVisibleTrue(currentUser, searcherdUserame);
 	}
 	/*
 	 * Find all visible bookmarks searching description without logged user bookmarks	
 	 */
-	public List<Bookmark> findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(String currentUser, String desc){
+	public List<Bookmark> getPublicBookmarkByDesc(String currentUser, String desc){
 		return bookmarkRepository.findByBookmarkUserUsernameNotAndDescriptionContainingAndVisibleTrue(currentUser, desc);
 	}
 	/*
