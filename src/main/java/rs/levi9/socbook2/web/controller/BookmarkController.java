@@ -18,7 +18,7 @@ import rs.levi9.socbook2.config.BookmarkUserService;
 import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.domain.BookmarkUser;
 import rs.levi9.socbook2.domain.Tag;
-import rs.levi9.socbook2.exception.UsernameTakenException;
+import rs.levi9.socbook2.exception.ImportBookmarkException;
 import rs.levi9.socbook2.service.BookmarkService;
 import rs.levi9.socbook2.service.UserService;
 
@@ -126,29 +126,40 @@ public class BookmarkController {
 		return bookmarkService.findByBookmarkUserUsername(currentUser);
 	}
 	
-	@RequestMapping(path = "/import/bookmark/{bookmarkId}/username/{usernameId}", method = RequestMethod.POST)
-	public Bookmark importBookmarkFromUser(@Valid @PathVariable("bookmarkId") Long bookmarkId,
-			@PathVariable("usernameId") Long usernameId) {
-		Bookmark sourceBookmark = bookmarkService.findOne(bookmarkId);
-		Bookmark newBookmark = new Bookmark();
-		BookmarkUser newAuthor = userService.findOne(usernameId);
+	@RequestMapping(path = "/import/bookmark/{id}", method = RequestMethod.POST)
+	public Bookmark importBookmarkFromUser(@Valid @PathVariable("id") Long id) throws ImportBookmarkException{
+		
+		
+		Bookmark bookmark = bookmarkService.findOne(id);
+		
+		if(bookmark.getBookmarkUser().getUsername() == bookmarkUserService.getCurrentllyLoggedUser().getUsername()) {
+			throw new ImportBookmarkException("You can't import your own bookmark");
+		}
+		else if(!findByBookmarkUserUsernameAndTitle(bookmark.getTitle()).isEmpty()) {
+			throw new ImportBookmarkException("You already have this bookmark");
+		}
+		else {
+		
+		Bookmark importedBookmark = new Bookmark();
+		BookmarkUser currentUser = userService.findByUsername(bookmarkUserService.getCurrentllyLoggedUser().getUsername());
 		
 		Set<Tag> newTags = new HashSet<>();
-		newTags.addAll(sourceBookmark.getTag());
+		newTags.addAll(bookmark.getTag());
 
-		newBookmark.setTag(newTags);
-		newBookmark.setCategory(sourceBookmark.getCategory());
-		newBookmark.setBookmarkUser(newAuthor);
-		newBookmark.setUrl(sourceBookmark.getUrl());
-		newBookmark.setTitle(sourceBookmark.getTitle());
-		newBookmark.setCreatedDate(sourceBookmark.getCreatedDate());
-		newBookmark.setVisible(sourceBookmark.isVisible());
-		newBookmark.setDescription(sourceBookmark.getDescription());
+		importedBookmark.setTag(newTags);
+		importedBookmark.setCategory(bookmark.getCategory());
+		importedBookmark.setBookmarkUser(currentUser);
+		importedBookmark.setUrl(bookmark.getUrl());
+		importedBookmark.setTitle(bookmark.getTitle());
+		importedBookmark.setCreatedDate(bookmark.getCreatedDate());
+		importedBookmark.setVisible(bookmark.isVisible());
+		importedBookmark.setDescription(bookmark.getDescription());
 		
-		return bookmarkService.save(newBookmark);	
+		return bookmarkService.save(importedBookmark);
+		}
 	}
 	
-	public List<Bookmark> findByTitle(String title){
-		return bookmarkService.findByTitle(title);
+	public List<Bookmark> findByBookmarkUserUsernameAndTitle(String title){
+		return bookmarkService.findByBookmarkUserUsernameAndTitle(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), title);
 	}
 }

@@ -38,5 +38,5 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 	 */
 	public List<Bookmark> findByBookmarkUserUsernameNotAndVisibleTrue(String currentUser);
 	
-	public List<Bookmark> findByTitle(String title);
+	public List<Bookmark> findByBookmarkUserUsernameAndTitle(String currentUsername, String title);
 }

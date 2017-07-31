@@ -135,5 +135,25 @@
 	                return def.reject("Failed to get bookmarks");
 	            });
         }
+        
+        /**
+         * Importing a bookmark
+         * @param {Long} id
+         * @return {Object} data
+         */
+        this.importBookmark = function (id) {
+            var def = $q.defer();
+            var req = {
+                method: 'POST',
+                url: "bookmarks/import/bookmark/" + id
+            }
+            return $http(req)
+	            .success(function (response) {
+	                return bookmarksList = response.data;
+	            })
+	            .error(function () {
+	                return def.reject("Failed to get bookmarks");
+	            });
+        }
     };
 }());

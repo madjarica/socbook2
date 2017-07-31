@@ -14,13 +14,14 @@ angular.module('app')
         vm.selectBookmark = selectBookmark;
         vm.getUserBookmarks = getUserBookmarks;
         vm.operation;
+        vm.categories;
         vm.user = RegisterService.user;         
 
         init();        
 
         function init() {
         	if(vm.user) {
-//                getCategories();
+                getCategories();
                 getUserBookmarks();
 //                getBookmarks();
                 vm.error = {};

@@ -7,7 +7,9 @@
 
 		var vm = this;
 		vm.bookmarks = SearchService.bookmarks;
+        vm.bookmark;
 		vm.searchError;
+        vm.importError = '';
 		vm.user;
 		vm.getCategoryByClickOnSearch = getCategoryByClickOnSearch;
 		vm.getTagByClickOnSearch = getTagByClickOnSearch;
@@ -15,10 +17,11 @@
 		vm.getByUsername = getByUsername;
 		vm.getByTag = getByTag;
 		vm.getByDesc = getByDesc;
-		vm.testClick = testClick;
 		vm.getAllPublicBookmarks = getAllPublicBookmarks;
 		vm.getCategoryByClick = getCategoryByClick;
 		vm.getTagByClick = getTagByClick;
+        vm.importBookmark = importBookmark;
+        vm.selectBookmark = selectBookmark;
 
 		vm.searchBookmarks = searchBookmarks;
 		
@@ -26,8 +29,15 @@
 //			option : 'category'
 //		}
 
-		function testClick() {
-			console.log('click');
+		function importBookmark(id) {
+			console.log(id);
+			BookmarkService.importBookmark(id).then(function(response){
+				vm.importError = "";
+				console.log(response);
+			},function(error){
+				console.log(error.data.message);
+				vm.importError = error.data.message;
+			})
 		}
 
 		function searchBookmarks(search) {
@@ -122,5 +132,8 @@
 				vm.bookmarks = response;
 			});
 		}
+        function selectBookmark(bookmark){
+            vm.bookmark = bookmark;
+        }
 	};
 })();
