@@ -2,9 +2,9 @@
     angular.module('app')
     .controller('CategoryController', CategoryController);   
     
-    CategoryController.$inject = ['CategoryService'];
+    CategoryController.$inject = ['CategoryService', 'RegisterService'];
     
-    function CategoryController(CategoryService) {
+    function CategoryController(CategoryService, RegisterService) {
         
         var vm = this;
         vm.addCategory = addCategory;
@@ -13,11 +13,14 @@
         vm.saveCategory = saveCategory;
         vm.selectCategory = selectCategory;
         vm.operation;
+        vm.user = RegisterService.user; 
         
         //Create new category
         vm.category = {};
 
-        getCategories();
+        if(vm.user) {
+        	getCategories();
+        }        
         
         function addCategory() {
             vm.operation = "Add";

@@ -34,6 +34,9 @@
          */
         this.getUserBookmarks = function (username) {
         	var def = $q.defer();
+        	if(username == null) {
+        		return def.promise;
+        	}
         	var req = {
         		method: 'GET',
         		url: "bookmarks/search/current-user/" + username
@@ -75,6 +78,9 @@
          */
         this.deleteBookmark = function (id) {
             var def = $q.defer();
+        	if(id == null) {
+        		return def.promise;
+        	}
             var req = {
                 method: 'DELETE',
                 url: "bookmarks/" + id
@@ -93,8 +99,11 @@
          * @param {Long} id
          * @return {Object} data
          */
-        this.getBookmark = function (id) {        	
+        this.getBookmark = function (id) {
             var def = $q.defer();
+        	if(id == null) {
+        		return def.promise;
+        	}
             var req = {
                 method: 'GET',
                 url: "bookmarks/" + id

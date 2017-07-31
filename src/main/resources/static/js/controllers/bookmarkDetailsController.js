@@ -39,7 +39,6 @@ angular.module('app')
             vm.operation = "Add";
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
             	vm.bookmark = response.data;
-            	console.log(vm.bookmark);
             	getComments(vm.bookmark.id);
             })
         }
@@ -63,7 +62,6 @@ angular.module('app')
         
         function selectComment(comment){
             vm.selectedComment = comment;
-            console.log(vm.selectedComment);
         }
         
         function editComment(comment) {

@@ -14,19 +14,21 @@ angular.module('app')
         vm.selectBookmark = selectBookmark;
         vm.getUserBookmarks = getUserBookmarks;
         vm.operation;
-        vm.user;         
+        vm.user = RegisterService.user;         
 
         init();        
 
         function init() {
-            getCategories();
-            getUserBookmarks();
-            getBookmarks();
-            vm.error = {};
-            vm.bookmark = {
-            	createdDate: new Date()
-            };
-            vm.closeModal = false;
+        	if(vm.user) {
+//                getCategories();
+                getUserBookmarks();
+//                getBookmarks();
+                vm.error = {};
+                vm.bookmark = {
+                	createdDate: new Date()
+                };
+                vm.closeModal = false;
+        	}
         }
 
         function addBookmark() {

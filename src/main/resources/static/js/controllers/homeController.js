@@ -2,20 +2,23 @@
     angular.module('app')
             .controller('HomeController', HomeController);
 
-	HomeController.$inject = ['CategoryService', 'BookmarkService', '$location', '$http'];
+	HomeController.$inject = ['CategoryService', 'BookmarkService', '$location', '$http', 'RegisterService'];
 	
-	function HomeController(CategoryService, BookmarkService, $location) {
+	function HomeController(CategoryService, BookmarkService, $location, RegisterService) {
 
         var vm = this;
         vm.isActive = isActive;
         vm.categories;
         vm.bookmarks;
+        vm.user = RegisterService.user;
 
         init();
 
-        function init() {
-            getCategories();
-            getBookmarks();
+        function init() {        	
+        	if(vm.user) {
+        		getCategories();
+                getBookmarks();
+        	}
         }
 
         function getCategories() {
