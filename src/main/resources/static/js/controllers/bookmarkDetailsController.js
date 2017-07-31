@@ -22,20 +22,27 @@ angular.module('app')
         vm.goToBookmarksDetailsPage = goToBookmarksDetailsPage;
         vm.rate;
         vm.rate = {};
+        vm.getNumber = getNumber;
+        vm.commentInput = {
+    		rateMark : 5
+        }
+        vm.meanRate;        
         
         vm.comment = {};
         
         init();
         
-        function init() {        	
+        function init() {
+        	getMeanRate(vm.bookmark.id);
         	getComments(vm.bookmark.id);             
         }
         
+        function getNumber(number) {
+        	return new Array(number);
+        }        
         
         function addComment(commentInput) {
         	vm.comment = {};
-        	console.log(commentInput.commentContent);
-        	console.log(commentInput.rateMark);
         	vm.comment.commentContent = commentInput.commentContent;
         	vm.comment.rateMark = commentInput.rateMark;
         	vm.comment.bookmarkUser =  vm.user;
@@ -45,7 +52,11 @@ angular.module('app')
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
             	vm.bookmark = response.data;
             	getComments(vm.bookmark.id);
-            })
+            }).then(function() {
+            	vm.commentForm.$setPristine();
+            });
+            
+            vm.commentForm.$setPristine();
         }
         
         function post() {
@@ -58,7 +69,8 @@ angular.module('app')
 
         function deleteComment(id){
         	BookmarkDetailsService.deleteComment(id).then(function(){
-                getComments(vm.bookmark.id);
+        		getMeanRate(vm.bookmark.id);
+                getComments(vm.bookmark.id);                
             }, function(error){
 
             });
@@ -79,8 +91,26 @@ angular.module('app')
         		vm.bookmark = response;
         	}).then(function(){
         		vm.comments = vm.bookmark.comment;
-        	})
-        	
+        	})        	
+        }
+        
+        function getMeanRate(id) {
+        	BookmarkService.getBookmark(id).then(function(response){
+        		vm.bookmark = response;
+        	}).then(function(){
+        		vm.comments = vm.bookmark.comment;
+        		var count = 0;
+        		var pom = 0;
+        		vm.comments.forEach(function(comment) {
+        			if(comment.rateMark != null) {
+        				pom = pom + comment.rateMark;
+        				count++;
+        			}        			
+        		})
+        		vm.meanRate = Math.round(pom / count);        		
+        	}).then(function() {
+        		
+        	});
         }
         
         //Get all comments
@@ -91,7 +121,7 @@ angular.module('app')
         function getBookmarkById(id) {
         	BookmarkDetailsService.getBookmarkById(id).then(handleSuccessBookmarks);        	
         }
-        
+                
         function handleSuccessBookmarks(data, status){
             vm.bookmark = data;
             BookmarkDetailsService.selectedBookmark = vm.bookmark;

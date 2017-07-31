@@ -6,9 +6,6 @@
 	function SearchController($location, SearchService, RegisterService, BookmarkService) {
 
 		var vm = this;
-		vm.search = {
-			option : 'category'
-		}
 		vm.bookmarks = SearchService.bookmarks;
 		vm.searchError;
 		vm.user;
@@ -24,6 +21,10 @@
 		vm.getTagByClick = getTagByClick;
 
 		vm.searchBookmarks = searchBookmarks;
+		
+//		vm.srchCtrl.searchInput = {
+//			option : 'category'
+//		}
 
 		function testClick() {
 			console.log('click');

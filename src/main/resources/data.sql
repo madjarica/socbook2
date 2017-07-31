@@ -71,5 +71,5 @@ INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`) VALUES (9, 7);
 INSERT INTO `socbook2`.`bookmark_tag` (`bookmark_id`, `tag_id`) VALUES (9, 1);
 
 INSERT INTO `comment`(`comment_content`,`created_date`, `user_id`, `bookmark_id`, `rate_mark`) VALUES ("Fejsbuk je strava", NOW(), 3, 3, 4);
-INSERT INTO `comment`(`comment_content`,`created_date`, `user_id`, `bookmark_id`, `rate_mark`) VALUES ("Fejsbuk je super", NOW(), 2, 3, 7);
-INSERT INTO `comment`(`comment_content`,`created_date`, `user_id`, `bookmark_id`, `rate_mark`) VALUES ("Fejsbuk propo", NOW(), 1, 3, 9);
+INSERT INTO `comment`(`comment_content`,`created_date`, `user_id`, `bookmark_id`, `rate_mark`) VALUES ("Fejsbuk je super", NOW(), 2, 3, 3);
+INSERT INTO `comment`(`comment_content`,`created_date`, `user_id`, `bookmark_id`, `rate_mark`) VALUES ("Fejsbuk propo", NOW(), 1, 3, 2);

@@ -48,7 +48,6 @@
 			user.roles = [{
 				"id" : 2
 			}];
-			console.log(user);
 			RegisterService.saveUser(user).then(function(response) {
 				self.success.register = "Successfully registered. You can now log in.";				
 				
@@ -148,10 +147,12 @@
 			}
 		}
 		
-		function showSearch(){
-			SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
-				SearchService.bookmarks = response;
-			})
+		function showSearch() {
+			if(self.user) {
+				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
+					SearchService.bookmarks = response;
+				})
+			}
 		}
     }
 
