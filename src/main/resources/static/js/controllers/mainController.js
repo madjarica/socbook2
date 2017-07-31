@@ -2,9 +2,9 @@
     angular.module('app')
             .controller('MainController', MainController);
 
-    MainController.$inject = ['$rootScope', '$location', '$http', '$route', '$window', 'RegisterService', 'UserService'];
+    MainController.$inject = ['$rootScope', '$location', '$http', '$route', '$window', 'RegisterService', 'UserService', 'SearchService', 'BookmarkService'];
 
-    function MainController($rootScope, $location, $http, $route, $window, RegisterService, UserService) {
+    function MainController($rootScope, $location, $http, $route, $window, RegisterService, UserService, SearchService, BookmarkService) {
 
         var self = this;
         self.isActive = isActive;
@@ -12,6 +12,7 @@
         self.logout = logout;
         self.user;
         self.checkUser;
+        self.showSearch = showSearch;
         
         self.errors = {};
         self.success = {};
@@ -35,6 +36,7 @@
             if (self.user) {
                 $route.reload();
             }
+            showSearch();
         }
 
         function isActive(viewLocation) {
@@ -144,6 +146,12 @@
 				vm.error.password = capitalize(error.message);
 				break;
 			}
+		}
+		function showSearch(){
+			console.log('sear');
+			BookmarkService.getAllPublicBookmarks().then(function(response){
+				SearchService.bookmarks = response;
+			})
 		}
     }
 

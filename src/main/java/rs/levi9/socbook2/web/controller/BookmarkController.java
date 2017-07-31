@@ -89,6 +89,15 @@ public class BookmarkController {
 		return bookmarkService.getPublicBookmarkByDesc(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), desc);
 	}
 	/*
+	 * Find all visible bookmarks without logged user bookmarks	
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@RequestMapping(path="search/public/not-current-user", method = RequestMethod.GET)
+	public List<Bookmark> findPublicBookmarksNotByUser(String currentUser) {
+		return bookmarkService.findPublicBookmarksNotByUser(bookmarkUserService.getCurrentllyLoggedUser().getUsername());
+	}	
+	
+	/*
 	 * Find all visible bookmarks	
 	 */
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -103,5 +112,5 @@ public class BookmarkController {
 	@RequestMapping(path="search/current-user/{username}", method = RequestMethod.GET)
 	public List<Bookmark> findByBookmarkUserUsername(@PathVariable("username") String currentUser) {
 		return bookmarkService.findByBookmarkUserUsername(currentUser);
-	}	
+	}
 }
