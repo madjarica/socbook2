@@ -8,18 +8,18 @@
 	
 		var vm = this;
 		vm.users;
-		vm.user;
-		vm.selectUser=selectUser;
-		vm.findAll=findAll;
-		vm.blockUser=blockUser;
-		vm.deleteUser= deleteUser;
+		vm.user = RegisterService.user;
+		vm.selectUser = selectUser;
+		vm.findAll = findAll;
+		vm.blockUser = blockUser;
+		vm.deleteUser = deleteUser;
 		
 		findAll();
 		
-		function findAll(){
+		function findAll() {		
 			UserService.findAll().then(function(response){
 				vm.users = response;
-			})			
+			});			
 		}
 		
         function selectUser(user){

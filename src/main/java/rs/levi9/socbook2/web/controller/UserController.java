@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,11 +32,13 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.GET)
 	public List<BookmarkUser> findAll() {
 		return userService.findAll();
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path = "{id}", method = RequestMethod.GET)
 	public BookmarkUser findOne(@PathVariable("id") Long id) {
 		return userService.findOne(id);
@@ -56,21 +58,25 @@ public class UserController {
 		return userService.save(bookmarkUser);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.PUT)
 	public BookmarkUser update(@RequestBody BookmarkUser bookmarkUser) {
 		return userService.save(bookmarkUser);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id) {
 		userService.delete(id);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path = "username/{username}", method = RequestMethod.GET)
 	public BookmarkUser findByUsername(@PathVariable("username") String username) {
 		return userService.findByUsername(username);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path = "email/{email}/", method = RequestMethod.GET)
 	public BookmarkUser findByEmail(@PathVariable("email") String email) {
 		return userService.findByEmail(email);
