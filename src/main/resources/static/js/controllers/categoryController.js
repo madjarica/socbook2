@@ -13,7 +13,9 @@
         vm.saveCategory = saveCategory;
         vm.selectCategory = selectCategory;
         vm.operation;
-        vm.user = RegisterService.user; 
+        vm.user = RegisterService.user;
+        vm.errors = {};
+        vm.errors.category = '';
         
         //Create new category
         vm.category = {};
@@ -23,6 +25,7 @@
         }        
         
         function addCategory() {
+        	vm.errors.category = '';
             vm.operation = "Add";
             vm.addCategoryForm;
             vm.category = {};
@@ -30,14 +33,16 @@
 
         function deleteCategory(){
             CategoryService.deleteCategory(vm.category.id).then(function(response){
+            	vm.errors.category = '';
                 getCategories();
             }, function(error){
-
+            	vm.errors.category = error;
             });
             vm.category = {};
         }
         
         function editCategory(category) {
+        	vm.errors.category = '';
             vm.operation = "Edit";
             vm.category = angular.copy(category);
         }
@@ -53,6 +58,7 @@
 
         function saveCategory(category){
             CategoryService.saveCategory(category).then(function(response){
+            	vm.errors.category = '';
                 getCategories();
             }, function(error){
 
@@ -62,6 +68,7 @@
         }
         
         function selectCategory(category){
+        	vm.errors.category = '';
             vm.category = category;
         }
     };

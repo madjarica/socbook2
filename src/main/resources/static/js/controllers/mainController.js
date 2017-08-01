@@ -18,7 +18,6 @@
         self.success = {};
         self.errors.login = '';
         self.errors.register = '';
-        self.success.register = '';
         
         self.registerInput = {};
         self.loginCredentials = {};
@@ -29,6 +28,16 @@
         self.registrationError;        
         self.errorHandler = errorHandler;        	
         self.loggedUser;
+        
+        url = new URL(window.location.href);
+        
+        console.log(url.hash);
+        
+        if(url.hash == '#/?success') {        	
+        	self.success.register = 'You are successfully activated. You can now log in.';
+        } else {        	
+        	self.success.register = '';
+        }
 
         init();
 
@@ -43,8 +52,7 @@
             return viewLocation === $location.path();
         }
         
-		function registerUser(user) {
-			user.active = true;
+		function registerUser(user) {			
 			user.roles = [{
 				"id" : 2
 			}];
@@ -130,6 +138,7 @@
 			self.error = '';
 			self.login.error = '';
 			self.success.register = '';
+			$location.url("/");
         }
         
 		function capitalize(error) {

@@ -21,17 +21,23 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -4701874782142564830L;
 
 	@Autowired
-	public BookmarkUser(){}		
-	
-    public BookmarkUser(String email, String username, String password, String firstName, String lastName, Set<Role> roles, boolean active) {
+	public BookmarkUser(){}
+    
+    public BookmarkUser(String activationCode, String email, String username, String password, String firstName,
+			String lastName, boolean active, Set<Role> roles) {
+		super();
+		this.activationCode = activationCode;
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.roles = roles;
 		this.active = active;
-    }    
+		this.roles = roles;
+	}
+
+	@Column(nullable = true)
+    private String activationCode;
 
 	@Column(nullable = false, unique = true)
     @NotNull
@@ -120,4 +126,11 @@ public class BookmarkUser extends BaseEntity implements Serializable {
 		this.active = active;
 	}
 
+	public String getActivationCode() {
+		return activationCode;
+	}
+
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
+	}
 }

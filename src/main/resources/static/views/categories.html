@@ -1,12 +1,13 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="row">
-			<h1 style="margin-left: 0;">Categories</h1>
+			<h1 style="margin-left: 0;">Categories</h1>			
 		</div>
 	</div>
 </div>
 
 <div class="row" ng-controller="CategoryController as CatCtrl">
+	<div class="alert alert-danger" ng-class="{'hidden': CatCtrl.errors.category == ''}">{{ CatCtrl.errors.category }}</div>
 	<div class="col-sm-12">
 		<table class="table table-bordered table-hover">
 			<thead>

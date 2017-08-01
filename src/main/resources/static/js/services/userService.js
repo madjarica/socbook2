@@ -79,5 +79,21 @@
                 });
             return def.promise;
         }
+        
+        function activateUser(code) {
+        	var def = $q.defer();
+        	var req = {
+    			method: 'GET',
+    			url: "users/activate/" + code
+        	}
+        	$http(req)
+        		.success(function (data) {
+        			def.resolve(data);
+        		})
+        		.error(function() {
+        			def.reject("Failed");
+        		});
+        	return def.promise;
+        }
     }
 })();

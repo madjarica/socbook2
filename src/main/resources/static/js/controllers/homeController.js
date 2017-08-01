@@ -11,6 +11,11 @@
         vm.categories;
         vm.bookmarks;
         vm.user = RegisterService.user;
+        
+        self.errors = {};
+        self.success = {};
+        self.errors.login = '';
+        self.errors.register = '';
 
         init();
 

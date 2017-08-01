@@ -9,4 +9,5 @@ import rs.levi9.socbook2.domain.BookmarkUser;
 public interface UserRepository extends JpaRepository<BookmarkUser, Long>{
 	public BookmarkUser findByUsername(String username);
 	public BookmarkUser findByEmail(String email);
+	public BookmarkUser findByActivationCode(String code);
 }

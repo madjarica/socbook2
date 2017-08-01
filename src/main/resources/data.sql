@@ -1,4 +1,4 @@
-INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`, `active`) VALUES ('madjarica', 'aleksandar.madjarev@gmail.com', 'Aleksandar', 'password', 'Madjarev', 1);
+INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`, `active`) VALUES ('madjarica', 'sasa@gmail.com', 'Aleksandar', 'password', 'Madjarev', 1);
 INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`, `active`) VALUES ('zoricab', 'zorka0000@gmail.com', 'zorica', 'blabla', 'brkic', 1);
 INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`, `active`) VALUES ('zoki', 'zoki@gmail.com', 'Zoran', 'zokicar', 'Jankov', 1);
 INSERT INTO `user`(`username`, `email`, `first_name`, `password`, `last_name`, `active`) VALUES ('boba', 'boba@gmail.com', 'Boba', '123456', 'Brkic', 1);

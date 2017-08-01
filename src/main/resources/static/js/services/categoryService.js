@@ -51,7 +51,7 @@
 	                def.resolve(data);
 	            })
                 .error(function () {
-                    def.reject("Failed to delete category");
+                    def.reject("There are bookmarks with this category and they can't be deleted.");
                 });
             return def.promise;
         }

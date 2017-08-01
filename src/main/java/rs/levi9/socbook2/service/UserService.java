@@ -14,30 +14,36 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Autowired
-	public UserService(UserRepository userRepository){
+	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 	
-	public BookmarkUser findOne(Long id){
+	public BookmarkUser findOne(Long id) {
 		return userRepository.findOne(id);
 	}
 	
-	public List<BookmarkUser> findAll(){
+	public List<BookmarkUser> findAll() {
 		return userRepository.findAll();
 	}
 	
-	public void delete(Long id){
+	public void delete(Long id) {
 		userRepository.delete(id);
 	}
 	
-	public BookmarkUser save(BookmarkUser bookmarkUser){
+	public BookmarkUser save(BookmarkUser bookmarkUser) {
 		return userRepository.save(bookmarkUser);
 	}
 	
-	public BookmarkUser findByUsername(String username){
+	public BookmarkUser findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
-	public BookmarkUser findByEmail(String email){
+	
+	public BookmarkUser findByEmail(String email) {
 		return userRepository.findByEmail(email);
-	}	
+	}
+	
+	public BookmarkUser findByActivationCode(String code) {
+		return userRepository.findByActivationCode(code);
+	}
+	
 }

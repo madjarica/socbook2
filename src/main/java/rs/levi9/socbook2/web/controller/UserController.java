@@ -3,8 +3,15 @@ package rs.levi9.socbook2.web.controller;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,21 +22,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.domain.BookmarkUser;
+import rs.levi9.socbook2.domain.Role;
 import rs.levi9.socbook2.exception.BadCredentialsException;
 import rs.levi9.socbook2.exception.EmailTakenException;
 import rs.levi9.socbook2.exception.TakenException;
 import rs.levi9.socbook2.exception.UsernameTakenException;
+import rs.levi9.socbook2.service.NotificationService;
 import rs.levi9.socbook2.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+	
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	private UserService userService;
+	private NotificationService notificationService;
 
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, NotificationService notificationService) {
 		this.userService = userService;
+		this.notificationService = notificationService;
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -48,14 +61,49 @@ public class UserController {
 	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException, TakenException {
 		BookmarkUser email = findByEmail(bookmarkUser.getEmail());
 		BookmarkUser username = findByUsername(bookmarkUser.getUsername());
-		if (email != null && username != null) {
-			throw new TakenException("Email and username are already taken");
-		} else if (email != null) {
-			throw new EmailTakenException("Email is already taken");
-		} else if (username != null) {
-			throw new UsernameTakenException("Username is already taken");
-		}			
-		return userService.save(bookmarkUser);
+		
+			if (email != null && username != null) {
+				throw new TakenException("Email and username are already taken");
+			} else if (email != null) {
+				throw new EmailTakenException("Email is already taken");
+			} else if (username != null) {
+				throw new UsernameTakenException("Username is already taken");
+			}
+		
+		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 60; i++) {
+		    char c = chars[random.nextInt(chars.length)];
+		    sb.append(c);
+		}
+		
+		String token = sb.toString();	
+		
+		bookmarkUser.setActivationCode(token);
+		bookmarkUser.setActive(false);
+		BookmarkUser newBookmarkUser = userService.save(bookmarkUser);
+		
+		try {
+			notificationService.sendNotification(newBookmarkUser);
+		} catch (MailException e) {
+			logger.info(e.getMessage());
+		}
+			
+		return newBookmarkUser;
+	}
+	
+	@RequestMapping(path = "activate/{activation-code}", method = RequestMethod.GET)
+	public String activateUser(@PathVariable("activation-code") String code) {
+		BookmarkUser bookmarkUser = findByActivationCode(code);
+		if(bookmarkUser != null) {
+			bookmarkUser.setActive(true);
+			bookmarkUser.setActivationCode(null);
+			userService.save(bookmarkUser);
+			
+//			return "redirect:" + "http://localhost:8080/";
+		}
+		return "<script>window.location = 'http://localhost:8080/?success=true';</script>";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -80,6 +128,11 @@ public class UserController {
 	@RequestMapping(path = "email/{email}/", method = RequestMethod.GET)
 	public BookmarkUser findByEmail(@PathVariable("email") String email) {
 		return userService.findByEmail(email);
+	}	
+	
+	@RequestMapping(path = "code/{code}", method = RequestMethod.GET)
+	public BookmarkUser findByActivationCode(@PathVariable("code") String code) {
+		return userService.findByActivationCode(code);
 	}
 
 	@RestController
