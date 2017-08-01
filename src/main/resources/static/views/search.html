@@ -13,7 +13,7 @@
 				<div class="col-sm-2">
 					<button type="button" class="btn btn-primary" ng-click="srchCtrl.getAllPublicBookmarks()" >Show all</button>
 				</div>
-				<div class="col-sm-6" style="padding-top: 10px;">
+				<div ng-init="srchCtrl.searchInput.option = 'category'" class="col-sm-6" style="padding-top: 10px;">
 					<label class="radio-inline">
 					  <input type="radio" name="searchOption" id="searchOptionCategory" value="category" ng-model="srchCtrl.searchInput.option"> Category
 					</label>
@@ -55,9 +55,9 @@
 							<th style="text-align: center; width: 80px;">Import</th>
 		                </tr>
 					</thead>
-					<tbody ng-repeat="bookmark in srchCtrl.bookmarks.data track by $index">
+					<tbody ng-repeat="bookmark in srchCtrl.bookmarks.data | orderBy: '-title'">
 						<tr>
-							<td>{{bookmark.title}}, {{bookmark.imported}}</td>
+							<td>{{bookmark.title}}</td>
 		                    <td><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClickOnSearch(bookmark.category.name)">{{ bookmark.category.name }}</a></td>
 		                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
 		                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
