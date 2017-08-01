@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('BookmarkDetailsController', BookmarkDetailsController);
     
-    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService', 'RegisterService', '$filter', 'BookmarkService'];
+    BookmarkDetailsController.$inject = ['$location' ,'BookmarkDetailsService', 'RegisterService', '$filter', 'BookmarkService', '$rootScope'];
    
-    function BookmarkDetailsController($location ,BookmarkDetailsService, RegisterService, $filter, BookmarkService) {
+    function BookmarkDetailsController($location ,BookmarkDetailsService, RegisterService, $filter, BookmarkService, $rootScope) {
         
         var vm = this;
         vm.addComment = addComment;
@@ -23,6 +23,9 @@ angular.module('app')
         vm.rate;
         vm.rate = {};
         vm.getNumber = getNumber;
+        vm.importBookmark = importBookmark;
+        vm.commentForm;
+        vm.importError = "";
         vm.commentInput = {
     		rateMark : 5
         }
@@ -47,16 +50,14 @@ angular.module('app')
         	vm.comment.rateMark = commentInput.rateMark;
         	vm.comment.bookmarkUser =  vm.user;
         	vm.comment.createdDate = new Date();
-        	vm.bookmark.comment.push(vm.comment);
+//        	vm.bookmark.comment.push(vm.comment);
+            vm.bookmark.comment.push(vm.comment);
+            commentInput.commentContent='';
             vm.operation = "Add";
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
             	vm.bookmark = response.data;
-            	getComments(vm.bookmark.id);
-            }).then(function() {
-            	vm.commentForm.$setPristine();
-            });
+            	getComments(vm.bookmark.id)})
             
-            vm.commentForm.$setPristine();
         }
         
         function post() {
@@ -142,5 +143,16 @@ angular.module('app')
         function goToBookmarksDetailsPage(id){
         	getBookmarkById(id);
         } 
+        
+        function importBookmark(id) {
+			console.log(id);
+			BookmarkService.importBookmark(id).then(function(response){
+				vm.importError = "";
+				console.log(response);
+			},function(error){
+				console.log(error.data.message);
+				vm.importError = error.data.message;
+			})
+		}
     };
 })();
