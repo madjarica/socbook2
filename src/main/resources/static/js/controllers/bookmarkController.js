@@ -79,6 +79,7 @@ angular.module('app')
         
         function handleSuccessUserBookmarks(data, status) {
         	vm.userBookmarks = data.data;
+        	BookmarkService.userBookmarks = data.data;
         }
 
         function openCalendar() {

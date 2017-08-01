@@ -7,6 +7,7 @@
     function BookmarkService($http, $q) {
 
         var bookmarksList = [];
+        var userBookmarks = [];
 
         /**
          * Getting all bookmarks from database

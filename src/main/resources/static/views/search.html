@@ -57,7 +57,7 @@
 					</thead>
 					<tbody ng-repeat="bookmark in srchCtrl.bookmarks.data track by $index">
 						<tr>
-							<td>{{bookmark.title}}</td>
+							<td>{{bookmark.title}}, {{bookmark.imported}}</td>
 		                    <td><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClickOnSearch(bookmark.category.name)">{{ bookmark.category.name }}</a></td>
 		                    <td>{{ bookmark.description.substr(0, 100) }}...</td>
 		                    <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
@@ -72,10 +72,11 @@
 		                        </button>
 		                    </td>
 		                    <td class="option" style="text-align: center;">
-		                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#import-bookmark-modal" ng-click="srchCtrl.selectBookmark(bookmark)">
+		                        <button id="{{'button' + bookmark.id}}" ng-class="{ 'disabled': srchCtrl.checkImport(bookmark.title)}"  class="btn btn-primary" type="button" data-toggle="modal" ng-attr-data-target="{{srchCtrl.checkImport(bookmark.title) ? '':'#import-bookmark-modal'}}" ng-click="srchCtrl.selectBookmark(bookmark)">
 		                            <span class="glyphicon glyphicon-save"></span>
 		                        </button>
 		                    </td>
+		                    
 						</tr>
 					</tbody>
 				</table>
@@ -85,6 +86,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="col-xs-12" style="height: 50px;"></div>    
 		<div class="modal fade" id="import-bookmark-modal" role="dialog">
             <div class="modal-dialog">
@@ -98,7 +100,7 @@
                         <p>Do you want to import <i>{{srchCtrl.bookmark.title}}</i> ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="srchCtrl.importBookmark(srchCtrl.bookmark.id)">OK</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="srchCtrl.importAndDisable(srchCtrl.bookmark.id , 'button'+ srchCtrl.bookmark.id)">OK</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>

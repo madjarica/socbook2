@@ -1,16 +1,17 @@
 (function() {
 	angular.module('app').controller('SearchController', SearchController);
 
-	SearchController.$inject = [ '$location', 'SearchService','RegisterService', 'BookmarkService' ];
+	SearchController.$inject = ['$location', 'SearchService','RegisterService', 'BookmarkService' ];
 
 	function SearchController($location, SearchService, RegisterService, BookmarkService) {
 
 		var vm = this;
 		vm.bookmarks = SearchService.bookmarks;
+		vm.userBookmarks = BookmarkService.userBookmarks;
         vm.bookmark;
 		vm.searchError;
         vm.importError = '';
-		vm.user;
+		vm.user = RegisterService.user;
 		vm.getCategoryByClickOnSearch = getCategoryByClickOnSearch;
 		vm.getTagByClickOnSearch = getTagByClickOnSearch;
 		vm.getByCategory = getByCategory;
@@ -22,8 +23,27 @@
 		vm.getTagByClick = getTagByClick;
         vm.importBookmark = importBookmark;
         vm.selectBookmark = selectBookmark;
+        vm.checkImport = checkImport;
+        vm.importAndDisable = importAndDisable;
 
 		vm.searchBookmarks = searchBookmarks;
+		
+		
+		
+		function checkImport(title){
+			for(var i = 0; i < vm.userBookmarks.length; i++){
+				if(title == vm.userBookmarks[i].title)
+					return true;
+			}
+			return false;
+		}
+		
+		function importAndDisable(bookmarkId, buttonId){
+			$('#'+buttonId).addClass('disabled');
+			$('#'+buttonId).removeAttr('data');
+			$('#'+buttonId).removeAttr('data-target');
+			importBookmark(bookmarkId);
+		}
 		
 //		vm.srchCtrl.searchInput = {
 //			option : 'category'
@@ -127,11 +147,14 @@
 				vm.bookmarks = response;
 			});
 		}
+		
 		function getTagByClickOnSearch(tag) {
 			SearchService.getByTag(tag).then(function(response) {
 				vm.bookmarks = response;
 			});
 		}
+		
+		
         function selectBookmark(bookmark){
             vm.bookmark = bookmark;
         }
