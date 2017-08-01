@@ -79,7 +79,7 @@ angular.module('app')
         }
         
         function selectComment(comment){
-            vm.selectedComment = comment;
+            vm.selectedComment = angular.copy(comment);
         }
         
         function editComment(comment) {
