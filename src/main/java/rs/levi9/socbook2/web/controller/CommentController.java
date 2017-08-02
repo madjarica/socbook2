@@ -53,5 +53,11 @@ public class CommentController {
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
 		commentService.delete(id);
-	}	
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@RequestMapping(path="/search/{username}", method = RequestMethod.GET)
+	public void findByBookmarkUserUsername(@PathVariable("username") String username){
+		commentService.findByBookmarkUserUsername(username);
+	}
 }

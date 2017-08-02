@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.domain.BookmarkUser;
+import rs.levi9.socbook2.domain.Comment;
 import rs.levi9.socbook2.domain.Role;
 import rs.levi9.socbook2.domain.Role.RoleType;
 import rs.levi9.socbook2.exception.BadCredentialsException;
 import rs.levi9.socbook2.exception.EmailTakenException;
 import rs.levi9.socbook2.exception.TakenException;
 import rs.levi9.socbook2.exception.UsernameTakenException;
-import rs.levi9.socbook2.repository.BookmarkRepository;
 import rs.levi9.socbook2.service.BookmarkService;
+import rs.levi9.socbook2.service.CommentService;
 import rs.levi9.socbook2.service.NotificationService;
 import rs.levi9.socbook2.service.UserService;
 
@@ -47,12 +46,14 @@ public class UserController {
 	private UserService userService;
 	private NotificationService notificationService;
 	private BookmarkService bookmarkService;
+	private CommentService commentService;
 
 	@Autowired
-	public UserController(UserService userService, NotificationService notificationService, BookmarkService bookmarkService) {
+	public UserController(UserService userService, NotificationService notificationService, BookmarkService bookmarkService, CommentService commentService) {
 		this.userService = userService;
 		this.notificationService = notificationService;
 		this.bookmarkService = bookmarkService;
+		this.commentService = commentService;
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -140,8 +141,16 @@ public class UserController {
 			}
 			
 			if(!hasRoleAdmin){
-				String userEmail = bookmarkUser.getUsername();
-				List<Bookmark> listOfUserBookmarks = bookmarkService.findByBookmarkUserUsername(userEmail);
+				String userUsername = bookmarkUser.getUsername();
+				List<Bookmark> listOfUserBookmarks = bookmarkService.findByBookmarkUserUsername(userUsername);
+				List<Comment> listOfComments = commentService.findByBookmarkUserUsername(userUsername);
+				
+				if(!listOfComments.isEmpty()) {
+					for(ListIterator<Comment> iter = listOfComments.listIterator(); iter.hasNext(); ) {
+						Comment ellement = iter.next();
+						commentService.delete(ellement.getId());
+					}
+				}
 			
 				if(!listOfUserBookmarks.isEmpty()) {
 					for (ListIterator<Bookmark> iter = listOfUserBookmarks.listIterator(); iter.hasNext(); ) {
