@@ -69,7 +69,6 @@
 				console.log(error);
 			});
 			
-			self.registerUserForm.$setPristine();
 			self.registerInput = {};
 			self.errors.register = '';
 		}

@@ -2,9 +2,9 @@
     angular.module('app')
     .controller('CategoryController', CategoryController);   
     
-    CategoryController.$inject = ['CategoryService', 'RegisterService'];
+    CategoryController.$inject = ['CategoryService', 'RegisterService', 'SearchService'];
     
-    function CategoryController(CategoryService, RegisterService) {
+    function CategoryController(CategoryService, RegisterService, SearchService) {
         
         var vm = this;
         vm.addCategory = addCategory;
@@ -37,7 +37,13 @@
                 getCategories();
             }, function(error){
             	vm.errors.category = error;
-            });
+            }).then(function(response){
+            	if(vm.user) {
+    				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
+    					SearchService.bookmarks = response;
+    				})
+    			}
+            })
             vm.category = {};
         }
         
