@@ -31,4 +31,8 @@ public class CategoryService {
 	public Category save(Category category){
 		return categoryRepository.save(category);
 	}
+	
+	public Category findByIsAllowedToDelete(boolean isAllowedToDelete){
+		return  categoryRepository.findByIsAllowedToDelete(isAllowedToDelete);
+	}
 }

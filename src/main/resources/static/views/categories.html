@@ -105,6 +105,29 @@
 			</div>
 		</div>
 		
+		  <!-- Modal -->
+        <!-- Delete category -->
+        <div class="modal fade" id="delete-category-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete <i>{{vm.category.name}}</i> ?</p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.deleteCategory(id)">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+		
+		
 	</div>
-	<div class="col-xs-12" style="height: 50px;"></div>
+	<div class="col-xs-12" style="height: 50px;"></div>		
 </div>

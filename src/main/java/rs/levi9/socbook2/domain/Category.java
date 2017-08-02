@@ -16,18 +16,32 @@ public class Category extends BaseEntity implements Serializable {
 	@NotNull
     @Column(nullable = false, unique = true)
 	private String name;
+	
+	@NotNull
+    @Column(nullable = false)
+	private boolean isAllowedToDelete;
 
 	public Category() {}
-	
-	public Category(String name) {		
-		this.name = name;
-	}
 
+	public Category(String name, boolean isAllowedToDelete) {
+		this.name = name;
+		this.isAllowedToDelete = isAllowedToDelete;
+	}
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}	
+	}
+
+	public boolean isAllowedToDelete() {
+		return isAllowedToDelete;
+	}
+
+	public void setAllowedToDelete(boolean isAllowedToDelete) {
+		this.isAllowedToDelete = isAllowedToDelete;
+	}
+	
 }
