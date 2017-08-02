@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.levi9.socbook2.config.BookmarkUserService;
 import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.domain.BookmarkUser;
+import rs.levi9.socbook2.domain.Category;
 import rs.levi9.socbook2.domain.Tag;
 import rs.levi9.socbook2.exception.ImportBookmarkException;
 import rs.levi9.socbook2.service.BookmarkService;
+import rs.levi9.socbook2.service.CategoryService;
 import rs.levi9.socbook2.service.UserService;
 
 @RestController
@@ -29,14 +31,16 @@ public class BookmarkController {
 	private BookmarkService bookmarkService;
 	private BookmarkUserService bookmarkUserService;
 	private UserService userService;
+	private CategoryService categoryService;
 	
 	
 	@Autowired
 	public BookmarkController(BookmarkService bookmarkService, BookmarkUserService bookmarkUserService,
-			UserService userService) {
+			UserService userService, CategoryService categoryService) {
 		this.bookmarkService = bookmarkService;
 		this.bookmarkUserService = bookmarkUserService;
 		this.userService = userService;
+		this.categoryService = categoryService;
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -161,5 +165,10 @@ public class BookmarkController {
 	
 	public List<Bookmark> findByBookmarkUserUsernameAndTitle(String title){
 		return bookmarkService.findByBookmarkUserUsernameAndTitle(bookmarkUserService.getCurrentllyLoggedUser().getUsername(), title);
+	}
+	
+	public List<Bookmark> findByCategoryName(String name){
+		
+		return bookmarkService.findByCategoryName(name);
 	}
 }

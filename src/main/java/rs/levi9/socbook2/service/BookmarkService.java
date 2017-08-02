@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.levi9.socbook2.domain.Bookmark;
+import rs.levi9.socbook2.domain.Category;
 import rs.levi9.socbook2.repository.BookmarkRepository;
 
 @Service
@@ -82,4 +83,10 @@ public class BookmarkService {
 		// TODO Auto-generated method stub
 		return bookmarkRepository.findByBookmarkUserUsernameAndTitle(currentUsername, title);
 	}
+	
+	public List<Bookmark> findByCategoryName(String name){
+		return bookmarkRepository.findByCategoryName(name);
+	}
+
+
 }

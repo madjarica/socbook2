@@ -51,11 +51,11 @@
 	                def.resolve(data);
 	            })
                 .error(function () {
-                    def.reject("There are bookmarks with this category and they can't be deleted.");
+                    def.reject("This category can't be deleted.");
                 });
             return def.promise;
         }
-
+         
         /**
          * Getting all categories from database
          * @return {Object} data
@@ -75,5 +75,6 @@
                 });
             return def.promise;
         }
+        
     }
 } ());

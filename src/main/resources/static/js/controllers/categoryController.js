@@ -30,8 +30,8 @@
             vm.addCategoryForm;
             vm.category = {};
         }
-
-        function deleteCategory(){
+        
+        function deleteCategory(id){
             CategoryService.deleteCategory(vm.category.id).then(function(response){
             	vm.errors.category = '';
                 getCategories();

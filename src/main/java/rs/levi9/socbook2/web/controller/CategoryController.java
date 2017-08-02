@@ -1,6 +1,7 @@
 package rs.levi9.socbook2.web.controller;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,19 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.domain.Category;
+import rs.levi9.socbook2.service.BookmarkService;
 import rs.levi9.socbook2.service.CategoryService;
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
 	
-private CategoryService categoryService;
+	private BookmarkService bookmarkService;
+	private BookmarkController bookmarkController;	
+	private CategoryService categoryService;
 	
 
 	@Autowired
-	public CategoryController(CategoryService categoryService){
+	public CategoryController(CategoryService categoryService, BookmarkController bookmarkController, BookmarkService bookmarkService){
 		this.categoryService = categoryService;
+		this.bookmarkController = bookmarkController;
+		this.bookmarkService = bookmarkService;
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -49,9 +56,38 @@ private CategoryService categoryService;
 		return categoryService.save(category);
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@RequestMapping(path = "isAllowedToDelete/{isAllowedToDelete}", method = RequestMethod.GET)
+	public Category findByIsAllowedToDelete(@PathVariable("isAllowedToDelete") boolean isAllowedToDelete) {
+		return categoryService.findByIsAllowedToDelete(isAllowedToDelete);
+	}
+	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
+		
+				
+		Category category =  categoryService.findOne(id);
+		Category uncategorizedCategory = categoryService.findOne((long)1);
+		
+		if (category.isAllowedToDelete() == true)
+			
+		if(category != null){
+			List<Bookmark> bookmark = bookmarkService.findByCategoryName(category.getName());
+		
+			if(!bookmark.isEmpty()) {
+				for (ListIterator<Bookmark> iter = bookmark.listIterator(); iter.hasNext(); ) {
+					Bookmark element = iter.next();
+					element.setCategory(uncategorizedCategory);
+					bookmarkService.save(element);
+				}
+			}
+			
+		}			
+		
+		
+		if (category.isAllowedToDelete() == true)
 		categoryService.delete(id);
-	}	
+	}
+	
 }

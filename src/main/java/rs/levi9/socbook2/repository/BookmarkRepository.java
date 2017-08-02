@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import rs.levi9.socbook2.domain.Bookmark;
+import rs.levi9.socbook2.domain.Category;
 
 @Repository
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
@@ -39,4 +40,8 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 	public List<Bookmark> findByBookmarkUserUsernameNotAndVisibleTrue(String currentUser);
 	
 	public List<Bookmark> findByBookmarkUserUsernameAndTitle(String currentUsername, String title);
+	
+//	public Bookmark setNewCategory(Category category);
+	
+	public List<Bookmark> findByCategoryName(String name);
 }
