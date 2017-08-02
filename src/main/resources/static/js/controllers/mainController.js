@@ -18,6 +18,7 @@
         self.success = {};
         self.errors.login = '';
         self.errors.register = '';
+        self.success.register = '';
         
         self.registerInput = {};
         self.loginCredentials = {};
@@ -28,16 +29,6 @@
         self.registrationError;        
         self.errorHandler = errorHandler;        	
         self.loggedUser;
-        
-        url = new URL(window.location.href);
-        
-        console.log(url.hash);
-        
-        if(url.hash == '#/?success') {        	
-        	self.success.register = 'You are successfully activated. You can now log in.';
-        } else {        	
-        	self.success.register = '';
-        }
 
         init();
 
@@ -57,7 +48,7 @@
 				"id" : 2
 			}];
 			RegisterService.saveUser(user).then(function(response) {
-				self.success.register = "Successfully registered. You can now log in.";				
+				self.success.register = "Successfully registered. Check your email to confirm your account.";				
 				
 				self.errors.login = "";
 				$("#login-form").delay(20).fadeIn(100);

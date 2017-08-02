@@ -11,11 +11,6 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
-//            .when('/:param', {
-//            	templateUrl: '/views/home.html',
-//            	controller: 'HomeController',
-//            	controllerAs: 'vm'
-//            })
             .when('/categories', {
             	templateUrl: '/views/categories.html',
             	controller: 'CategoryController',

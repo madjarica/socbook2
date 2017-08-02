@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.mail.MessagingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +71,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException, TakenException {
+	public BookmarkUser save(@RequestBody BookmarkUser bookmarkUser) throws EmailTakenException, UsernameTakenException, BadCredentialsException, TakenException, MessagingException {
 		BookmarkUser email = findByEmail(bookmarkUser.getEmail());
 		BookmarkUser username = findByUsername(bookmarkUser.getUsername());
 		
@@ -95,11 +97,7 @@ public class UserController {
 		bookmarkUser.setActive(false);
 		BookmarkUser newBookmarkUser = userService.save(bookmarkUser);
 		
-		try {
-			notificationService.sendNotification(newBookmarkUser);
-		} catch (MailException e) {
-			logger.info(e.getMessage());
-		}
+		notificationService.sendNotification(newBookmarkUser);
 			
 		return newBookmarkUser;
 	}
@@ -110,11 +108,13 @@ public class UserController {
 		if(bookmarkUser != null) {
 			bookmarkUser.setActive(true);
 			bookmarkUser.setActivationCode(null);
-			userService.save(bookmarkUser);
-			
-//			return "redirect:" + "http://localhost:8080/";
-		}
-		return "<script>window.location = 'http://localhost:8080/?success=true';</script>";
+			userService.save(bookmarkUser);			
+			String message = "<p>Thank you for registering. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";
+		
+			return message;
+		}		
+		String badMessage = "<p>Bad confirmation code. Check your email. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";	
+		return badMessage;
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
