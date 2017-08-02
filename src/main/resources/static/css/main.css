@@ -201,3 +201,7 @@ h1 {
 	margin: 0;
 	text-align: center;
 }
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
