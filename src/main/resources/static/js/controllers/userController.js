@@ -2,9 +2,9 @@
     angular.module('app')
             .controller('UserController', UserController);
 
-    UserController.$inject = ['$location', '$http', '$route', 'UserService', 'RegisterService' ];
+    UserController.$inject = ['$location', '$http', '$route', 'UserService', 'RegisterService', 'SearchService' ];
 	
-	function UserController($location, $http, $route, UserService, RegisterService) {
+	function UserController($location, $http, $route, UserService, RegisterService, SearchService) {
 	
 		var vm = this;
 		vm.users;
@@ -40,9 +40,17 @@
                 findAll();
             }, function(error){
 
+            }).then(function(){
+    			if(vm.user) {
+    				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
+    					SearchService.bookmarks = response;
+    				})
+    			}
             });
+
             vm.user = {};
         }
+        
     }
 
 })();

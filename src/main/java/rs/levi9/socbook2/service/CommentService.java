@@ -33,4 +33,8 @@ private CommentRepository commentRepository;
 	public Comment save(Comment comment){
 		return commentRepository.save(comment);
 	}
+	
+	public List<Comment> findByBookmarkUserUsername(String username) {
+		return commentRepository.findByBookmarkUserUsername(username);
+	};
 }
