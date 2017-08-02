@@ -1,7 +1,11 @@
 package rs.levi9.socbook2.web.controller;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -21,12 +25,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.domain.BookmarkUser;
 import rs.levi9.socbook2.domain.Role;
+import rs.levi9.socbook2.domain.Role.RoleType;
 import rs.levi9.socbook2.exception.BadCredentialsException;
 import rs.levi9.socbook2.exception.EmailTakenException;
 import rs.levi9.socbook2.exception.TakenException;
 import rs.levi9.socbook2.exception.UsernameTakenException;
+import rs.levi9.socbook2.repository.BookmarkRepository;
+import rs.levi9.socbook2.service.BookmarkService;
 import rs.levi9.socbook2.service.NotificationService;
 import rs.levi9.socbook2.service.UserService;
 
@@ -38,11 +46,13 @@ public class UserController {
 
 	private UserService userService;
 	private NotificationService notificationService;
+	private BookmarkService bookmarkService;
 
 	@Autowired
-	public UserController(UserService userService, NotificationService notificationService) {
+	public UserController(UserService userService, NotificationService notificationService, BookmarkService bookmarkService) {
 		this.userService = userService;
 		this.notificationService = notificationService;
+		this.bookmarkService = bookmarkService;
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -114,8 +124,35 @@ public class UserController {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable("id") Long id) {
-		userService.delete(id);
+	public void delete(@PathVariable("id") Long id) {		
+		BookmarkUser bookmarkUser = findOne(id);
+		if(bookmarkUser != null) {					
+			Set<Role> setOfUserRoles = bookmarkUser.getRoles();			
+			Role role = new Role();
+			role.setType(RoleType.ROLE_ADMIN);
+			role.setId((long) 1);
+			
+			boolean hasRoleAdmin = false;
+			for(Role roles: setOfUserRoles){
+				if(roles.getType() == role.getType()) {				
+					hasRoleAdmin = true;				
+				} 
+			}
+			
+			if(!hasRoleAdmin){
+				String userEmail = bookmarkUser.getUsername();
+				List<Bookmark> listOfUserBookmarks = bookmarkService.findByBookmarkUserUsername(userEmail);
+			
+				if(!listOfUserBookmarks.isEmpty()) {
+					for (ListIterator<Bookmark> iter = listOfUserBookmarks.listIterator(); iter.hasNext(); ) {
+						Bookmark element = iter.next();
+						bookmarkService.delete(element.getId());
+					}
+				}
+				bookmarkUser.setRoles(null);				
+				userService.delete(id);
+			}			
+		}		
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

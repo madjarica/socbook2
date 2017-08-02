@@ -20,6 +20,7 @@
 						<th>Roles</th>
 						<th>Active</th>
 						<th style="width: 100px;">Block/Unblock</th>
+						<th style="width: 100px;">Delete</th>
 					</tr>
 				</thead>
 				<tbody ng-repeat="user in uCtrl.users track by $index">
@@ -34,6 +35,11 @@
 							<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#block-user-modal" ng-click="uCtrl.selectUser(user)">
 							    <i class="material-icons">block</i>
 							</button>				
+						</td>
+						<td>
+							<button ng-if="user.roles[0].type !== 'ROLE_ADMIN' || user.roles[0].type !== 'ROLE_ADMIN'" class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-user-modal" ng-click="uCtrl.selectUser(user)">
+							    <i class="material-icons">delete</i>
+							</button>
 						</td>
 					</tr>
 				</tbody>
@@ -57,6 +63,29 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-primary" ng-click="uCtrl.blockUser(uCtrl.user)">OK</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+				
+		<!-- Modal -->
+		<!-- Delete -->
+		<div class="modal fade" id="delete-user-modal" role="dialog">
+			<div class="modal-dialog">
+				Modal content
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<fieldset>
+							<legend>Delete User</legend>
+							<p>Do you want to delete <b>{{uCtrl.user.username}}</b>? </p>
+						</fieldset>						
+					</div>
+					<div class="modal-footer">
+						<button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-primary" ng-click="uCtrl.deleteUser(uCtrl.user)">OK</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>

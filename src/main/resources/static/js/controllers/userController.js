@@ -27,7 +27,6 @@
         }
         
         function blockUser(user){
-        	console.log(user);
         	if(user.active==false) {
         		user.active=true;
         	} else {
