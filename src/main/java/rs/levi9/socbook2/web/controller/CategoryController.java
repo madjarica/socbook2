@@ -56,12 +56,6 @@ public class CategoryController {
 		return categoryService.save(category);
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-	@RequestMapping(path = "isAllowedToDelete/{isAllowedToDelete}", method = RequestMethod.GET)
-	public Category findByIsAllowedToDelete(@PathVariable("isAllowedToDelete") boolean isAllowedToDelete) {
-		return categoryService.findByIsAllowedToDelete(isAllowedToDelete);
-	}
-	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Long id){
