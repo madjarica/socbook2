@@ -29,16 +29,17 @@
 
 		vm.searchBookmarks = searchBookmarks;
 		
-		getUserBookmarks();
 		showSearch();
 		
 		
 		function checkImport(title){
+			if(vm.userBookmarks != undefined){
 			for(var i = 0; i < vm.userBookmarks.length; i++){
 				if(title == vm.userBookmarks[i].title)
 					return true;
 			}
 			return false;
+			}
 		}
 		
 		function importAndDisable(bookmarkId, buttonId){
