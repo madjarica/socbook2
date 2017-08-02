@@ -9,9 +9,7 @@ angular.module('app')
         var vm = this;
         vm.addComment = addComment;
         vm.deleteComment = deleteComment;
-        vm.editComment = editComment;
         vm.saveComment = saveComment;
-        vm.post = post;
         vm.comment;
         vm.selectedComment;
         vm.user = RegisterService.user;
@@ -29,15 +27,19 @@ angular.module('app')
         vm.commentInput = {
     		rateMark : 5
         }
-        vm.meanRate;        
+        vm.meanRate;
+        vm.count;
+        vm.userBookmarks = BookmarkService.userBookmarks;
+        vm.checkImport = checkImport;
+        vm.importAndDisable = importAndDisable;
         
         vm.comment = {};
         
         init();
-        
+
         function init() {
         	getMeanRate(vm.bookmark.id);
-        	getComments(vm.bookmark.id);             
+        	getComments(vm.bookmark.id);        
         }
         
         function getNumber(number) {
@@ -53,20 +55,12 @@ angular.module('app')
 //        	vm.bookmark.comment.push(vm.comment);
             vm.bookmark.comment.push(vm.comment);
             commentInput.commentContent='';
-            vm.operation = "Add";
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
+            	getMeanRate(vm.bookmark.id);
             	vm.bookmark = response.data;
             	getComments(vm.bookmark.id)})
             
         }
-        
-        function post() {
-            if (vm.comment.commentContent != '') {
-            	vm.comments.push(vm.comment.commentContent);
-            	vm.comment.commentContent = "";
-            }
-        }
-        
 
         function deleteComment(id){
         	BookmarkDetailsService.deleteComment(id).then(function(){
@@ -80,11 +74,6 @@ angular.module('app')
         
         function selectComment(comment){
             vm.selectedComment = angular.copy(comment);
-        }
-        
-        function editComment(comment) {
-            vm.operation = "Edit";
-            vm.comment = angular.copy(comment);
         }
         
         function getComments(id){
@@ -102,16 +91,17 @@ angular.module('app')
         		vm.comments = vm.bookmark.comment;
         		var count = 0;
         		var pom = 0;
+        		if(vm.comments != undefined){
         		vm.comments.forEach(function(comment) {
         			if(comment.rateMark != null) {
         				pom = pom + comment.rateMark;
         				count++;
         			}        			
         		})
-        		vm.meanRate = Math.round(pom / count);        		
-        	}).then(function() {
-        		
-        	});
+        		vm.meanRate = Math.round(pom / count);       
+        		vm.count = count;
+        	}
+        	})
         }
         
         //Get all comments
@@ -154,5 +144,22 @@ angular.module('app')
 				vm.importError = error.data.message;
 			})
 		}
+		function checkImport(title){
+			if(vm.userBookmarks != undefined){
+			for(var i = 0; i < vm.userBookmarks.length; i++){
+				if(title == vm.userBookmarks[i].title)
+					return true;
+			}
+			return false;
+			}
+		}
+		
+		function importAndDisable(bookmarkId, buttonId){
+			$('#'+buttonId).addClass('disabled');
+			$('#'+buttonId).removeAttr('data');
+			$('#'+buttonId).removeAttr('data-target');
+			importBookmark(bookmarkId);
+		}
+		
     };
 })();

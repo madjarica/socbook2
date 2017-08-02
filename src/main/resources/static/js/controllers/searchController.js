@@ -25,9 +25,12 @@
         vm.selectBookmark = selectBookmark;
         vm.checkImport = checkImport;
         vm.importAndDisable = importAndDisable;
+        vm.showSearch = showSearch;
 
 		vm.searchBookmarks = searchBookmarks;
 		
+		getUserBookmarks();
+		showSearch();
 		
 		
 		function checkImport(title){
@@ -54,6 +57,7 @@
 			BookmarkService.importBookmark(id).then(function(response){
 				vm.importError = "";
 				console.log(response);
+				getUserBookmarks();
 			},function(error){
 				console.log(error.data.message);
 				vm.importError = error.data.message;
@@ -158,5 +162,21 @@
         function selectBookmark(bookmark){
             vm.bookmark = bookmark;
         }
+		function showSearch() {
+			if(vm.user) {
+				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
+					SearchService.bookmarks = response;
+				})
+			}
+		}
+        function getUserBookmarks() {
+        	vm.user = RegisterService.user;
+        	BookmarkService.getUserBookmarks(vm.user.username).then(handleSuccessUserBookmarks);
+        }
+        function handleSuccessUserBookmarks(data, status) {
+        	vm.userBookmarks = data.data;
+        	BookmarkService.userBookmarks = data.data;
+        }
+
 	};
 })();

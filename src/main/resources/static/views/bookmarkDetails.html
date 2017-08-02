@@ -15,12 +15,15 @@
 				<div style="margin-top: 5px;" class="alert alert-danger" ng-show="BkmdCtrl.importError != ''">{{BkmdCtrl.importError}}</div>
 			</div>
 			<div class="row">
-				<span style="font-size: 22px;" ng-if="vm.meanRate > 0">						
-					<span ng-repeat="i in BkmdCtrl.getNumber(vm.meanRate) track by $index">
+				<span style="font-size: 22px;" ng-if="BkmdCtrl.meanRate">						
+					<span ng-repeat="i in BkmdCtrl.getNumber(BkmdCtrl.meanRate) track by $index">
 						<i class="fa fa-star" style="color: #009688;" aria-hidden="true"></i>
 					</span>					
-					<span ng-repeat="i in BkmdCtrl.getNumber(5 - vm.meanRate) track by $index">
+					<span ng-repeat="i in BkmdCtrl.getNumber(5 - BkmdCtrl.meanRate) track by $index">
 						<i class="fa fa-star" style="color: #DDD;" aria-hidden="true"></i>
+					</span>
+					<span style="font-size: 12px">
+						(number of ratings : <b>{{BkmdCtrl.count}}</b>)
 					</span>
 				</span>
 			</div>
@@ -53,7 +56,7 @@
 				</p>
 			</div>
 			<div class="row">
-				<button class="btn btn-primary btn-raised" data-toggle="modal" data-target="#import-bookmark" type="button" ng-click="BkmdCtrl.selectBookmark(bookmark)">Import this bookmark</button>
+				<button id="importButton" class="btn btn-primary btn-raised" ng-class="{ 'disabled': BkmdCtrl.checkImport(BkmdCtrl.bookmark.title)}" data-toggle="modal" ng-attr-data-target="{{BkmdCtrl.checkImport(BkmdCtrl.bookmark.title) ? '':'#import-bookmark'}}" type="button" ng-click="BkmdCtrl.selectBookmark(bookmark)">Import this bookmark</button>
 			</div>
 		</div>
 	
@@ -227,7 +230,7 @@
                   	</fieldset>	                        
                   </div>
                   <div class="modal-footer">
-                      <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="BkmdCtrl.importBookmark(BkmdCtrl.bookmark.id)">OK</button>
+                      <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="BkmdCtrl.importAndDisable(BkmdCtrl.bookmark.id, 'importButton')">OK</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                   </div>
               </div>
