@@ -65,7 +65,7 @@
 						<td>{{bookmark.title}}</td>
 						<td><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClickOnSearch(bookmark.category.name)">{{ bookmark.category.name }}</a></td>
 						<td>{{ bookmark.description.substr(0, 100) }}...</td>
-						<td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
+						<td><a href="{{bookmark.url}}" target="_blank">{{ bookmark.url.substr(0, 60) }}</a></td>
 						<td>
 							<span ng-repeat="tag in bookmark.tag">
 								<a href="" class="tag-link" ng-click="srchCtrl.getTagByClickOnSearch(tag.name)"><span class="label label-primary">{{ tag.name }}</span></a>		                    	

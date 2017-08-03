@@ -18,16 +18,16 @@ INSERT INTO `socbook2`.`user_roles`(`user_id`, `role_id`) VALUES (5, 1);
 INSERT INTO `socbook2`.`user_roles`(`user_id`, `role_id`) VALUES (5, 2);
 INSERT INTO `socbook2`.`user_roles`(`user_id`, `role_id`) VALUES (6, 2);
 
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Uncategorized", 0);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Pretrazivaci", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Socijalne mreze", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Forumi", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Email servisi", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Vesti", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Development", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Posao", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Razno", 1);
-INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Oglasi", 1);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Uncategorized", false);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Pretrazivaci", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Socijalne mreze", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Forumi", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Email servisi", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Vesti", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Development", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Posao", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Razno", true);
+INSERT INTO `category`(`name`, `is_allowed_to_delete`) VALUES ("Oglasi", true);
 
 INSERT INTO `tag`(`name`) VALUES ("Pretraga");
 INSERT INTO `tag`(`name`) VALUES ("Popular");

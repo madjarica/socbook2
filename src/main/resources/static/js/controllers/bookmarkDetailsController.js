@@ -12,7 +12,7 @@ angular.module('app')
         vm.saveComment = saveComment;
         vm.comment;
         vm.selectedComment;
-        vm.user = RegisterService.user;
+        vm.user = RegisterService.user; 
         vm.operation;
         vm.bookmark = BookmarkDetailsService.selectedBookmark;
         vm.selectComment = selectComment;
@@ -32,6 +32,8 @@ angular.module('app')
         vm.userBookmarks = BookmarkService.userBookmarks;
         vm.checkImport = checkImport;
         vm.importAndDisable = importAndDisable;
+        vm.getRoles = getRoles;
+        vm.ADMIN = false;
         
         vm.comment = {};
         
@@ -39,12 +41,24 @@ angular.module('app')
 
         function init() {
         	getMeanRate(vm.bookmark.id);
-        	getComments(vm.bookmark.id);        
+        	getComments(vm.bookmark.id);
+        	getRoles();
         }
         
         function getNumber(number) {
         	return new Array(number);
-        }        
+        }
+        
+        function getRoles(){
+        	vm.ADMIN = false;
+        	if(vm.user.roles != undefined){
+        		for(var i = 0; i < vm.user.roles.length; i++){
+        			if(vm.user.roles[i].type == "ROLE_ADMIN"){
+        				vm.ADMIN = true;
+        			}
+        		}
+        	}
+        }
         
         function addComment(commentInput) {
         	vm.comment = {};

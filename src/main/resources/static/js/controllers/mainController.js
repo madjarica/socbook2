@@ -13,6 +13,8 @@
         self.user;
         self.checkUser;
         self.showSearch = showSearch;
+        self.clearLogin = clearLogin;
+        self.clearRegister = clearRegister;
         
         self.errors = {};
         self.success = {};
@@ -23,7 +25,8 @@
         self.registerInput = {};
         self.loginCredentials = {};
         
-        self.registerUserForm;
+        self.loginForm;
+        self.registerForm;
 
         self.registerUser = registerUser;
         self.registrationError;        
@@ -35,8 +38,22 @@
         function init() {
             if (self.user) {
                 $route.reload();
+                self.loginForm.$setPristine();
+                self.registerForm.$setPristine();
             }
             showSearch();
+        }
+        
+        function clearLogin() {
+        	self.loginForm.$setPristine();
+        	self.success.register = '';
+        	self.errors.login = '';
+        }
+        
+        function clearRegister() {
+        	self.registerForm.$setPristine();
+        	self.success.register = '';
+        	self.errors.login = '';
         }
 
         function isActive(viewLocation) {
@@ -54,7 +71,11 @@
 				$("#login-form").delay(20).fadeIn(100);
 				$("#register-form").fadeOut(100);
 				$('#register-form-link').removeClass('active');
-				$('#login-form-link').addClass('active');			
+				$('#login-form-link').addClass('active');
+				self.registerForm.$setPristine();
+				self.errors.register = ''
+				self.registerInput = {};
+				self.loginCredentials = {};
 				
 			}, function(error) {
 				
@@ -66,11 +87,11 @@
 					self.errors.register = error;
 				}
 				
-				console.log(error);
+//				console.log(error);
 			});
 			
-			self.registerInput = {};
-			self.errors.register = '';
+;
+			
 		}
 		
 		function login() {
@@ -99,9 +120,11 @@
     							UserService.getUserByUsername(self.user.username).then(function(response) {
     								self.loggedUser = response;
     								RegisterService.user = self.loggedUser;
-    							}).then(function() {
+    							}).then(function() {    								
     								init();
     							});
+    							self.registerInput = {};
+    							self.loginCredentials = {};
     							self.errors.register = "";	
     							self.errors.login = "";
 							}
