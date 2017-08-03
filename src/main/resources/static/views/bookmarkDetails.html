@@ -16,7 +16,8 @@
 			</div>
 			<div class="row">
 			<p ng-controller="SearchController as srchCtrl">
-				by <a class="author-link" href="" ng-click="srchCtrl.getAuthorByClick(BkmdCtrl.bookmark.bookmarkUser.username)"><b>{{ BkmdCtrl.bookmark.bookmarkUser.username }}</b></a>
+				by <a ng-if="BkmdCtrl.user.username != BkmdCtrl.bookmark.bookmarkUser.username" class="author-link" href="" ng-click="srchCtrl.getAuthorByClick(BkmdCtrl.bookmark.bookmarkUser.username)"><b>{{ BkmdCtrl.bookmark.bookmarkUser.username }}</b></a>
+				<b ng-if="BkmdCtrl.user.username == BkmdCtrl.bookmark.bookmarkUser.username">{{BkmdCtrl.bookmark.bookmarkUser.username}}</b>
 			</p>
 			</div>
 			<div class="row">
