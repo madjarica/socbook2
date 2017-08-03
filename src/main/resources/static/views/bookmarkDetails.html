@@ -137,7 +137,8 @@
 								{{ comment.commentContent }}
 							</span>					
 						</div>
-						<div class="panel-footer" ng-if="(BkmdCtrl.user.username == comment.bookmarkUser.username)">
+						{{BkmdCtr.ADMIN}}
+						<div class="panel-footer" ng-if="((BkmdCtrl.user.username == comment.bookmarkUser.username) || BkmdCtrl.ADMIN)">
 							<div class="row">
 								<button style="float: right; margin: 0 5px;" class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-comment-modal" ng-click="BkmdCtrl.selectComment(comment)">
 									<i class="material-icons">delete</i>
@@ -162,20 +163,20 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-					<div class="modal-body" ng-if="(BkmdCtrl.user.username == BkmdCtrl.selectedComment.bookmarkUser.username)">
+					<div class="modal-body" ng-if="(BkmdCtrl.user.username == BkmdCtrl.selectedComment.bookmarkUser.username) || BkmdCtrl.ADMIN">
 						<fieldset>
 							<legend>Delete comment</legend>
 							<p>Do you want to delete this comment?</p>
 						</fieldset>							
 					</div>
-					<div class="modal-body" ng-if="(BkmdCtrl.user.username != BkmdCtrl.selectedComment.bookmarkUser.username)">
+					<div class="modal-body" ng-if="(BkmdCtrl.user.username != BkmdCtrl.selectedComment.bookmarkUser.username) && !(BkmdCtrl.ADMIN)">
 						<fieldset>
 							<legend>Delete comment</legend>
 							<p>You can't delete this comment!</p>
 						</fieldset>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="(BkmdCtrl.user.username == BkmdCtrl.selectedComment.bookmarkUser.username)" ng-click="BkmdCtrl.deleteComment(BkmdCtrl.selectedComment.id)">OK</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="(BkmdCtrl.user.username == BkmdCtrl.selectedComment.bookmarkUser.username) || (BkmdCtrl.ADMIN)" ng-click="BkmdCtrl.deleteComment(BkmdCtrl.selectedComment.id)">OK</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
@@ -194,7 +195,7 @@
 						<fieldset>
 							<legend>Edit comment</legend>
 							
-							<form name="BkmdCtrl.addCommentForm" ng-if="(BkmdCtrl.user.username == BkmdCtrl.selectedComment.bookmarkUser.username)">
+							<form name="BkmdCtrl.addCommentForm" ng-if="(BkmdCtrl.user.username == BkmdCtrl.selectedComment.bookmarkUser.username) || BkmdCtrl.ADMIN">
 							<div class="form-group">
 								<label class="col-md-2 control-label">Comment:</label>
 								{{BkmdCtrl.nah}}
@@ -205,7 +206,7 @@
 						</form>
 						</fieldset>
 						
-						<div ng-if="(BkmdCtrl.user.username != BkmdCtrl.selectedComment.bookmarkUser.username)"> You can't do that!</div>
+						<div ng-if="(BkmdCtrl.user.username != BkmdCtrl.selectedComment.bookmarkUser.username) && !(BkmdCtrl.ADMIN)"> You can't do that!</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="BkmdCtrl.saveComment(BkmdCtrl.selectedComment)">OK</button>
