@@ -23,7 +23,8 @@
         self.registerInput = {};
         self.loginCredentials = {};
         
-        self.registerUserForm;
+        self.loginForm;
+        self.registerForm;
 
         self.registerUser = registerUser;
         self.registrationError;        
@@ -35,6 +36,8 @@
         function init() {
             if (self.user) {
                 $route.reload();
+                self.loginForm.$setPristine();
+                self.registerForm.$setPristine();
             }
             showSearch();
         }
@@ -54,7 +57,11 @@
 				$("#login-form").delay(20).fadeIn(100);
 				$("#register-form").fadeOut(100);
 				$('#register-form-link').removeClass('active');
-				$('#login-form-link').addClass('active');			
+				$('#login-form-link').addClass('active');
+				self.registerForm.$setPristine();
+				self.errors.register = ''
+				self.registerInput = {};
+				self.loginCredentials = {};
 				
 			}, function(error) {
 				
@@ -69,8 +76,8 @@
 				console.log(error);
 			});
 			
-			self.registerInput = {};
-			self.errors.register = '';
+;
+			
 		}
 		
 		function login() {
@@ -99,9 +106,11 @@
     							UserService.getUserByUsername(self.user.username).then(function(response) {
     								self.loggedUser = response;
     								RegisterService.user = self.loggedUser;
-    							}).then(function() {
+    							}).then(function() {    								
     								init();
     							});
+    							self.registerInput = {};
+    							self.loginCredentials = {};
     							self.errors.register = "";	
     							self.errors.login = "";
 							}

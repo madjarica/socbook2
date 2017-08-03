@@ -1,15 +1,15 @@
-<form id="login-form" role="form" style="display: block;" ng-submit="mainCtrl.login(mainCtrl.loginCredentials)" name="loginForm" novalidate>
+<form id="login-form" role="form" style="display: block;" ng-submit="mainCtrl.login(mainCtrl.loginCredentials)" name="mainCtrl.loginForm" novalidate>
 	<div class="alert alert-danger" ng-class="{'hidden': mainCtrl.errors.login == ''}">{{ mainCtrl.errors.login }}</div>	
 	<div class="alert alert-success" ng-class="{'hidden': mainCtrl.success.register == ''}">{{ mainCtrl.success.register }}</div>
 
 	<div class="form-group">
 		<input type="text" tabindex="1" name="mainCtrl.loginCredentials.username" class="form-control" placeholder="Username" value="" autofocus ng-model="mainCtrl.loginCredentials.username" required>
-		<div style="margin-top: 5px;" class="alert alert-danger" ng-show="loginForm.$submitted && loginForm['mainCtrl.loginCredentials.username'].$error.required">Username is required.</div>
+		<div style="margin-top: 5px;" class="alert alert-danger" ng-show="mainCtrl.loginForm.$submitted && mainCtrl.loginForm['mainCtrl.loginCredentials.username'].$error.required">Username is required.</div>
 	</div>
 	
 	<div class="form-group">
 		<input type="password" tabindex="2" name="mainCtrl.loginCredentials.password" class="form-control" placeholder="Password" ng-model="mainCtrl.loginCredentials.password" required>
-		<div style="margin-top: 5px;" class="alert alert-danger" ng-show="loginForm.$submitted && loginForm['mainCtrl.loginCredentials.password'].$error.required">Password is required.</div>
+		<div style="margin-top: 5px;" class="alert alert-danger" ng-show="mainCtrl.loginForm.$submitted && mainCtrl.loginForm['mainCtrl.loginCredentials.password'].$error.required">Password is required.</div>
 	</div>
 	
 	<div class="form-group">
