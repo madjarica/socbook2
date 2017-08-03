@@ -83,7 +83,7 @@
 					self.errors.register = error;
 				}
 				
-				console.log(error);
+//				console.log(error);
 			});
 			
 ;

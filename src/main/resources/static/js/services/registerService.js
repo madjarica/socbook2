@@ -28,8 +28,7 @@
 	            .success(function (data) {
 	                def.resolve(data);
 	            })
-                .error(function (error) {
-                	console.log(error.message);
+                .error(function (error) {                	
                     def.reject(error.message);
                 });
             return def.promise;
