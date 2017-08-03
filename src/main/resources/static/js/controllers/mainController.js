@@ -46,10 +46,12 @@
         
         function clearLogin() {
         	self.loginForm.$setPristine();
+        	self.success.register = '';
         }
         
         function clearRegister() {
         	self.registerForm.$setPristine();
+        	self.success.register = '';
         }
 
         function isActive(viewLocation) {
