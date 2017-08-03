@@ -29,6 +29,8 @@
 		}
 		
         function selectUser(user){
+			vm.errors.blockUser = '';
+			vm.errors.deleteUser = '';
             vm.blockedUser = user;
         }
         
