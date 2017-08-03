@@ -87,7 +87,6 @@
 					self.errors.register = error;
 				}
 				
-//				console.log(error);
 			});
 			
 ;

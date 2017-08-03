@@ -114,7 +114,6 @@
             }
             $http(req)
 	            .success(function (data) {
-	            	console.log(data);
 	                def.resolve(data);
 	            })
 	            .error(function () {

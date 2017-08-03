@@ -149,12 +149,9 @@ angular.module('app')
         } 
         
         function importBookmark(id) {
-			console.log(id);
 			BookmarkService.importBookmark(id).then(function(response){
 				vm.importError = "";
-				console.log(response);
 			},function(error){
-				console.log(error.data.message);
 				vm.importError = error.data.message;
 			})
 		}

@@ -23,6 +23,8 @@
 		function findAll() {		
 			UserService.findAll().then(function(response){
 				vm.users = response;
+				vm.errors.blockUser = '';
+				vm.errors.deleteUser = '';
 			});			
 		}
 		
@@ -36,8 +38,12 @@
         	} 
         	else if(userToBeBlocked.active==false) {
         		userToBeBlocked.active=true;
+        		vm.errors.blockUser = '';
+        		vm.errors.deleteUser = '';
         	} else {
         		userToBeBlocked.active=false;
+        		vm.errors.blockUser = '';
+        		vm.errors.deleteUser = '';
         	}        	
         	RegisterService.saveUser(userToBeBlocked);
         }
@@ -47,7 +53,6 @@
                 findAll();
             }, function(error){
             	vm.errors.deleteUser = error.message;
-            	console.log(error);
             }).then(function(){
     			if(vm.user) {
     				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
@@ -55,7 +60,6 @@
     				})
     			}
             });
-            console.log(vm.user);
 
 
         }

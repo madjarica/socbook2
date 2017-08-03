@@ -56,13 +56,10 @@
 //		}
 
 		function importBookmark(id) {
-			console.log(id);
 			BookmarkService.importBookmark(id).then(function(response){
 				vm.importError = "";
-				console.log(response);
 				getUserBookmarks();
 			},function(error){
-				console.log(error.data.message);
 				vm.importError = error.data.message;
 			})
 		}
@@ -152,7 +149,6 @@
 		function getAuthorByClick(searchedUser){
 			SearchService.getByUsername(searchedUser).then(function(response){
 				SearchService.bookmarks = response;
-				console.log(SearchService.bookmark)
 			}).then(function(){
 				$location.url("search");
 			});

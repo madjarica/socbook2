@@ -16,6 +16,7 @@
 						<th>Title</th>
 						<th>Category</th>
 						<th>Description</th>
+						<th></th>
 						<th>URL</th>
 						<th>Tags</th>
 						<th style="width: 100px;">Created date</th>
@@ -32,6 +33,7 @@
 							<a class="category-link" href="" ng-click="srchCtrl.getCategoryByClick(bookmark.category.name)">{{ bookmark.category.name }}</a>
 						</td>
 						<td>{{ bookmark.description.substr(0, 100) }}...</td>
+						<td><img src="https://www.google.com/s2/favicons?domain={{bookmark.url}}"/></td>
 						<td><a href="{{bookmark.url}}" target="_blank">{{ bookmark.url.substr(0, 60) }}</a></td>
 						<td ng-controller="SearchController as srchCtrl">
 							<span ng-repeat="tag in bookmark.tag">
