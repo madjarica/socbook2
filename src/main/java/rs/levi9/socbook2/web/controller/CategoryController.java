@@ -48,6 +48,7 @@ public class CategoryController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public Category save(@RequestBody Category category){
+		category.setAllowedToDelete(true);
 		return categoryService.save(category);
 	}
 	

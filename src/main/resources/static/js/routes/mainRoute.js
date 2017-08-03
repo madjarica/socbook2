@@ -16,11 +16,11 @@
             	controller: 'CategoryController',
             	controllerAs: 'vm'
             })
-            .when('/tags', {
-            	templateUrl: '/views/tags.html',
-            	controller: 'TagController',
-            	controllerAs: 'vm'
-            })          
+//            .when('/tags', {
+//            	templateUrl: '/views/tags.html',
+//            	controller: 'TagController',
+//            	controllerAs: 'vm'
+//            })          
             .when('/registratedUsers', {
             	templateUrl: '/views/registratedUsers.html',
             	controller: 'UserController',
