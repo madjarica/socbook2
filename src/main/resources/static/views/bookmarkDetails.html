@@ -15,6 +15,11 @@
 				<div style="margin-top: 5px;" class="alert alert-danger" ng-show="BkmdCtrl.importError != ''">{{BkmdCtrl.importError}}</div>
 			</div>
 			<div class="row">
+			<p ng-controller="SearchController as srchCtrl">
+						<a class="author-link" href="" ng-click="srchCtrl.getAuthorByClick(BkmdCtrl.bookmark.bookmarkUser.username)">{{ BkmdCtrl.bookmark.bookmarkUser.username }}</a>
+			</p>
+			</div>
+			<div class="row">
 				<span style="font-size: 22px;" ng-if="BkmdCtrl.meanRate">						
 					<span ng-repeat="i in BkmdCtrl.getNumber(BkmdCtrl.meanRate) track by $index">
 						<i class="fa fa-star" style="color: #009688;" aria-hidden="true"></i>

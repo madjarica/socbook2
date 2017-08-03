@@ -8,6 +8,8 @@
 </div>
 
 <div class="row" ng-controller="UserController as uCtrl">
+<div class="alert alert-danger" ng-class="{'hidden': uCtrl.errors.blockUser == ''}">{{ uCtrl.errors.blockUser }}</div>
+<div class="alert alert-danger" ng-class="{'hidden': uCtrl.errors.deleteUser == ''}">{{ uCtrl.errors.deleteUser }}</div>
 	<div class="col-sm-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
@@ -58,11 +60,11 @@
 					<div class="modal-body">
 						<fieldset>
 							<legend>Block/Unblock User</legend>
-							<p>Do you want to block/unblock <b>{{uCtrl.user.username}}</b>? </p>
+							<p>Do you want to block/unblock <b>{{uCtrl.blockedUser.username}}</b>? </p>
 						</fieldset>						
 					</div>
 					<div class="modal-footer">
-						<button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-primary" ng-click="uCtrl.blockUser(uCtrl.user)">OK</button>
+						<button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-primary" ng-click="uCtrl.blockUser(uCtrl.blockedUser)">OK</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
@@ -81,11 +83,11 @@
 					<div class="modal-body">
 						<fieldset>
 							<legend>Delete User</legend>
-							<p>Do you want to delete <b>{{uCtrl.user.username}}</b>? </p>
+							<p>Do you want to delete <b>{{uCtrl.blockedUser.username}}</b>? </p>
 						</fieldset>						
 					</div>
 					<div class="modal-footer">
-						<button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-primary" ng-click="uCtrl.deleteUser(uCtrl.user)">OK</button>
+						<button type="button" ng-disabled="uCtrl.addUserForm.$invalid" data-dismiss="modal" class="btn btn-primary" ng-click="uCtrl.deleteUser(uCtrl.blockedUser.id)">OK</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>

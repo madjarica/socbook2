@@ -14,6 +14,7 @@
 		vm.user = RegisterService.user;
 		vm.getCategoryByClickOnSearch = getCategoryByClickOnSearch;
 		vm.getTagByClickOnSearch = getTagByClickOnSearch;
+		vm.getAuthorByClickOnSearch = getAuthorByClickOnSearch;
 		vm.getByCategory = getByCategory;
 		vm.getByUsername = getByUsername;
 		vm.getByTag = getByTag;
@@ -21,6 +22,7 @@
 		vm.getAllPublicBookmarks = getAllPublicBookmarks;
 		vm.getCategoryByClick = getCategoryByClick;
 		vm.getTagByClick = getTagByClick;
+		vm.getAuthorByClick = getAuthorByClick;
         vm.importBookmark = importBookmark;
         vm.selectBookmark = selectBookmark;
         vm.checkImport = checkImport;
@@ -147,6 +149,15 @@
 
 		}
 		
+		function getAuthorByClick(searchedUser){
+			SearchService.getByUsername(searchedUser).then(function(response){
+				SearchService.bookmarks = response;
+				console.log(SearchService.bookmark)
+			}).then(function(){
+				$location.url("search");
+			});
+		}
+		
 		function getCategoryByClickOnSearch(category) {
 			SearchService.getByCategory(category).then(function(response) {
 				vm.bookmarks = response;
@@ -157,6 +168,12 @@
 			SearchService.getByTag(tag).then(function(response) {
 				vm.bookmarks = response;
 			});
+		}
+		
+		function getAuthorByClickOnSearch(searchedUser){
+			SearchService.getByUsername(searchedUser).then(function(response){
+				vm.bookmarks = response;
+			})
 		}
 		
 		

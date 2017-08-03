@@ -54,6 +54,7 @@
 						<th>Description</th>
 						<th>URL</th>
 						<th>Tags</th>
+						<th>Author</th>
 						<th style="width: 100px;">Created date</th>
 						<th style="width: 100px;">Details</th>
 						<th style="width: 100px;">Import</th>
@@ -70,6 +71,7 @@
 								<a href="" class="tag-link" ng-click="srchCtrl.getTagByClickOnSearch(tag.name)"><span class="label label-primary">{{ tag.name }}</span></a>		                    	
 							</span>
 						</td>
+						<td><a class="author-link" href="" ng-click="srchCtrl.getAuthorByClickOnSearch(bookmark.bookmarkUser.username)">{{bookmark.bookmarkUser.username}}</a></td>
 						<td>{{bookmark.createdDate | date:'dd-MMM-yyyy'}}</td>
 						<td>
 							<button ng-controller="BookmarkDetailsController as BkmdCtrl" class="btn btn-info" data-toggle="modal" data-target="#add-bookmark-modal" type="button" ng-click="BkmdCtrl.goToBookmarksDetailsPage(bookmark.id)">

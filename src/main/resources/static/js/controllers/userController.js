@@ -12,7 +12,11 @@
 		vm.selectUser = selectUser;
 		vm.findAll = findAll;
 		vm.blockUser = blockUser;
+		vm.blockedUser;
 		vm.deleteUser = deleteUser;
+		vm.errors = {};
+		vm.errors.blockUser = '';
+		vm.errors.deleteUser = '';
 		
 		findAll();
 		
@@ -23,23 +27,27 @@
 		}
 		
         function selectUser(user){
-            vm.user = user;
+            vm.blockedUser = user;
         }
         
-        function blockUser(user){
-        	if(user.active==false) {
-        		user.active=true;
+        function blockUser(userToBeBlocked){
+        	if(vm.user.username == userToBeBlocked.username){
+        		vm.errors.blockUser = "You can't block yourself!";
+        	} 
+        	else if(userToBeBlocked.active==false) {
+        		userToBeBlocked.active=true;
         	} else {
-        		user.active=false;
+        		userToBeBlocked.active=false;
         	}        	
-        	RegisterService.saveUser(user);
+        	RegisterService.saveUser(userToBeBlocked);
         }
         
         function deleteUser(id){
-            UserService.deleteUser(vm.user.id).then(function(response){
+            UserService.deleteUser(id).then(function(response){
                 findAll();
             }, function(error){
-
+            	vm.errors.deleteUser = error.message;
+            	console.log(error);
             }).then(function(){
     			if(vm.user) {
     				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
@@ -47,8 +55,9 @@
     				})
     			}
             });
+            console.log(vm.user);
 
-            vm.user = {};
+
         }
         
     }

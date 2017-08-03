@@ -125,7 +125,7 @@ public class UserController {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable("id") Long id) {		
+	public void delete(@PathVariable("id") Long id) throws UsernameTakenException{		
 		BookmarkUser bookmarkUser = findOne(id);
 		if(bookmarkUser != null) {					
 			Set<Role> setOfUserRoles = bookmarkUser.getRoles();			
@@ -136,9 +136,11 @@ public class UserController {
 			boolean hasRoleAdmin = false;
 			for(Role roles: setOfUserRoles){
 				if(roles.getType() == role.getType()) {				
-					hasRoleAdmin = true;				
+					hasRoleAdmin = true;
+					throw new UsernameTakenException("You can't delete an admin");
 				} 
 			}
+			
 			
 			if(!hasRoleAdmin){
 				String userUsername = bookmarkUser.getUsername();
