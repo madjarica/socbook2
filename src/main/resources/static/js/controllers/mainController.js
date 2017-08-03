@@ -13,6 +13,8 @@
         self.user;
         self.checkUser;
         self.showSearch = showSearch;
+        self.clearLogin = clearLogin;
+        self.clearRegister = clearRegister;
         
         self.errors = {};
         self.success = {};
@@ -40,6 +42,14 @@
                 self.registerForm.$setPristine();
             }
             showSearch();
+        }
+        
+        function clearLogin() {
+        	self.loginForm.$setPristine();
+        }
+        
+        function clearRegister() {
+        	self.registerForm.$setPristine();
         }
 
         function isActive(viewLocation) {
