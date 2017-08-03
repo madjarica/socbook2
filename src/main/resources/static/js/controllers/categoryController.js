@@ -67,7 +67,13 @@
             	vm.errors.category = '';
                 getCategories();
             }, function(error){
-
+            	vm.errors.category = error;
+            }).then(function(response){
+            	if(vm.user) {
+    				SearchService.getAllPublicBookmarksExceptCurrentUser().then(function(response){
+    					SearchService.bookmarks = response;
+    				})
+    			}
             })
             //remove input value after submit
             vm.addCategoryForm.$setPristine();

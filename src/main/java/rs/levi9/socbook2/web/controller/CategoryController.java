@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.levi9.socbook2.domain.Bookmark;
 import rs.levi9.socbook2.domain.Category;
+import rs.levi9.socbook2.exception.CategoryChangeException;
 import rs.levi9.socbook2.service.BookmarkService;
 import rs.levi9.socbook2.service.CategoryService;
 
@@ -52,7 +53,11 @@ public class CategoryController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.PUT)
-	public Category update(@RequestBody Category category){
+	public Category update(@RequestBody Category category) throws CategoryChangeException{
+		if(category.getId() == 1){	
+			System.out.println("exception");
+			throw new CategoryChangeException("You can't edit this category");
+		}
 		return categoryService.save(category);
 	}
 	
@@ -64,7 +69,7 @@ public class CategoryController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(path="{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable("id") Long id){
+	public void delete(@PathVariable("id") Long id) throws CategoryChangeException{
 		
 				
 		Category category =  categoryService.findOne(id);
@@ -85,7 +90,7 @@ public class CategoryController {
 			
 		}			
 		
-		
+		if(category.getId() == 1) throw new CategoryChangeException("You can't delete this category");
 		if (category.isAllowedToDelete() == true)
 		categoryService.delete(id);
 	}

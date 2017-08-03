@@ -24,12 +24,12 @@
 					<tr>
 						<td ng-controller="SearchController as srchCtrl"><a class="category-link" href="" ng-click="srchCtrl.getCategoryByClick(category.name)">{{ category.name }}</a></td>
 						<td>
-							<button class="btn btn-warning" data-toggle="modal" data-target="#add-category-modal" type="button" ng-click="CatCtrl.editCategory(category)">
+							<button class="btn btn-warning" data-toggle="modal" ng-attr-data-target="{{category.id == 1 ? '':'#add-category-modal'}}" type="button" ng-class="{disabled : category.id == 1}" ng-click="CatCtrl.editCategory(category)">
 								<i class="material-icons">border_color</i>
 							</button>
 						</td>
 						<td>
-							<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-category-modal" ng-click="CatCtrl.selectCategory(category)">
+							<button class="btn btn-danger" type="button" data-toggle="modal" ng-attr-data-target="{{category.id == 1 ? '':'#delete-category-modal'}}" ng-class="{disabled : category.id == 1}" ng-click="CatCtrl.selectCategory(category)">
 								<i class="material-icons">delete</i>
 							</button>
 						</td>
