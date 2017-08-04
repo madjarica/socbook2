@@ -102,11 +102,11 @@ public class UserController {
 			bookmarkUser.setActive(true);
 			bookmarkUser.setActivationCode(null);
 			userService.save(bookmarkUser);			
-			String message = "<p>Thank you for registering. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";
+			String message = "<p>Your account is activated. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";
 		
 			return message;
 		}		
-		String badMessage = "<p>Bad confirmation code or you already activated you're account. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";	
+		String badMessage = "<p>Bad confirmation code or you already activated your account. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";	
 		return badMessage;
 	}
 
