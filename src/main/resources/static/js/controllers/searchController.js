@@ -133,6 +133,9 @@
 				SearchService.bookmarks = response;
 			}).then(function(){
 				$location.url("search");
+			}).then(function(){
+				getUserBookmarks();
+				showSearch();
 			});
 
 		}

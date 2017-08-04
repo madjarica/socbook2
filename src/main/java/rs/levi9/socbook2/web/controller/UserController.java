@@ -75,6 +75,7 @@ public class UserController {
 		BookmarkUser email = findByEmail(bookmarkUser.getEmail());
 		BookmarkUser username = findByUsername(bookmarkUser.getUsername());
 		
+			if(bookmarkUser.getPassword().length() < 6) throw new BadCredentialsException("Password too short");
 			if (email != null && username != null) {
 				throw new TakenException("Email and username are already taken");
 			} else if (email != null) {

@@ -78,8 +78,9 @@
 				self.loginCredentials = {};
 				
 			}, function(error) {
-				
-				if(self.registerInput.username == undefined) { 
+				if(error == 'No message available') {
+					self.errors.register = '';
+				} else if(self.registerInput.username == undefined) { 
 					self.errors.register = ""; 
 				} else if(self.registerInput.email == undefined) { 
 					self.errors.register = "";

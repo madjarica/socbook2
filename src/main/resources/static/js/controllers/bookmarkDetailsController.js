@@ -153,6 +153,8 @@ angular.module('app')
 				vm.importError = "";
 			},function(error){
 				vm.importError = error.data.message;
+			}).then(function(){
+				getUserBookmarks();
 			})
 		}
 		function checkImport(title){
@@ -170,7 +172,16 @@ angular.module('app')
 			$('#'+buttonId).removeAttr('data');
 			$('#'+buttonId).removeAttr('data-target');
 			importBookmark(bookmarkId);
+			getUserBookmarks();
 		}
+        function getUserBookmarks() {
+        	vm.user = RegisterService.user;
+        	BookmarkService.getUserBookmarks(vm.user.username).then(handleSuccessUserBookmarks);
+        }
+        function handleSuccessUserBookmarks(data, status) {
+        	vm.userBookmarks = data.data;
+        	BookmarkService.userBookmarks = data.data;
+        }
 		
     };
 })();
