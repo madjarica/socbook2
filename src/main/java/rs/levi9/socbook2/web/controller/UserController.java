@@ -1,8 +1,5 @@
 package rs.levi9.socbook2.web.controller;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -12,10 +9,7 @@ import java.util.Set;
 
 import javax.mail.MessagingException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -41,9 +35,7 @@ import rs.levi9.socbook2.service.UserService;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
-	
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+public class UserController {	
 
 	private UserService userService;
 	private NotificationService notificationService;
@@ -113,7 +105,7 @@ public class UserController {
 		
 			return message;
 		}		
-		String badMessage = "<p>Bad confirmation code. Check your email. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";	
+		String badMessage = "<p>Bad confirmation code or you already activated you're account. You'll be redirected in 3 seconds to homepage</p><script>window.setTimeout(function(){window.location.href = 'http://localhost:8080';}, 3000);</script>";	
 		return badMessage;
 	}
 
