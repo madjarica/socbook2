@@ -24,7 +24,7 @@ public class NotificationService {
 		
 		MimeMessage message = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper;
-		String emailContent = "Thank you for registration. In order to use your account, you'll need to activate it. Just click activate to confirm.<br><br>Activation code: <a href='http://localhost:8080/users/activate/" + bookmarkUser.getActivationCode() + "'>Activate your account</a>";
+		String emailContent = "Thank you for registration. In order to use your account, you'll need to activate it. Just click activate to confirm.<br><br><a href='http://localhost:8080/users/activate/" + bookmarkUser.getActivationCode() + "'>Activate your account</a>";
 				
 		helper = new MimeMessageHelper(message, true);
 		helper.setFrom("notification@socbook2.com");
